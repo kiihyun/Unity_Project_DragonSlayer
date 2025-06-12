@@ -6,10 +6,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EnemyData", menuName = "ScriptableObjects/EnemySO")]
 public class EnemySO : ScriptableObject
 {
-    [SerializeField] private float _enemyID;
-    [SerializeField] private int _health;
-    [SerializeField] private float _speed;
-    [SerializeField] private float _attackRange;
-    [SerializeField] private float _attackDamage;
-    [SerializeField] private float _attackDelay;
+    public float _enemyID;
+    public int _health;
+    public float _speed;
+    public float _moveDelay;
+    public float _attackRange;
+    public float _attackDamage;
+    public float _attackDelay;
 }

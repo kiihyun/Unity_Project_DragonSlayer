@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class EnemyIdleState : EnemyBaseState
 {
+    [SerializeField]private float _moveCooldown; // 이동 쿨타임 (초 단위)
+    [SerializeField] private bool _checkGround;
+    private float _curTime = 0f;
+    
+
     public EnemyIdleState(EnemyStateMachine stateMachine) : base(stateMachine)
     {
     }
@@ -15,17 +20,28 @@ public class EnemyIdleState : EnemyBaseState
     {
         base.Enter();
         //StartAnimation(stateMachine.IdleAnimationHash);
+        _moveCooldown = _stateMachine.Enemy.Data._moveDelay;
     }
     public override void Update()
     {
         base.Update();
-        // Idle 상태에서의 로직을 여기에 작성
-        stateMachine.ChangeState(stateMachine.ChasingState);
-        
+        //if (enterchasingstate)
+            _stateMachine.ChangeState(_stateMachine.ChasingState);
+        _curTime += Time.deltaTime;
+        if (_curTime >= _moveCooldown)// 1초에 1번씩 움직임
+        {
+            _curTime = 0f; // 쿨타임 초기화
+                           // 이동 로직 추가
+            Move();
+        }
+
+
+
     }
     public override void Exit()
     {
         base.Exit();
         //StopAnimation(stateMachine.IdleAnimationHash);
     }
+    
 }

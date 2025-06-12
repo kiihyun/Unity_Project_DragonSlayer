@@ -25,7 +25,7 @@ public class EnemyAttackState : EnemyBaseState
         // 예: 공격 애니메이션이 끝나면 Idle 상태로 전환
         //if (stateMachine.IsAttackAnimationFinished())
         {
-            stateMachine.ChangeState(stateMachine.IdleState);
+            _stateMachine.ChangeState(_stateMachine.IdleState);
         }
     }
 }
