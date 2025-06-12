@@ -34,6 +34,18 @@ public class EnemyBaseState : IState
         _stateMachine.Enemy.Rigidbody.velocity = new Vector2(moveVec.x, _stateMachine.Enemy.Rigidbody.velocity.y);
     }
 
+
+    protected void Turn()
+    {
+        _moveDirection = -_moveDirection;
+        FlipSprite();
+    }
+    protected void FlipSprite()
+    {
+        _isMovingRight = !_isMovingRight;
+        _stateMachine.Enemy.SpriteRenderer.flipX = _isMovingRight;
+    }
+
     protected void StartAnimation(int animationHash)
     {
         _stateMachine.Enemy.Animator.SetBool(animationHash, true);
