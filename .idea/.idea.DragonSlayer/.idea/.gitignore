@@ -1,12 +1,12 @@
-# µğÆúÆ® ¹«½ÃµÈ ÆÄÀÏ
+# ë””í´íŠ¸ ë¬´ì‹œëœ íŒŒì¼
 /shelf/
 /workspace.xml
-# Rider¿¡¼­ ¹«½ÃµÈ ÆÄÀÏ
-/modules.xml
-/projectSettingsUpdater.xml
+# Riderì—ì„œ ë¬´ì‹œëœ íŒŒì¼
 /.idea.DragonSlayer.iml
+/modules.xml
 /contentModel.xml
-# ¿¡µğÅÍ ±â¹İ HTTP Å¬¶óÀÌ¾ğÆ® ¿äÃ»
+/projectSettingsUpdater.xml
+# ì—ë””í„° ê¸°ë°˜ HTTP í´ë¼ì´ì–¸íŠ¸ ìš”ì²­
 /httpRequests/
 # Datasource local storage ignored files
 /dataSources/

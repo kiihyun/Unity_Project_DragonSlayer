@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ba35c5e3b3945048bcd4a10fcc85db9, type: 3}
+  m_Name: MapData
+  m_EditorClassIdentifier: 
+  mapId: 1
+  mapName: 
+  enemySpawnAreas:
+  - spawnArea:
+      serializedVersion: 2
+      x: 1
+      y: 1
+      width: 1
+      height: 1
+    enemies:
+    - {fileID: 8541985102713863612, guid: a84614dccf07fdf4dbed9ef454a55b89, type: 3}
+  - spawnArea:
+      serializedVersion: 2
+      x: 2
+      y: 2
+      width: 2
+      height: 2
+    enemies:
+    - {fileID: 8541985102713863612, guid: a84614dccf07fdf4dbed9ef454a55b89, type: 3}
+  - spawnArea:
+      serializedVersion: 2
+      x: 2
+      y: 2
+      width: 2
+      height: 2
+    enemies: []
