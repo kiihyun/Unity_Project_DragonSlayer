@@ -4,32 +4,42 @@ public class BossEnemy : MonoBehaviour
 {
     [SerializeField] private BossEnemyDataSO _bossData;
     private float _currentHp;
+    
+    public BossStateMachine StateMachine { get; private set; }
+    public BossEnemyDataSO BossData => _bossData;
+    
+    public bool IsPhase2 => _currentHp <= _bossData.maxHP * (_bossData.phase2ThresholdPercent / 100f);
+
+
+    private void Awake()
+    {
+        StateMachine = new BossStateMachine();
+    }
 
     private void Start()
     {
         _currentHp = _bossData.maxHP;
-        Debug.Log($"[보스 등장] {_bossData.bossName} 체력: {_bossData.maxHP}");
-        // 필요한 컴포넌트들 초기화 (UI, AI 등)
+        StateMachine.Initialize(new BossIdleState(this));
+    }
+
+    private void Update()
+    {
+        StateMachine.Update();
     }
 
     public void TakeDamage(float dmg)
     {
         _currentHp -= dmg;
-        if (_currentHp <= _bossData.maxHP * (_bossData.phase2ThresholdPercent / 100f))
-        {
-            Debug.Log("▶ 페이즈 2 돌입!");
-            // AIController.FSM 상태 전환 등 호출
-        }
 
         if (_currentHp <= 0)
         {
-            Die();
+            StateMachine.ChangeState(new BossDieState(this));
         }
     }
 
-    void Die()
+    /*public bool IsPlayerInRange()
     {
-        Debug.Log($"{_bossData.bossName} 처치됨!");
-        // 클리어 연출, 보상 지급
-    }
+        // 감지 범위 체크 로직
+        //return Vector3.Distance(transform.position, Player.Instance.transform.position) < _bossData.detectionRange;
+    }*/
 }
