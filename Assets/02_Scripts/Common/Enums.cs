@@ -8,8 +8,8 @@ namespace Enums
     {
         Idle,
         Move,
-        Attack,
         Jump,
+        Attack,
         Death,
     }
 }

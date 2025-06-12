@@ -11,6 +11,7 @@ public abstract class State<T>
     public virtual void OnEnter()
     {
         elapsedTime = 0f;
+         Debug.Log("State Entered: " + this.GetType().Name);
     }
 
     public virtual void OnUpdate(float deltaTime)
