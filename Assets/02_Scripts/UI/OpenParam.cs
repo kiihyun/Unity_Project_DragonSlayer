@@ -8,3 +8,8 @@ public abstract class OpenParam
     
 }
 
+public class UIMenuParam : OpenParam
+{
+    
+    
+}

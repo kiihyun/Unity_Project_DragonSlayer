@@ -15,6 +15,8 @@ public class UIManager : MonoBehaviour
     // LastOrDefault는 딕셔너리에 저장된 왼도우 중 가낭 마지막에 추가된 윈도우를 반환
     public BaseWindow CurrentWindow => _windowUI.Count > 0 ? _windowUI.Values.LastOrDefault() : null;
     
+    
+    
     // 고정된 FixedUI는 여러 UI가 동시에 존재하기 때문에 List로 관리
     private readonly List<BaseFixed> _fixedUIs = new();
     // WindowUI는 한번에 하나씩만 열리고, 키로 빠르게 찾을 수 있어 딕셔너리로 관리
