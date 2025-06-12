@@ -1,0 +1,104 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+
+public class UIManager : MonoBehaviour
+{
+    public static UIManager instance {get; private set;}
+
+    [SerializeField] private Transform _canvas_Fixed;
+    [SerializeField] private Transform _canvas_Window;
+    [SerializeField] private Transform _canvas_Popup;
+
+    // CurrentWindow는 현재 열려 있는 Window
+    // LastOrDefault는 딕셔너리에 저장된 왼도우 중 가낭 마지막에 추가된 윈도우를 반환
+    public BaseWindow CurrentWindow => _windowUI.Count > 0 ? _windowUI.Values.LastOrDefault() : null;
+    
+    // 고정된 FixedUI는 여러 UI가 동시에 존재하기 때문에 List로 관리
+    private readonly List<BaseFixed> _fixedUIs = new();
+    // WindowUI는 한번에 하나씩만 열리고, 키로 빠르게 찾을 수 있어 딕셔너리로 관리
+    private readonly Dictionary<UIType, BaseWindow> _windowUI = new();
+    // PupopUI는 여러 팝업 UI가 겹칠 수 있고, 가장 마지막에 열린 팝업이 먼저 닫히는 구조이기 때문에 후입선출 구조인 Stack 사용
+    private readonly Stack<BasePopup> _popupUIs = new();
+    
+    private UIPool _pool = new();
+
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            instance = this;
+        }
+        
+    }
+
+    // FixedUI 활성화 메서드
+    // 추가적인 정보가 필요할 경우 param으로 전달
+    // 호출시 param을 따로 입력해주지 않으면 자동으로 null이 할당
+    public BaseFixed OpenFixedUI(UIType type, OpenParam param = null)
+    {
+        // GetUI로 생성 시, BaseUI 타입으로 생성되기 때문에 BaseFixed 타입으로 수정
+        BaseFixed UI = (BaseFixed)_pool.GetUI(type, _canvas_Fixed); 
+        UI.OnOpen(param);
+        _fixedUIs.Add(UI); // 고정된 UI는 한번에 여러 UI가 존재할 수 있음
+        UI.gameObject.SetActive(true);
+        return UI;
+    }
+    
+    
+    
+    // WindowUI 활성화 메서드
+    // 추가적인 정보가 필요할 경우 param으로 전달
+    // 호출 시 param을 따로 입력해주지 않으면 자동으로 null이 할당
+    public BaseWindow OpenWindowUI(UIType type, OpenParam param = null)
+    {
+        BaseWindow UI = (BaseWindow)_pool.GetUI(type, _canvas_Window);
+        UI.OnOpen(param);
+        UI.gameObject.SetActive(true);  // 기존 UI는 비활성화 해주는 기능 필요
+        _windowUI[type] = UI;  // WindowUI는 한번에 하나의 UI만 활성화 가능
+        return UI;
+    }
+
+    // WindowUI 비활성화 메서드
+    // WindowUI는 한번에 하나만 활성화
+    // _windowUI에 UIType type이 존재하면 _pool로 되돌리고 _windowUI에서 삭제
+    public void CloseWindow(UIType type)
+    {
+        if (_windowUI.TryGetValue(type, out BaseWindow UI))
+        {
+            UI.OnClose();
+            _pool.ReturnUI(type,UI);
+            _windowUI.Remove(type);
+        }
+    }
+
+    // PopupUI 활성화 메서드
+    // 추가적인 정보가 필요할 경우 param으로 전달
+    // 호출시 param을 따로 입력해주지 않으면 자동으로 null이 할당
+    public BasePopup OpenPopup(UIType type, OpenParam param = null)
+    {
+        BasePopup popup = (BasePopup)_pool.GetUI(type, _canvas_Popup);
+        popup.OnOpen(param);
+        _popupUIs.Push(popup);   // _popupUIs은 스택구조를 갖기 때문에 Push를 해준다
+        popup.gameObject.SetActive(true);
+        return popup;
+    }
+
+    // PopupUI 비활성화 메서드
+    // Popup은 가장 위에 있는 Popup부터 꺼야함
+    // 선입후출 구조를 갖기 때문에 가장 위에 있는 Popup부터 제거하도록 Pop 사용
+    public void CloseTopPopup()
+    {
+        // Pop은 스택이 비어있을 경우 예외가 발생하기 때문에 TryPop 사용
+        if (_popupUIs.TryPop(out BasePopup popup))
+        {
+            popup.OnClose();
+            _pool.ReturnUI(popup.UIType, popup);
+        }
+    }
+    
+    
+    
+    
+}
