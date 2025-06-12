@@ -14,6 +14,7 @@ public class PlayerIdleState : PlayerStates
     public override void OnEnter()
     {
         base.OnEnter();
+        player.ChangeAnime(PlayerState.Idle);
     }
 
     public override void OnUpdate(float deltaTime)
@@ -21,6 +22,8 @@ public class PlayerIdleState : PlayerStates
         base.OnUpdate(deltaTime);
 
         player.Controller.IsMove();
+
+        
     }
 
     public override void OnExit()

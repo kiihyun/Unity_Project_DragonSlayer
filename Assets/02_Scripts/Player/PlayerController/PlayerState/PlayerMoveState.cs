@@ -16,7 +16,7 @@ public class PlayerMoveState : PlayerStates
     public override void OnEnter()
     {
         base.OnEnter();
-        player.anim.SetBool("IsRun", true);
+        player.ChangeAnime(PlayerState.Move);
     }
 
     public override void OnUpdate(float deltaTime)

@@ -1,18 +1,48 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Enums;
+using Unity.VisualScripting;
 
-public class PlayerJumpState : MonoBehaviour
+public class PlayerJumpState : PlayerStates
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void Init(Player owner)
     {
-        
+        base.Init(owner);
+        state = PlayerState.Jump;
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void OnEnter()
     {
-        
+        base.OnEnter();
+        player.ChangeAnime(PlayerState.Jump);
+        player.Controller.Jumping();
     }
+
+    public override void OnUpdate(float deltaTime)
+    {
+        base.OnUpdate(deltaTime);
+        if (elapsedTime > 0.5f)
+        {
+            if (player.Controller.IsGrounded())
+            {
+                if(player.Controller.GetInputDir().x != 0)
+                {
+                    player.Controller.IsMove();
+                }
+                else
+                {
+                    player.Controller.IsStop();
+                }
+            }
+        }
+
+    }
+
+    public override void OnFixedUpdate()
+    {
+        player.Controller.Moving();
+    }
+
+
 }
