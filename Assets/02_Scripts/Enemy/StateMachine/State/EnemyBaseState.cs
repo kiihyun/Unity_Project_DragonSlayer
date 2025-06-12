@@ -35,12 +35,12 @@ public class EnemyBaseState : IState
     }
 
 
-    protected void Turn()
+    public void Turn()
     {
         _moveDirection = -_moveDirection;
         FlipSprite();
     }
-    protected void FlipSprite()
+    private void FlipSprite()
     {
         _isMovingRight = !_isMovingRight;
         _stateMachine.Enemy.SpriteRenderer.flipX = _isMovingRight;

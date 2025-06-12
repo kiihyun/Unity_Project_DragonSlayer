@@ -2,13 +2,16 @@
 
 public class Enemy : MonoBehaviour
 {
-    // Start is called before the first frame update
-    [SerializeField] private EnemyStateMachine _stateMachine;
     [SerializeField] private EnemyAnimatorController _animatorController;
-    public EnemySO Data;
-    public SpriteRenderer SpriteRenderer;
+
     public Animator Animator { get; private set; }
     public Rigidbody2D Rigidbody { get; private set; }
+    public EnemyStateMachine StateMachine => _stateMachine;
+
+    private EnemyStateMachine _stateMachine;
+    public EnemySO Data;
+    public SpriteRenderer SpriteRenderer;
+    
     public Collider2D LeftDetect;
     public Collider2D RightDetect;
 
@@ -21,6 +24,7 @@ public class Enemy : MonoBehaviour
         SpriteRenderer = GetComponentInChildren<SpriteRenderer>();
         Animator = GetComponentInChildren<Animator>();
         Rigidbody = GetComponent<Rigidbody2D>();
+        _animatorController.Initialize(); // 애니메이션 컨트롤러 초기화
     }
     private void Start()
     {
