@@ -9,6 +9,7 @@ namespace Enums
         Idle,
         Move,
         Jump,
+        Dash,
         Attack,
         Death,
     }

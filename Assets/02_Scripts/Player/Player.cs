@@ -52,7 +52,7 @@ public class Player : MonoBehaviour
         controller = new PlayerController(new PlayerIdleState(), this);
         controller.RegisterState(new PlayerMoveState(), this);
         controller.RegisterState(new PlayerJumpState(), this);
-
+        controller.RegisterState(new PlayerDashState(), this);
     }
 
     public void ChangeAnime(PlayerState nextAnime)

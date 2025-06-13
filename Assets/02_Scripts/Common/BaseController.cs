@@ -47,6 +47,11 @@ public abstract class BaseController<T> where T : MonoBehaviour
         currentState.OnEnter();
     }
 
+    public State<T> CheckPreviousState()
+    {
+        return previousState;
+    }
+
     public State<T> GetState()
     {
         return currentState;

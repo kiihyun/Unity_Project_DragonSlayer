@@ -7,8 +7,10 @@ public class PlayerController : BaseController<Player>
 {
     protected Player player;
     private Vector3 inputDir;
+    public bool isDash = false;
+    public bool isJump = false;
 
-    public PlayerController(State<Player> initState, Player player) : base(initState,player)
+    public PlayerController(State<Player> initState, Player player) : base(initState, player)
     {
         this.player = player;
     }
@@ -17,6 +19,7 @@ public class PlayerController : BaseController<Player>
     {
         GetInputDir();
         IsJump();
+        IsDash();
 
         base.OnUpdate(deltaTime);
     }
@@ -28,12 +31,12 @@ public class PlayerController : BaseController<Player>
         return inputDir;
     }
 
-
     public void IsStop()
     {
         if (GetInputDir() == Vector3.zero)
         {
             ChangeState(nameof(PlayerIdleState));
+            return;
         }
     }
 
@@ -48,8 +51,9 @@ public class PlayerController : BaseController<Player>
 
     public void IsJump()
     {
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.C) && !isJump)
         {
+            isJump = true;
             ChangeState(nameof(PlayerJumpState));
             return;
         }
@@ -64,10 +68,21 @@ public class PlayerController : BaseController<Player>
         }
     }
 
+    public void IsDash()
+    {
+
+        if (Input.GetKeyDown(KeyCode.Z) && !isDash)
+        {
+            isDash = true;
+            ChangeState(nameof(PlayerDashState));
+            return;
+        }
+    }
+
     public void Moving()
     {
         Vector3 pos = player.transform.position;
-        pos.x += inputDir.normalized.x * 3f * Time.deltaTime;
+        pos.x += inputDir.normalized.x * 5f * Time.deltaTime;
         player.transform.position = pos;
 
         player.CharacterImage.flipX = inputDir.x < 0 ? true : false;
@@ -75,7 +90,14 @@ public class PlayerController : BaseController<Player>
 
     public void Jumping()
     {
-        player.rb.AddForce(Vector2.up * 5f, ForceMode2D.Impulse);
+        player.rb.velocity = Vector2.up * 8f;
+    }
+
+
+    public void Dash()
+    {
+        float dashDir = inputDir.normalized.x != 0 ? Mathf.Sign(inputDir.normalized.x) : player.CharacterImage.flipX ? -1f : 1f;
+        player.rb.velocity = new Vector2(dashDir * 10f, 0);
     }
 
     public bool IsGrounded() // 땅에 닿았는지 안닿았는지 확인하는 함수
@@ -84,6 +106,8 @@ public class PlayerController : BaseController<Player>
         RaycastHit2D hit = Physics2D.Raycast(player.transform.position, Vector2.down, 0.8f, groundLayer);
         if (hit.collider != null)
         {
+            isJump = false;
+            isDash = false;
             return true;
         }
 

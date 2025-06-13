@@ -2,32 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Enums;
-using Unity.VisualScripting;
 
-public class PlayerJumpState : PlayerStates
+public class PlayerDashState : PlayerStates
 {
     public override void Init(Player owner)
     {
         base.Init(owner);
-        state = PlayerState.Jump;
+        state = PlayerState.Dash;
     }
 
     public override void OnEnter()
     {
         base.OnEnter();
-        player.ChangeAnime(PlayerState.Jump);
-        player.Controller.Jumping();
+        player.ChangeAnime(PlayerState.Dash);
+        player.Controller.Dash();
     }
 
     public override void OnUpdate(float deltaTime)
     {
         base.OnUpdate(deltaTime);
-        player.Controller.IsDash();
-
-        if (elapsedTime > 0.5f)
+        if (elapsedTime > 0.3f)
         {
+            if (player.Controller.CheckPreviousState() is PlayerJumpState)
+            {
+                player.ChangeAnime(PlayerState.Jump);
+            }
+
             if (player.Controller.IsGrounded())
             {
+                player.rb.velocity = Vector3.zero;
+
                 if (player.Controller.GetInputDir().x != 0)
                 {
                     player.Controller.IsMove();
@@ -38,13 +42,7 @@ public class PlayerJumpState : PlayerStates
                 }
             }
         }
-
     }
-
-    public override void OnFixedUpdate()
-    {
-        player.Controller.Moving();
-    }
-
-
 }
+
+
