@@ -11,12 +11,12 @@ public class EnemyAttackState : EnemyBaseState
     public override void Enter()
     {
         base.Enter();
-        _stateMachine.Enemy.Animator.Play(_stateMachine.Enemy.AnimatorController.AttackAnimationHash);
+        StartAnimation(_stateMachine.Enemy.AnimatorController.AttackAnimationHash); // 공격 애니메이션 시작
     }
     public override void Exit() 
     {
         base.Exit();
-        //StopAnimation(stateMachine.AttackAnimationHash);
+        StopAnimation(_stateMachine.Enemy.AnimatorController.AttackAnimationHash); // 공격 애니메이션 중지
     }
     public override void Update()
     {

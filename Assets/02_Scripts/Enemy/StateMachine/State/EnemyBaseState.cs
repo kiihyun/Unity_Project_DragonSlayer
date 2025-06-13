@@ -32,7 +32,15 @@ public class EnemyBaseState : IState
 
         _stateMachine.Enemy.Rigidbody.velocity = new Vector2(moveVec.x, _stateMachine.Enemy.Rigidbody.velocity.y);
     }
+    protected void StartAnimation(int animatorHash)
+    {
+        _stateMachine.Enemy.Animator.SetBool(animatorHash, true);
+    }
 
+    protected void StopAnimation(int animatorHash)
+    {
+        _stateMachine.Enemy.Animator.SetBool(animatorHash, false);
+    }
 
     public void Turn()
     {
@@ -42,17 +50,24 @@ public class EnemyBaseState : IState
     private void FlipSprite()
     {
         bool _isMovingRight = MoveDirection.x > 0;
-        _stateMachine.Enemy.SpriteRenderer.flipX = !_isMovingRight;
+        if(_isMovingRight)
+        {
+            _stateMachine.Enemy.SpritePivot.transform.localRotation = Quaternion.Euler(0, 180, 0); // 오른쪽으로 이동할 때 스프라이트를 기본 방향으로 설정
+        }
+        else
+        {
+            _stateMachine.Enemy.SpritePivot.transform.localRotation = Quaternion.Euler(0, 0, 0); // 왼쪽으로 이동할 때 스프라이트를 뒤집음
+        }
     }
 
     public void TurnLeft()
     {
         MoveDirection = Vector3.left;
-        _stateMachine.Enemy.SpriteRenderer.flipX = false; // 왼쪽으로 돌 때 스프라이트를 왼쪽으로 뒤집음
+        _stateMachine.Enemy.SpritePivot.transform.localRotation = Quaternion.Euler(0, 0, 0); // 왼쪽으로 이동할 때 스프라이트를 뒤집음
     }
     public void TurnRight()
     {
         MoveDirection = Vector3.right;
-        _stateMachine.Enemy.SpriteRenderer.flipX = true; // 오른쪽으로 돌 때 스프라이트를 오른쪽으로 뒤집음
+        _stateMachine.Enemy.SpritePivot.transform.localRotation = Quaternion.Euler(0, 180, 0); // 오른쪽으로 이동할 때 스프라이트를 기본 방향으로 설정
     }
 }

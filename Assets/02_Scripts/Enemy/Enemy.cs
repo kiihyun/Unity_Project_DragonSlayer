@@ -4,10 +4,7 @@ using UnityEngine.EventSystems;
 public class Enemy : MonoBehaviour
 {
     [field:SerializeField]public EnemyAnimatorController AnimatorController { get; private set; }
-
-
-    [SerializeField] private string _debugCurrentState;
-
+    [field:SerializeField]public string DebugCurrentState { get; private set; } // 현재 상태 이름을 저장하는 변수
 
     public Transform PlayerTransform;
 
@@ -18,7 +15,8 @@ public class Enemy : MonoBehaviour
 
     private EnemyStateMachine _stateMachine;
     public EnemySO Data;
-    public SpriteRenderer SpriteRenderer;
+
+    public Transform SpritePivot;
 
     public Collider2D DetectionCollider;
 
@@ -26,7 +24,6 @@ public class Enemy : MonoBehaviour
     public Collider2D LeftDetect;
     public Collider2D RightDetect;
 
-    private Vector3 _moveDirection = Vector3.left;
 
 
     public float _moveCooldown; // 이동 쿨타임 (초 단위)
@@ -39,7 +36,7 @@ public class Enemy : MonoBehaviour
     private void Awake()
     {
         _stateMachine = new EnemyStateMachine(this);
-        SpriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        SpritePivot = this.transform.Find("Sprite").GetComponent<Transform>();
         Animator = GetComponentInChildren<Animator>();
         Rigidbody = GetComponent<Rigidbody2D>();
         AnimatorController.Initialize(); // 애니메이션 컨트롤러 초기화
@@ -56,7 +53,7 @@ public class Enemy : MonoBehaviour
     private void Update()
     {
         _stateMachine.Update();
-        _debugCurrentState = _stateMachine.DebugCurrentState; // 상태 이름 업데이트
+        DebugCurrentState = _stateMachine.DebugCurrentState; // 상태 이름 업데이트
 
     }
     private void FixedUpdate()

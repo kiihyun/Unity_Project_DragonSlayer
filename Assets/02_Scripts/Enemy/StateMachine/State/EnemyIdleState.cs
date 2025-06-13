@@ -17,17 +17,8 @@ public class EnemyIdleState : EnemyBaseState
     public override void Enter()
     {
         base.Enter();
-        if(_stateMachine == null)
-            Debug.LogError("StateMachine is null!");
-        if (_stateMachine.Enemy == null)
-            Debug.LogError("Enemy is null!");
-        if (_stateMachine.Enemy.Animator == null)
-            Debug.LogError("Animator is null!");
-
-        if (_stateMachine.Enemy.AnimatorController == null)
-            Debug.LogError("AnimatorController is null!");
-        //_stateMachine.Enemy.Animator.Play(_stateMachine.Enemy.AnimatorController.IdleAnimationHash);
-        
+        Debug.Log("enter idle state");
+        StartAnimation(_stateMachine.Enemy.AnimatorController.IdleAnimationHash);
     }
     public override void Update()
     {
@@ -48,6 +39,7 @@ public class EnemyIdleState : EnemyBaseState
     public override void Exit()
     {
         base.Exit();
+        StopAnimation(_stateMachine.Enemy.AnimatorController.IdleAnimationHash);
     }
     
 }
