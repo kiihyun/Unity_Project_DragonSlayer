@@ -9,6 +9,7 @@ public class PlayerController : BaseController<Player>
     private Vector3 inputDir;
     public bool isDash = false;
     public bool isJump = false;
+    public bool isAttack = false;
 
     public PlayerController(State<Player> initState, Player player) : base(initState, player)
     {
@@ -19,7 +20,9 @@ public class PlayerController : BaseController<Player>
     {
         GetInputDir();
         IsJump();
-        IsDash();
+        IsDash();   
+        IsAttack();
+        IsGrounded();
 
         base.OnUpdate(deltaTime);
     }
@@ -61,7 +64,7 @@ public class PlayerController : BaseController<Player>
 
     public void IsAttack()
     {
-        if (Input.GetKeyDown(KeyCode.X))
+        if (Input.GetKeyDown(KeyCode.X) && !isAttack)
         {
             ChangeState(nameof(PlayerAttackState));
             return;
@@ -82,7 +85,7 @@ public class PlayerController : BaseController<Player>
     public void Moving()
     {
         Vector3 pos = player.transform.position;
-        pos.x += inputDir.normalized.x * 5f * Time.deltaTime;
+        pos.x += inputDir.normalized.x * player.stat.MoveSpeed * Time.deltaTime;
         player.transform.position = pos;
 
         player.CharacterImage.flipX = inputDir.x < 0 ? true : false;
@@ -90,15 +93,27 @@ public class PlayerController : BaseController<Player>
 
     public void Jumping()
     {
-        player.rb.velocity = Vector2.up * 8f;
+        player.rb.velocity = Vector2.up * player.stat.JumpPower;
     }
 
 
     public void Dash()
     {
         float dashDir = inputDir.normalized.x != 0 ? Mathf.Sign(inputDir.normalized.x) : player.CharacterImage.flipX ? -1f : 1f;
-        player.rb.velocity = new Vector2(dashDir * 10f, 0);
+        player.rb.velocity = new Vector2(dashDir * player.stat.DashPower, 0);
     }
+
+    public void LerfStop()
+    {
+        Vector2 currentVelocity = player.rb.velocity;
+        Vector2 targetVelocity = Vector2.zero;
+        float smoothFactor = 0.1f;
+
+        player.rb.velocity = Vector2.Lerp(currentVelocity, targetVelocity, smoothFactor);
+    }
+
+    
+
 
     public bool IsGrounded() // 땅에 닿았는지 안닿았는지 확인하는 함수
     {

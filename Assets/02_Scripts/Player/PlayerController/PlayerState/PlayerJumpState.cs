@@ -23,6 +23,7 @@ public class PlayerJumpState : PlayerStates
     {
         base.OnUpdate(deltaTime);
         player.Controller.IsDash();
+        player.Controller.IsAttack();
 
         if (elapsedTime > 0.5f)
         {
