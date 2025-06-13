@@ -4,15 +4,16 @@ public class BossEnemy : MonoBehaviour
 {
     [SerializeField] private BossEnemyDataSO _bossData;
     private float _currentHp;
-    
+    public Animator Animator { get; private set; }
     public BossStateMachine StateMachine { get; private set; }
     public BossEnemyDataSO BossData => _bossData;
-    
+
     public bool IsPhase2 => _currentHp <= _bossData.maxHP * (_bossData.phase2ThresholdPercent / 100f);
 
 
     private void Awake()
     {
+        Animator = GetComponent<Animator>();
         StateMachine = new BossStateMachine();
     }
 
@@ -37,9 +38,10 @@ public class BossEnemy : MonoBehaviour
         }
     }
 
-    /*public bool IsPlayerInRange()
+    public bool IsPlayerInRange()
     {
         // 감지 범위 체크 로직
-        //return Vector3.Distance(transform.position, Player.Instance.transform.position) < _bossData.detectionRange;
-    }*/
+        return Vector3.Distance(transform.position, BossTestPlayer.Instance.transform.position) <
+               _bossData.detectionRange;
+    }
 }

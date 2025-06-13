@@ -17,10 +17,10 @@ public class BossIdleState : IBossState
     public void Execute()
     {
         // 일정 시간 뒤 공격 상태로 전환 등
-        /*if (_boss.IsPlayerInRange())
+        if (_boss.IsPlayerInRange())
         {
             _boss.StateMachine.ChangeState(new BossAttackState(_boss));
-        }*/
+        }
     }
 
     public void Exit()
