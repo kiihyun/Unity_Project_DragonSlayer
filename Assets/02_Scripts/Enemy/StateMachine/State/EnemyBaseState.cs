@@ -7,7 +7,6 @@ public class EnemyBaseState : IState
     protected EnemyStateMachine _stateMachine;
     protected Vector2 _moveVector;
     protected Vector3 _moveDirection = Vector3.left;
-    protected bool _isMovingRight = false;
     public EnemyBaseState(EnemyStateMachine stateMachine)
     {
         this._stateMachine = stateMachine;
@@ -42,16 +41,7 @@ public class EnemyBaseState : IState
     }
     private void FlipSprite()
     {
-        _isMovingRight = !_isMovingRight;
-        _stateMachine.Enemy.SpriteRenderer.flipX = _isMovingRight;
-    }
-
-    protected void StartAnimation(int animationHash)
-    {
-        _stateMachine.Enemy.Animator.SetBool(animationHash, true);
-    }
-    protected void StopAnimation(int animationHash)
-    {
-        _stateMachine.Enemy.Animator.SetBool(animationHash, false);
+        bool _isMovingRight = _moveDirection.x > 0;
+        _stateMachine.Enemy.SpriteRenderer.flipX = !_isMovingRight;
     }
 }

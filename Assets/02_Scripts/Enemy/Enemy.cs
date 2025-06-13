@@ -1,22 +1,33 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private EnemyAnimatorController _animatorController;
+    [field:SerializeField]public EnemyAnimatorController AnimatorController { get; private set; }
 
-    public Animator Animator { get; private set; }
+    public Animator Animator;
     public Rigidbody2D Rigidbody { get; private set; }
     public EnemyStateMachine StateMachine => _stateMachine;
 
     private EnemyStateMachine _stateMachine;
     public EnemySO Data;
     public SpriteRenderer SpriteRenderer;
-    
+
+    public Collider2D DetectionCollider;
+
+
     public Collider2D LeftDetect;
     public Collider2D RightDetect;
 
+    private Vector3 _moveDirection = Vector3.left;
+
+
+    public float _moveCooldown; // 이동 쿨타임 (초 단위)
+
     public int maxHealth => Data._health;
     public int currentHealth { get; private set; }
+
+    
 
     private void Awake()
     {
@@ -24,11 +35,14 @@ public class Enemy : MonoBehaviour
         SpriteRenderer = GetComponentInChildren<SpriteRenderer>();
         Animator = GetComponentInChildren<Animator>();
         Rigidbody = GetComponent<Rigidbody2D>();
-        _animatorController.Initialize(); // 애니메이션 컨트롤러 초기화
+        AnimatorController.Initialize(); // 애니메이션 컨트롤러 초기화
+
+        _stateMachine.ChangeState(_stateMachine.IdleState); // 초기 상태 설정
     }
     private void Start()
     {
         currentHealth = maxHealth; // 초기 체력 설정
+        _moveCooldown = _stateMachine.Enemy.Data._moveDelay;
     }
 
     // Update is called once per frame
@@ -55,6 +69,8 @@ public class Enemy : MonoBehaviour
         // 적 사망 로직
         Debug.Log("Enemy died");
         // 예: 애니메이션 재생, 오브젝트 비활성화 등
-        gameObject.SetActive(false);
+        _stateMachine.ChangeState(_stateMachine.DeathState);
     }
+
+
 }

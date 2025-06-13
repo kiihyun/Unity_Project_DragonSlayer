@@ -1,19 +1,29 @@
-﻿ using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlatformEdgeDetector : MonoBehaviour
 {
     [SerializeField] private EnemyStateMachine _stateMachine;
+    [SerializeField] private Rigidbody2D _rigidbody;
+    [SerializeField] private Collider2D _collider;
     private void Awake()
+    {
+        
+        _collider = GetComponent<Collider2D>();
+    }
+
+    private void Start()
     {
         _stateMachine = GetComponentInParent<Enemy>().StateMachine;
     }
-    private void OnCollisionExit2D(Collision2D collision)
+
+    private void OnTriggerExit2D(Collider2D collision)
     {
-        if (_stateMachine.CurrentState is EnemyIdleState idleState)
+
+        
+        if (!_collider.IsTouchingLayers())
         {
-            idleState.Turn();
+            _rigidbody.velocity = Vector3.zero; // 속도 초기화
+            _stateMachine.IdleState.Turn();
         }
     }
 }
