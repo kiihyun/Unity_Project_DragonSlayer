@@ -12,6 +12,7 @@ public enum UIType
     Joystick,
     
     // Canvus_Window
+    MainWindow,
     UIPlayerStatus,
     UIEquipItem,
     UIInventory,
