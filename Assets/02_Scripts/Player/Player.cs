@@ -82,7 +82,18 @@ public class Player : MonoBehaviour
 
     public void OnAttackHit()
     {
-        Debug.Log("Hit!");
+
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 1f, LayerMask.GetMask("TestEnemy"));
+
+        foreach (var hit in hits)
+        {
+            Enemy enemy = hit.GetComponent<Enemy>();
+            if (enemy.TryGetComponent<IDamageble>(out IDamageble target))
+            {
+                Debug.Log("Hit!");
+                target.TakeDamage(10);
+            }
+        }
     }
 
 }
