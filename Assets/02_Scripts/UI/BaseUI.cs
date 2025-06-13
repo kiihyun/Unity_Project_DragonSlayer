@@ -5,11 +5,21 @@ using UnityEngine;
 public enum UIType
 {
     None = 0,
-    MainMenu,
-    UIMenu,
-    UIPlayer,
+    
+    // Canvus_Fixed
+    UIMainMenu,
+    UIInGame,
+    Joystick,
+    
+    // Canvus_Window
+    UIPlayerStatus,
+    UIEquipItem,
+    UIInventory,
+    UIOption,
+    
+    // Canvus_Popup
+    UITooltip,
     UIInteraction,
-    Controller
 }
 
 public abstract class BaseUI : MonoBehaviour
