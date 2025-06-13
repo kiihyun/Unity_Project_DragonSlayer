@@ -35,6 +35,7 @@ public class Map : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        UnityEditor.Handles.Label(gameObject.transform.position, gameObject.name);
         DrawSpawnAreas(0.3f);
     }
 
@@ -47,12 +48,17 @@ public class Map : MonoBehaviour
     {
         foreach (var spawnArea in _mapData.enemySpawnAreas)
         {
+            Vector3 spawnPosition = new Vector3(spawnArea.spawnArea.center.x, spawnArea.spawnArea.center.y); 
+            spawnPosition = new Vector3(spawnPosition.x - spawnArea.spawnArea.width / 2, spawnPosition.y - spawnArea.spawnArea.height / 2);
+            spawnPosition = transform.TransformPoint(spawnPosition);
+            
             for(int i = 0; i < spawnArea.enemies.Count; i++)
             {
-                Vector3 spawnPosition = new Vector3(spawnArea.spawnArea.center.x, spawnArea.spawnArea.center.y); 
-                spawnPosition = transform.TransformPoint(spawnPosition);
+                // 아래 왼쪽 부터 조금씩 오른쪽으로
                 GameObject enemy = Instantiate(spawnArea.enemies[i], spawnPosition, Quaternion.identity, transform);
+
                 _enemies.Add(enemy);
+                spawnPosition = new Vector3(spawnPosition.x + 2, spawnPosition.y);
             }
         }
     }
