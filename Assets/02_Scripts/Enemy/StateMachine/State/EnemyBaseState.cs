@@ -6,7 +6,7 @@ public class EnemyBaseState : IState
 {
     protected EnemyStateMachine _stateMachine;
     protected Vector2 _moveVector;
-    protected Vector3 _moveDirection = Vector3.left;
+    public Vector3 MoveDirection = Vector3.left;
     public EnemyBaseState(EnemyStateMachine stateMachine)
     {
         this._stateMachine = stateMachine;
@@ -28,7 +28,7 @@ public class EnemyBaseState : IState
     }
     public virtual void Move()
     {
-        Vector2 moveVec = _moveDirection.normalized * _stateMachine.Enemy.Data._speed;
+        Vector2 moveVec = MoveDirection.normalized * _stateMachine.Enemy.Data._speed;
 
         _stateMachine.Enemy.Rigidbody.velocity = new Vector2(moveVec.x, _stateMachine.Enemy.Rigidbody.velocity.y);
     }
@@ -36,12 +36,23 @@ public class EnemyBaseState : IState
 
     public void Turn()
     {
-        _moveDirection = -_moveDirection;
+        MoveDirection = -MoveDirection;
         FlipSprite();
     }
     private void FlipSprite()
     {
-        bool _isMovingRight = _moveDirection.x > 0;
+        bool _isMovingRight = MoveDirection.x > 0;
         _stateMachine.Enemy.SpriteRenderer.flipX = !_isMovingRight;
+    }
+
+    public void TurnLeft()
+    {
+        MoveDirection = Vector3.left;
+        _stateMachine.Enemy.SpriteRenderer.flipX = false; // 왼쪽으로 돌 때 스프라이트를 왼쪽으로 뒤집음
+    }
+    public void TurnRight()
+    {
+        MoveDirection = Vector3.right;
+        _stateMachine.Enemy.SpriteRenderer.flipX = true; // 오른쪽으로 돌 때 스프라이트를 오른쪽으로 뒤집음
     }
 }

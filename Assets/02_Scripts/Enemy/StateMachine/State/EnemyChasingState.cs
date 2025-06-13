@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyChasingState : EnemyBaseState
-{
+{ 
+    private float _curTime = 0f;
+    private Vector2 directionToPlayer; // 플레이어와 적의 위치 차이
     public EnemyChasingState(EnemyStateMachine stateMachine) : base(stateMachine)
     {
     }
@@ -13,6 +15,7 @@ public class EnemyChasingState : EnemyBaseState
     {
         base.Enter();
         _stateMachine.Enemy.Animator.Play(_stateMachine.Enemy.AnimatorController.ChaseAnimationHash);
+         
     }
 
     public override void Exit() 
@@ -22,19 +25,27 @@ public class EnemyChasingState : EnemyBaseState
 
     public override void Update()
     {
-        base.Update();
-        // Chase 상태에서의 로직을 여기에 작성
-        // 예: 플레이어를 추적하는 로직
-        /*
-        if (_stateMachine.Enemy.Target != null)
+        directionToPlayer = _stateMachine.Enemy.PlayerTransform.position - _stateMachine.Enemy.transform.position; // 플레이어와 적의 위치 차이 계산
+
+
+        if (directionToPlayer.x < 0 && _stateMachine.Enemy.LeftDetect.IsTouchingLayers(LayerMask.GetMask("Ground")))
         {
-            _moveDirection = ( - _stateMachine.Enemy.transform.position).normalized;
+            TurnLeft(); // 왼쪽으로 돌기
+        }
+        // 2. 플레이어가 오른쪽에 있고, 오른쪽이 발판 위라면
+        else if (directionToPlayer.x > 0 && _stateMachine.Enemy.RightDetect.IsTouchingLayers(LayerMask.GetMask("Ground")))
+        {
+            TurnRight(); // 오른쪽으로 돌기
+        }
+
+        _curTime += Time.deltaTime;
+        if (_curTime >= _stateMachine.Enemy._moveCooldown*0.7)// 0.7초에 1번씩 움직임
+        {
+            _curTime = 0f; // 쿨타임 초기화
+
+
+
             Move();
         }
-        else
-        {
-            _stateMachine.ChangeState(_stateMachine.IdleState);
-        }
-         */
     }
 }

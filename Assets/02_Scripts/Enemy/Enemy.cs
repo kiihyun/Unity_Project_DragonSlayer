@@ -5,6 +5,13 @@ public class Enemy : MonoBehaviour
 {
     [field:SerializeField]public EnemyAnimatorController AnimatorController { get; private set; }
 
+
+    [SerializeField] private string _debugCurrentState;
+
+
+    public Transform PlayerTransform;
+
+
     public Animator Animator;
     public Rigidbody2D Rigidbody { get; private set; }
     public EnemyStateMachine StateMachine => _stateMachine;
@@ -49,6 +56,8 @@ public class Enemy : MonoBehaviour
     private void Update()
     {
         _stateMachine.Update();
+        _debugCurrentState = _stateMachine.DebugCurrentState; // 상태 이름 업데이트
+
     }
     private void FixedUpdate()
     {
