@@ -11,7 +11,7 @@ public class EnemyDeathState : EnemyBaseState
     public override void Enter()
     {
         base.Enter();
-        StartAnimation(_stateMachine.Enemy.AnimatorController.DieAnimationHash); // 죽음 애니메이션 시작
+        _stateMachine.Enemy.Animator.SetTrigger(_stateMachine.Enemy.AnimatorController.DieAnimationHash); // 죽음 애니메이션 시작
     }
     
 

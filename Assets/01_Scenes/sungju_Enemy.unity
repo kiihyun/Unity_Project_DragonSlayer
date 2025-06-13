@@ -1174,6 +1174,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackCollider: {fileID: 0}
+  _enemy: {fileID: 1045310468}
   TestRedBox: {fileID: 1637501902}
 --- !u!1 &288420516
 GameObject:
@@ -1798,7 +1799,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aba5438a099117b4297ad7c9fbfbef0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyAttack: {fileID: 0}
+  _enemyAttack: {fileID: 0}
+  _enemy: {fileID: 1045310468}
+  GameObject: {fileID: 1045310466}
 --- !u!1 &877299399
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IDamageable    
 {
     [field:SerializeField]public EnemyAnimatorController AnimatorController { get; private set; }
     [field:SerializeField]public string DebugCurrentState { get; private set; } // 현재 상태 이름을 저장하는 변수
@@ -62,21 +62,25 @@ public class Enemy : MonoBehaviour
     }
 
     //피격시 color 하얗게?
-    public void TakeDamage(int damage)
+    private void TakeDamage(int damage)
     {
         currentHealth -= damage;
+        Animator.SetTrigger("Hit");
         if (currentHealth <= 0)
         {
             Die();
         }
     }
+
+    [ContextMenu("DieTest")]
     public void Die()
     {
-        // 적 사망 로직
         Debug.Log("Enemy died");
-        // 예: 애니메이션 재생, 오브젝트 비활성화 등
         _stateMachine.ChangeState(_stateMachine.DeathState);
     }
 
-
+    void IDamageable.TakeDamage(int damage)
+    {
+        this.TakeDamage(damage);
+    }
 }

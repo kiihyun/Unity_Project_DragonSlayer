@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyAttack : MonoBehaviour
 {
     [SerializeField] private Collider2D attackCollider;
+    [SerializeField] private Enemy _enemy;
     public GameObject TestRedBox;
 
     private void Awake()
@@ -36,9 +37,9 @@ public class EnemyAttack : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Player"))
+        if(collision.TryGetComponent<IDamageable>(out var player))
         {
-            // 데미지 로직
+            player.TakeDamage(_enemy.Data._attackDamage);
         }
     }
 }
