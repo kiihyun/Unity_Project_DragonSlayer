@@ -15,6 +15,7 @@ public class BossSkillState : IBossState
     public void Enter()
     {
         Debug.Log("보스: 스킬 상태 진입");
+        _boss.Animator.SetTrigger("Skill");
         _elapsedTime = 0f;
         _isSkillCasting = false;
     }

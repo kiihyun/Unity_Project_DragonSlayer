@@ -3,6 +3,8 @@ using UnityEngine;
 public class BossIdleState : IBossState
 {
     private BossEnemy _boss;
+    private float _idleDelay = 0.5f; 
+    private float _timer;
 
     public BossIdleState(BossEnemy boss)
     {
@@ -12,12 +14,14 @@ public class BossIdleState : IBossState
     public void Enter()
     {
         Debug.Log("보스: 대기 상태 진입");
+        _boss.Animator.SetTrigger("Idle");
+        _timer = _idleDelay;
     }
 
     public void Execute()
     {
-        // 일정 시간 뒤 공격 상태로 전환 등
-        if (_boss.IsPlayerInRange())
+        _timer -= Time.deltaTime;
+        if (_timer <= 0f && _boss.IsPlayerInRange())
         {
             _boss.StateMachine.ChangeState(new BossAttackState(_boss));
         }

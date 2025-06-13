@@ -9,6 +9,8 @@ public class BossEnemy : MonoBehaviour
     public BossEnemyDataSO BossData => _bossData;
 
     public bool IsPhase2 => _currentHp <= _bossData.maxHP * (_bossData.phase2ThresholdPercent / 100f);
+    
+    public int AttackCount { get; set; } = 0;
 
 
     private void Awake()
@@ -31,6 +33,7 @@ public class BossEnemy : MonoBehaviour
     public void TakeDamage(float dmg)
     {
         _currentHp -= dmg;
+        Animator.SetTrigger("Hurt");
 
         if (_currentHp <= 0)
         {
@@ -40,8 +43,10 @@ public class BossEnemy : MonoBehaviour
 
     public bool IsPlayerInRange()
     {
-        // 감지 범위 체크 로직
-        return Vector3.Distance(transform.position, BossTestPlayer.Instance.transform.position) <
-               _bossData.detectionRange;
+        float sqrDistance = (transform.position - BossTestPlayer.Instance.transform.position).sqrMagnitude;
+        float sqrRange = _bossData.detectionRange * _bossData.detectionRange;
+
+        return sqrDistance < sqrRange;
     }
+
 }
