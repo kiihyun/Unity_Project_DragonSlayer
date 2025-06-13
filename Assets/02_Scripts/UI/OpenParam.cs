@@ -8,8 +8,37 @@ public abstract class OpenParam
     
 }
 
+// Canvus_Fixed
 public class UIMenuParam : OpenParam
 {
     
     
 }
+
+public class UIInGameParam  : OpenParam
+{
+    
+}
+
+// Canvus_Window
+public class UIPlayerStatusParam : OpenParam
+{
+    
+}
+
+public class UIEquipItemParam : OpenParam
+{
+    
+}
+
+public class UIInventoryParam : OpenParam
+{
+    
+}
+
+public class UIOptionParam : OpenParam
+{
+    
+}
+
+// Canvus_Popup

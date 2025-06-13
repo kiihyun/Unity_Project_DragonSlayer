@@ -12,10 +12,21 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Transform _canvas_Popup;
 
     // CurrentWindow는 현재 열려 있는 Window
-    // LastOrDefault는 딕셔너리에 저장된 왼도우 중 가낭 마지막에 추가된 윈도우를 반환
+    // LastOrDefault는 딕셔너리에 저장된 왼도우 중 가장 마지막에 추가된 윈도우를 반환
     public BaseWindow CurrentWindow => _windowUI.Count > 0 ? _windowUI.Values.LastOrDefault() : null;
     
-    
+    // 호출 시 타입을 지정해 해당 타입의 윈도우 반환
+    public T GetWindow<T>() where T : BaseWindow // T가 반드시 BaseWindow를 상속받아야 함
+    {
+        // 현재 열려있는 window를 저장하는 딕셔너리를 순환하며 해당 타입<T>의 window가 열려있는지 확인
+        foreach (var window in _windowUI.Values)
+        {
+            // 타입이 T인 윈도우를 찾으면 즉시 반환, 만약 여러 개(코드 상 문제로 인해)가 존재하더라도 가장 먼저 발견되는 윈도우를 반환
+            if (window is T tWindow)
+                return tWindow;
+        }
+        return null;
+    }
     
     // 고정된 FixedUI는 여러 UI가 동시에 존재하기 때문에 List로 관리
     private readonly List<BaseFixed> _fixedUIs = new();
@@ -28,28 +39,40 @@ public class UIManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance != null)
+        if (instance == null)
         {
             instance = this;
         }
-        
+        else
+        {
+            Destroy(gameObject);
+        }
+        DontDestroyOnLoad(gameObject);
     }
 
+    
+    
     // FixedUI 활성화 메서드
     // 추가적인 정보가 필요할 경우 param으로 전달
     // 호출시 param을 따로 입력해주지 않으면 자동으로 null이 할당
     public BaseFixed OpenFixedUI(UIType type, OpenParam param = null)
     {
         // GetUI로 생성 시, BaseUI 타입으로 생성되기 때문에 BaseFixed 타입으로 수정
-        BaseFixed UI = (BaseFixed)_pool.GetUI(type, _canvas_Fixed); 
-        UI.OnOpen(param);
-        _fixedUIs.Add(UI); // 고정된 UI는 한번에 여러 UI가 존재할 수 있음
-        UI.gameObject.SetActive(true);
-        return UI;
+        BaseFixed Fixed = (BaseFixed)_pool.GetUI(type, _canvas_Fixed); 
+        Fixed.OnOpen(param);
+        _fixedUIs.Add(Fixed); // 고정된 UI는 한번에 여러 UI가 존재할 수 있음
+        Fixed.gameObject.SetActive(true);
+        return Fixed;
     }
     
+    // FixedUI 비활성화 메서드
+    // 특정 FixedUI를 비활성화
+    // public BaseFixed CloseFixedUI(UIType type)
+    // {
+    //     
+    // }
     
-    
+    /*
     // WindowUI 활성화 메서드
     // 추가적인 정보가 필요할 경우 param으로 전달
     // 호출 시 param을 따로 입력해주지 않으면 자동으로 null이 할당
@@ -65,7 +88,7 @@ public class UIManager : MonoBehaviour
     // WindowUI 비활성화 메서드
     // WindowUI는 한번에 하나만 활성화
     // _windowUI에 UIType type이 존재하면 _pool로 되돌리고 _windowUI에서 삭제
-    public void CloseWindow(UIType type)
+    public void CloseWindowUI(UIType type)
     {
         if (_windowUI.TryGetValue(type, out BaseWindow UI))
         {
@@ -74,11 +97,41 @@ public class UIManager : MonoBehaviour
             _windowUI.Remove(type);
         }
     }
+    */
+    
+    
+    // WindowUI 스위치 메서드
+    public BaseWindow SwitchWindowUI(UIType type, OpenParam param = null)
+    {
+        // 모든 WindowUI 비활성화
+        foreach (var windowUI in _windowUI.Values)
+        {
+            windowUI.OnClose();
+            windowUI.gameObject.SetActive(false);
+        }
 
+        // 이미 생성되어 있는 UI가 있다면 그대로 사용, 없다면 풀에서 가져옴, 대부분의 경우 그대로 사용
+        BaseWindow Window;
+        if (_windowUI.TryGetValue(type, out Window))
+        {
+            // 기존 UI를 그대로 사용
+        }
+        else
+        {
+            // UI가 생성되어 있지 않다면 풀에서 가져옴
+            Window = (BaseWindow)_pool.GetUI(type, _canvas_Window);
+            _windowUI[type] = Window;
+        }
+        Window.OnOpen(param);
+        Window.gameObject.SetActive(true);
+
+        return Window;
+    }
+    
     // PopupUI 활성화 메서드
     // 추가적인 정보가 필요할 경우 param으로 전달
     // 호출시 param을 따로 입력해주지 않으면 자동으로 null이 할당
-    public BasePopup OpenPopup(UIType type, OpenParam param = null)
+    public BasePopup OpenPopupUI(UIType type, OpenParam param = null)
     {
         BasePopup popup = (BasePopup)_pool.GetUI(type, _canvas_Popup);
         popup.OnOpen(param);
@@ -90,7 +143,7 @@ public class UIManager : MonoBehaviour
     // PopupUI 비활성화 메서드
     // Popup은 가장 위에 있는 Popup부터 꺼야함
     // 선입후출 구조를 갖기 때문에 가장 위에 있는 Popup부터 제거하도록 Pop 사용
-    public void CloseTopPopup()
+    public void CloseTopPopupUI()
     {
         // Pop은 스택이 비어있을 경우 예외가 발생하기 때문에 TryPop 사용
         if (_popupUIs.TryPop(out BasePopup popup))
