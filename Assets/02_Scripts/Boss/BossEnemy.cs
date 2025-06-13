@@ -11,6 +11,7 @@ public class BossEnemy : MonoBehaviour
     public bool IsPhase2 => _currentHp <= _bossData.maxHP * (_bossData.phase2ThresholdPercent / 100f);
     
     public int AttackCount { get; set; } = 0;
+    public GameObject BreathPos;
 
 
     private void Awake()
@@ -53,10 +54,10 @@ public class BossEnemy : MonoBehaviour
     {
         GameObject effect = Instantiate(
             BossData.attackEffectPrefab, // SO에 연결된 이펙트 프리팹
-            transform.position + new Vector3(-6f, -1.5f, 0), // 보스 앞쪽
-            Quaternion.identity
+                BreathPos.transform.position + new Vector3(-5f, 0f, 0f), // 보스 앞쪽
+            Quaternion.Euler(0, 0, 90)
         );
 
-        Destroy(effect, 2f); // 일정 시간 후 파괴
+        Destroy(effect, 0.7f); // 일정 시간 후 파괴
     }
 }

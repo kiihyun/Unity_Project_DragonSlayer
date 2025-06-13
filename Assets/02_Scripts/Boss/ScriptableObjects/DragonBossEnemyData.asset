@@ -22,7 +22,7 @@ MonoBehaviour:
   attackRange: 10
   detectionRange: 5
   phase2ThresholdPercent: 10
-  attackEffectPrefab: {fileID: 8130048960793176997, guid: 9249934ba38e06940a99a536565b01b7, type: 3}
+  attackEffectPrefab: {fileID: 7512756569008411512, guid: a30a02ed8820aa44ebb7ff4cded1927f, type: 3}
   phase1Skills: []
   phase2Skills: []
   phase1Dialogues: []

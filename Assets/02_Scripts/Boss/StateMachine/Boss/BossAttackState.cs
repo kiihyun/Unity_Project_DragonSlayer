@@ -56,11 +56,11 @@ public class BossAttackState : IBossState
 
         string attackTrigger;
 
-        if (_boss.AttackCount >= 2)
+        if (_boss.AttackCount >= 0)
         {
             // 강한 공격: Attack2
             attackTrigger = "Attack2";
-            _boss.StartCoroutine(Attack2EffectDeley(3f));
+            _boss.StartCoroutine(Attack2EffectDeley(3.1f));
             _boss.AttackCount = 0; // 카운트 초기화
         }
         else

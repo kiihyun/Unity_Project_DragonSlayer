@@ -250,9 +250,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c025d27e160ec94db4dd69bad022748, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  jumpForce: 5
-  _rigidbody: {fileID: 0}
 --- !u!70 &943680
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -13347,6 +13344,10 @@ PrefabInstance:
     - target: {fileID: 2423132335916042262, guid: 8a3432c8322faf944988a6aebc4708e0, type: 3}
       propertyPath: m_Name
       value: BossEnemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 3287121597300124260, guid: 8a3432c8322faf944988a6aebc4708e0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -7.8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
