@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // UI 재사용 관리
-public class UIPool : MonoBehaviour
+public class UIPool
 {
     private readonly Dictionary<UIType, Queue<BaseUI>> _pool = new();
 

@@ -2,16 +2,47 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerStat : MonoBehaviour
+public class PlayerStat : MonoBehaviour , IDamageble
 {
-    // Start is called before the first frame update
-    void Start()
+    [Header("Player Stats")]
+    [SerializeField, Tooltip("플레이어 최대 체력")]
+    private int _maxHealth;
+
+    [SerializeField, Tooltip("현재 체력")]
+    private int _currentHealth;
+
+    [SerializeField, Range(1f, 20f), Tooltip("이동 속도")]
+    private int _moveSpeed;
+
+    [SerializeField, Tooltip("대시 힘")]
+    private int _dashPower;
+
+    [SerializeField, Tooltip("점프 힘")]
+    private int _jumpPower;
+
+
+
+    public int MaxHealth => _maxHealth;
+
+    public int CurrentHealth => _currentHealth;
+
+    public float MoveSpeed { get { return _moveSpeed; } }
+
+    public int DashPower { get { return _dashPower; } }
+
+    public int JumpPower { get { return _jumpPower; } }
+
+    float IDamageble.MaxHealth => MaxHealth;
+
+    float IDamageble.CurrentHealth => CurrentHealth;
+
+    public void StartStat()
     {
-        
+       _currentHealth = _maxHealth;
+
     }
 
-    // Update is called once per frame
-    void Update()
+    public void TakeDamage(float damage)
     {
         
     }

@@ -1,6 +1,7 @@
 using Enums;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -14,7 +15,7 @@ public class Player : MonoBehaviour
     public Animator anim;
     [HideInInspector]
     public Rigidbody2D rb;
-
+    
     public SpriteRenderer CharacterImage { get { return characterImage; } }
     private SpriteRenderer characterImage;
 
@@ -24,13 +25,11 @@ public class Player : MonoBehaviour
         Init();
     }
 
-    private void Start()
-    {
-    }
     private void Update()
     {
         controller?.OnUpdate(Time.deltaTime);
     }
+
     private void FixedUpdate()
     {
         controller?.OnFixedUpdate();
@@ -41,9 +40,8 @@ public class Player : MonoBehaviour
         characterImage ??= GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
         stat = GetComponent<PlayerStat>();
-        rb = GetComponent<Rigidbody2D>();
-
-
+        rb = GetComponent<Rigidbody2D>();   
+        stat.StartStat();
         ControllerRegister();
     }
 
@@ -52,7 +50,8 @@ public class Player : MonoBehaviour
         controller = new PlayerController(new PlayerIdleState(), this);
         controller.RegisterState(new PlayerMoveState(), this);
         controller.RegisterState(new PlayerJumpState(), this);
-
+        controller.RegisterState(new PlayerDashState(), this);
+        controller.RegisterState(new PlayerAttackState(), this);
     }
 
     public void ChangeAnime(PlayerState nextAnime)
@@ -64,6 +63,36 @@ public class Player : MonoBehaviour
         else
         {
             anim.SetInteger("ChangeState", (int)nextAnime);
+        }
+    }
+
+    public void OnAttackEnd()
+    {
+        Debug.Log("Attack Ended!");
+
+        if(controller.GetInputDir().x != 0)
+        {
+            controller.IsMove();
+        }
+        else
+        {
+            controller.IsStop();
+        }
+    }
+
+    public void OnAttackHit()
+    {
+
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 1f, LayerMask.GetMask("TestEnemy"));
+
+        foreach (var hit in hits)
+        {
+            Enemy enemy = hit.GetComponent<Enemy>();
+            if (enemy.TryGetComponent<IDamageble>(out IDamageble target))
+            {
+                Debug.Log("Hit!");
+                target.TakeDamage(10);
+            }
         }
     }
 
