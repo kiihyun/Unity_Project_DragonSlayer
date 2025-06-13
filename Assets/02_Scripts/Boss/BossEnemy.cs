@@ -49,4 +49,14 @@ public class BossEnemy : MonoBehaviour
         return sqrDistance < sqrRange;
     }
 
+    public void SpawnAttackEffect()
+    {
+        GameObject effect = Instantiate(
+            BossData.attackEffectPrefab, // SO에 연결된 이펙트 프리팹
+            transform.position + new Vector3(-6f, -1.5f, 0), // 보스 앞쪽
+            Quaternion.identity
+        );
+
+        Destroy(effect, 2f); // 일정 시간 후 파괴
+    }
 }

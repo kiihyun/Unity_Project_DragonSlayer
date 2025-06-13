@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class BossAttackState : IBossState
@@ -59,6 +60,7 @@ public class BossAttackState : IBossState
         {
             // 강한 공격: Attack2
             attackTrigger = "Attack2";
+            _boss.StartCoroutine(Attack2EffectDeley(3f));
             _boss.AttackCount = 0; // 카운트 초기화
         }
         else
@@ -68,13 +70,24 @@ public class BossAttackState : IBossState
             _boss.AttackCount++;
         }
 
-        //_boss.Animator.ResetTrigger("Idle");
         _boss.Animator.SetTrigger(attackTrigger);
+        _boss.StartCoroutine(ApplyDamageAfterDelay(3f));
+
 
         BossTestPlayer.Instance.TakeDamage(_boss.BossData.attackDamage);
         Debug.Log($"보스가 {attackTrigger} 시전! 데미지: {_boss.BossData.attackDamage}");
 
         _hasAttacked = true;
     }
-
+    
+    private IEnumerator ApplyDamageAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        BossTestPlayer.Instance.TakeDamage(_boss.BossData.attackDamage);
+    }
+    private IEnumerator Attack2EffectDeley(float delay)
+    {   
+        yield return new WaitForSeconds(delay); 
+        _boss.SpawnAttackEffect();
+    }
 }
