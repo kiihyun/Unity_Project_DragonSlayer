@@ -6,13 +6,38 @@ public class Door : MonoBehaviour, IInteract
 {
     public GameObject OppositeDoor;
 
+    public Player player;
+
+    public void Update()
+    {
+        // 임시
+        if(Input.GetKeyDown(KeyCode.E) && player != null)
+        {
+            Interact();
+        }
+    }
+
     public void Interact()
     {
-        // TODO: 임시
-        Player player = FindObjectOfType<Player>();
         if (player != null)
         {
-            player.transform.position = OppositeDoor.transform.position + new Vector3(0, 1, 0);
+            player.transform.position = new Vector3(OppositeDoor.transform.position.x, OppositeDoor.transform.position.y + 1, player.transform.position.z);
+        }
+    }
+
+    public void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.CompareTag("Player"))
+        {
+            player = other.GetComponent<Player>();
+        }
+    }
+
+    public void OnTriggerExit2D(Collider2D other)
+    {
+        if(other.CompareTag("Player"))
+        {
+            player = null;
         }
     }
 
