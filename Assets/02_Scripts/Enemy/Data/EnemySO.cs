@@ -12,5 +12,4 @@ public class EnemySO : ScriptableObject
     public float _moveDelay;
     public float _attackRange;
     public int _attackDamage;
-    public float _attackDelay;
 }
