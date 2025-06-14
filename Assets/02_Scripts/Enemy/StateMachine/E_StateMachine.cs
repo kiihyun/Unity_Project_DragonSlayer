@@ -7,6 +7,7 @@
 public class E_StateMachine
 {
     protected IState currentState;
+    public IState CurrentState => currentState;
 
     public void ChangeState(IState newState)
     {

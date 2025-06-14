@@ -22,11 +22,14 @@ public class PlayerJumpState : PlayerStates
     public override void OnUpdate(float deltaTime)
     {
         base.OnUpdate(deltaTime);
+        player.Controller.IsDash();
+        player.Controller.IsAttack();
+
         if (elapsedTime > 0.5f)
         {
             if (player.Controller.IsGrounded())
             {
-                if(player.Controller.GetInputDir().x != 0)
+                if (player.Controller.GetInputDir().x != 0)
                 {
                     player.Controller.IsMove();
                 }
