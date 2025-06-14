@@ -10,7 +10,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Transform _canvas_Fixed;
     [SerializeField] private Transform _canvas_Window;
     [SerializeField] private Transform _canvas_Popup;
-
+    
+    public Player player;
+    
     // CurrentWindow는 현재 열려 있는 Window
     // LastOrDefault는 딕셔너리에 저장된 왼도우 중 가장 마지막에 추가된 윈도우를 반환
     public BaseWindow CurrentWindow => _windowUI.Count > 0 ? _windowUI.Values.LastOrDefault() : null;

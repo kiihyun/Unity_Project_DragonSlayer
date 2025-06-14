@@ -16,6 +16,9 @@ public class UIInventory : BaseWindow
     [SerializeField] private List<InventorySlot> _slots = new List<InventorySlot>();
     [SerializeField] private List<ItemData> _itemList = new List<ItemData>();
     private Queue<InventorySlot> _slotPool = new Queue<InventorySlot>();
+    
+    public Inventory inventory { get; private set; }
+    
     public override UIType UIType => UIType.UIInventory;
 
     private void Start()
@@ -32,17 +35,7 @@ public class UIInventory : BaseWindow
         UpdateUI();
     }
     
-    // 인벤토리에 아이템 추가
-    public void AddItem(ItemData item)
-    {
-        _itemList.Add(item);
-    }
-    
-    //인벤토리에서 아이템 제거
-    public void RemoveItem(ItemData item)
-    {
-        _itemList.Remove(item);
-    }
+
 
     // Inventory 업데이트
     public void UpdateUI()

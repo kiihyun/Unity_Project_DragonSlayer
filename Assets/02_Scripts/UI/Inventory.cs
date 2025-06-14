@@ -9,4 +9,16 @@ public class Inventory : MonoBehaviour
     private List<ItemData> inventoryItems =  new List<ItemData>();
     
     
+    // 인벤토리에 아이템 추가
+    public void AddItem(ItemData item)
+    {
+        inventoryItems.Add(item);
+    }
+    
+    //인벤토리에서 아이템 제거
+    public void RemoveItem(ItemData item)
+    {
+        inventoryItems.Remove(item);
+    }
+    
 }
