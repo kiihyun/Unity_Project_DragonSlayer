@@ -5,12 +5,12 @@ using UnityEngine.UI;
 
 public class UIInventory : BaseWindow
 {
-    [SerializeField] private  GameObject _tooltipUI;
+    [SerializeField] private GameObject _tooltipUI;
     [SerializeField] private GameObject _slotPrefab;
     [SerializeField] private Transform _slotsParent;
 
-    [Header("Inventory")] 
-    [SerializeField] private int minSlotCount = 16; 
+    [Header("Inventory")]
+    [SerializeField] private int minSlotCount = 16;
     public InventorySlot selectedSlot;
     
     [SerializeField] private List<InventorySlot> _slots = new List<InventorySlot>();
@@ -24,12 +24,12 @@ public class UIInventory : BaseWindow
     }
     public override void OnOpen(OpenParam param)
     {
-        // UpdateUI();
+        UpdateUI();
     }
 
     public override void OnClose()
     {
-        // UpdateUI();
+        UpdateUI();
     }
     
     // 인벤토리에 아이템 추가
