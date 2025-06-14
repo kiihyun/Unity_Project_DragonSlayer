@@ -4,15 +4,18 @@ public class BossEnemy : MonoBehaviour
 {
     [SerializeField] private BossEnemyDataSO _bossData;
     private float _currentHp;
-    
+    public Animator Animator { get; private set; }
     public BossStateMachine StateMachine { get; private set; }
     public BossEnemyDataSO BossData => _bossData;
-    
+
     public bool IsPhase2 => _currentHp <= _bossData.maxHP * (_bossData.phase2ThresholdPercent / 100f);
+    
+    public int AttackCount { get; set; } = 0;
 
 
     private void Awake()
     {
+        Animator = GetComponent<Animator>();
         StateMachine = new BossStateMachine();
     }
 
@@ -30,6 +33,7 @@ public class BossEnemy : MonoBehaviour
     public void TakeDamage(float dmg)
     {
         _currentHp -= dmg;
+        Animator.SetTrigger("Hurt");
 
         if (_currentHp <= 0)
         {
@@ -37,9 +41,22 @@ public class BossEnemy : MonoBehaviour
         }
     }
 
-    /*public bool IsPlayerInRange()
+    public bool IsPlayerInRange()
     {
-        // 감지 범위 체크 로직
-        //return Vector3.Distance(transform.position, Player.Instance.transform.position) < _bossData.detectionRange;
-    }*/
+        float sqrDistance = (transform.position - BossTestPlayer.Instance.transform.position).sqrMagnitude;
+        float sqrRange = _bossData.detectionRange * _bossData.detectionRange;
+
+        return sqrDistance < sqrRange;
+    }
+
+    public void SpawnAttackEffect()
+    {
+        GameObject effect = Instantiate(
+            BossData.attackEffectPrefab, // SO에 연결된 이펙트 프리팹
+            transform.position + new Vector3(-6f, -1.5f, 0), // 보스 앞쪽
+            Quaternion.identity
+        );
+
+        Destroy(effect, 2f); // 일정 시간 후 파괴
+    }
 }

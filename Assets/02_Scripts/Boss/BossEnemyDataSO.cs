@@ -19,6 +19,7 @@ public class BossEnemyDataSO : ScriptableObject
     public float attackRange;
     public float detectionRange;
     public float phase2ThresholdPercent;
+    public GameObject attackEffectPrefab;
     
     [Header("페이즈1 스킬")]
     public List<BossSkillData> phase1Skills;
