@@ -11,7 +11,7 @@ public class EnemyGuardState : EnemyBaseState
     public override void Enter()
     {
         base.Enter();
-        Debug.Log("GuartState");
+        Debug.Log("GuardState");
         StartAnimation(_stateMachine.Enemy.AnimatorController.GuardAnimationHash);
     }
 

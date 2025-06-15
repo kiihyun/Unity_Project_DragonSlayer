@@ -43,11 +43,10 @@ public class EnemyChasingState : EnemyBaseState
             if (_stateMachine.Enemy.Data.Guardable)
             {
                 _stateMachine.ChangeState(_stateMachine.GuardState);
+                return;
             }
-            else
-            {
-                _stateMachine.ChangeState(_stateMachine.AttackState); //공격\
-            }
+
+            _stateMachine.ChangeState(_stateMachine.AttackState); //공격\
         }
 
 
