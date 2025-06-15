@@ -28,9 +28,20 @@ public class EnemyBaseState : IState
     }
     public virtual void Move()
     {
-        Vector2 moveVec = MoveDirection.normalized * _stateMachine.Enemy.Data._speed;
+        Vector2 moveVec = MoveDirection.normalized * _stateMachine.Enemy.Data.Speed;
 
         _stateMachine.Enemy.Rigidbody.velocity = new Vector2(moveVec.x, _stateMachine.Enemy.Rigidbody.velocity.y);
+
+        bool _isMovingRight = moveVec.x > 0;
+        if (_isMovingRight)
+        {
+            _stateMachine.Enemy.SpritePivot.transform.localRotation = Quaternion.Euler(0, 180, 0); // 오른쪽으로 이동할 때 스프라이트를 기본 방향으로 설정
+        }
+        else
+        {
+            _stateMachine.Enemy.SpritePivot.transform.localRotation = Quaternion.Euler(0, 0, 0); // 왼쪽으로 이동할 때 스프라이트를 뒤집음
+        }
+
     }
     protected void StartAnimation(int animatorHash)
     {

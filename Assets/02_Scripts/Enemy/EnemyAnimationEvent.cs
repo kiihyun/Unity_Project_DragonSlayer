@@ -18,8 +18,13 @@ public class EnemyAnimationEvent : MonoBehaviour
     {
         GameObject.SetActive(false);
     }
+    
+    public void ToAttackState()
+    {
+        _enemy.StateMachine.ChangeState(_enemy.StateMachine.AttackState);
+    }
 
-    public void ExitState()
+    public void ToChasingState()
     {
         _enemy.StateMachine.ChangeState(_enemy.StateMachine.ChasingState);
     }

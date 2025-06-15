@@ -11,6 +11,7 @@ public class EnemyAttackState : EnemyBaseState
     public override void Enter()
     {
         base.Enter();
+        Debug.Log("AttackState");
         StartAnimation(_stateMachine.Enemy.AnimatorController.AttackAnimationHash); // 공격 애니메이션 시작
     }
     public override void Exit() 

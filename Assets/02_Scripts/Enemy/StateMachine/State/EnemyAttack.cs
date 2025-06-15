@@ -39,7 +39,7 @@ public class EnemyAttack : MonoBehaviour
     {
         if(collision.TryGetComponent<IDamageable>(out var player))
         {
-            player.TakeDamage(_enemy.Data._attackDamage);
+            player.TakeDamage(_enemy.Data.AttackDamage);
         }
     }
 }

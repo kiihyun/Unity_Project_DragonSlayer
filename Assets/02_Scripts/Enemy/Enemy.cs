@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Unity.Mathematics;
+using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class Enemy : MonoBehaviour, IDamageable    
@@ -28,7 +29,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
     public float _moveCooldown; // 이동 쿨타임 (초 단위)
 
-    public int maxHealth => Data._health;
+    public int maxHealth => Data.Health;
     public int currentHealth { get; private set; }
 
     
@@ -46,7 +47,7 @@ public class Enemy : MonoBehaviour, IDamageable
     private void Start()
     {
         currentHealth = maxHealth; // 초기 체력 설정
-        _moveCooldown = _stateMachine.Enemy.Data._moveDelay;
+        _moveCooldown = _stateMachine.Enemy.Data.MoveDelay;
     }
 
     // Update is called once per frame
@@ -62,8 +63,53 @@ public class Enemy : MonoBehaviour, IDamageable
     }
 
     //피격시 color 하얗게?
+    [ContextMenu("TakeDamage")]
+    public void TestCode()
+    {
+        if (DebugCurrentState == "EnemyGuardState")
+        {
+            Vector2 MonsterToPlayer = PlayerTransform.position - this.transform.position;
+
+            float yRotation = SpritePivot.localEulerAngles.y;
+            if (MonsterToPlayer.x > 0 && Mathf.Approximately(yRotation, 180f))
+            {
+                Animator.SetTrigger("Block");
+                return;
+            }
+            else if (MonsterToPlayer.x < 0 && Mathf.Approximately(yRotation, 0f))
+            {
+                Animator.SetTrigger("Block");
+                return;
+            }
+            Animator.SetTrigger("Hit");
+            _stateMachine.GuardState.Turn();
+            return;
+        }
+    }
+
+
+
+
     private void TakeDamage(int damage)
     {
+        if (DebugCurrentState == "EnemyGuardState")
+        {
+            Vector2 MonsterToPlayer = PlayerTransform.position - this.transform.position;
+
+            float yRotation = SpritePivot.localEulerAngles.y;
+            if (MonsterToPlayer.x > 0 && Mathf.Approximately(yRotation, 180f))
+            {
+                Animator.SetTrigger("Block");
+                return;
+            }
+            else if (MonsterToPlayer.x < 0 && Mathf.Approximately(yRotation, 0f))
+            {
+                Animator.SetTrigger("Block");
+                return;
+            }
+            _stateMachine.GuardState.Turn();
+        }
+
         currentHealth -= damage;
         Animator.SetTrigger("Hit");
         if (currentHealth <= 0)
