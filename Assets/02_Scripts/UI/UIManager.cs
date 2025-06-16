@@ -10,7 +10,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Transform _canvas_Fixed;
     [SerializeField] private Transform _canvas_Window;
     [SerializeField] private Transform _canvas_Popup;
-
+    
+    public Player player;
+    public Inventory inventory;
+    
     // CurrentWindow는 현재 열려 있는 Window
     // LastOrDefault는 딕셔너리에 저장된 왼도우 중 가장 마지막에 추가된 윈도우를 반환
     public BaseWindow CurrentWindow => _windowUI.Count > 0 ? _windowUI.Values.LastOrDefault() : null;
@@ -50,6 +53,11 @@ public class UIManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    private void Start()
+    {
+        inventory = player.GetComponent<Inventory>();
+    }
+
     
     
     // FixedUI 활성화 메서드
@@ -72,7 +80,7 @@ public class UIManager : MonoBehaviour
     //     
     // }
     
-    /*
+    
     // WindowUI 활성화 메서드
     // 추가적인 정보가 필요할 경우 param으로 전달
     // 호출 시 param을 따로 입력해주지 않으면 자동으로 null이 할당
@@ -97,7 +105,7 @@ public class UIManager : MonoBehaviour
             _windowUI.Remove(type);
         }
     }
-    */
+    
     
     
     // WindowUI 스위치 메서드
@@ -152,8 +160,16 @@ public class UIManager : MonoBehaviour
             _pool.ReturnUI(popup.UIType, popup);
         }
     }
-    
-    
+
+    public void OnOpenMainWindow()
+    {
+        _canvas_Window.gameObject.SetActive(true);
+    }
+
+    public void OnCloseMainWindow()
+    {
+        _canvas_Window.gameObject.SetActive(false);
+    }
     
     
 }

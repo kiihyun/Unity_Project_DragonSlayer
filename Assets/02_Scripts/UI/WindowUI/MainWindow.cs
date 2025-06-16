@@ -36,5 +36,6 @@ public class MainWindow : BaseWindow
     {
         UIManager.instance.SwitchWindowUI(UIType.UIOption);
     }
+
     
 }

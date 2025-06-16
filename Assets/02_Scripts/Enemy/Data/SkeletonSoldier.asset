@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b531911a6adedd47afe742d4d5de236, type: 3}
   m_Name: SkeletonSoldier
   m_EditorClassIdentifier: 
-  _enemyID: 1
-  _health: 100
-  _speed: 3
-  _moveDelay: 1
-  _attackRange: 1.5
-  _attackDamage: 0
-  _attackDelay: 0
+  EnemyID: 0
+  Health: 100
+  Speed: 3
+  MoveDelay: 1
+  AttackRange: 1.5
+  AttackDamage: 5
+  Guardable: 0
+  RangeAttackable: 0

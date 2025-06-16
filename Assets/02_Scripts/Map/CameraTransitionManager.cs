@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using System;
+using DG.Tweening;
 
 public class CameraTransitionManager : MonoBehaviour
 {
@@ -25,10 +26,12 @@ public class CameraTransitionManager : MonoBehaviour
 
     private int previousCameraIndex = 0;
     private Collider2D previousBoundingShape;
+    private Transform _player;
     
     void Start()
     {
         InitializeCameras();
+        _player = currentActiveCamera.Follow;
     }
 
     
@@ -113,6 +116,20 @@ public class CameraTransitionManager : MonoBehaviour
     public Collider2D GetCurrentBoundingShape()
     {
         return cameraConfiner?.m_BoundingShape2D;
+    }
+
+    public void ShakeCamera(int duration)
+    {
+        currentActiveCamera.GetComponent<CameraShake>().ShakeCamera(duration, 2f, 2f);
+    }
+
+    public void ChangeCameraTargetForDuration(Transform target, float duration)
+    {
+        currentActiveCamera.Follow = target;
+        DOVirtual.DelayedCall(duration, () =>
+        {
+            currentActiveCamera.Follow = _player;
+        });
     }
 
     [ContextMenu("CameraTransitionTest")]

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class TreasureChest : Chest
 {
+    [SerializeField] private List<ItemData> _itemPrefabs;
+    
     public override void Interact()
     {
         base.Interact();

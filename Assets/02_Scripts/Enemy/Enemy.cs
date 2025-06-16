@@ -1,7 +1,8 @@
-﻿using UnityEngine;
+﻿using Unity.Mathematics;
+using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IDamageable    
 {
     [field:SerializeField]public EnemyAnimatorController AnimatorController { get; private set; }
     [field:SerializeField]public string DebugCurrentState { get; private set; } // 현재 상태 이름을 저장하는 변수
@@ -19,16 +20,16 @@ public class Enemy : MonoBehaviour
     public Transform SpritePivot;
 
     public Collider2D DetectionCollider;
-
-
     public Collider2D LeftDetect;
     public Collider2D RightDetect;
+    public Collider2D RangedAttackSensor;
 
+    public bool RangedAttacked = false;
 
 
     public float _moveCooldown; // 이동 쿨타임 (초 단위)
 
-    public int maxHealth => Data._health;
+    public int maxHealth => Data.Health;
     public int currentHealth { get; private set; }
 
     
@@ -46,7 +47,7 @@ public class Enemy : MonoBehaviour
     private void Start()
     {
         currentHealth = maxHealth; // 초기 체력 설정
-        _moveCooldown = _stateMachine.Enemy.Data._moveDelay;
+        _moveCooldown = _stateMachine.Enemy.Data.MoveDelay;
     }
 
     // Update is called once per frame
@@ -62,21 +63,70 @@ public class Enemy : MonoBehaviour
     }
 
     //피격시 color 하얗게?
-    public void TakeDamage(int damage)
+    [ContextMenu("TakeDamage")]
+    public void TestCode()
     {
+        if (DebugCurrentState == "EnemyGuardState")
+        {
+            Vector2 MonsterToPlayer = PlayerTransform.position - this.transform.position;
+
+            float yRotation = SpritePivot.localEulerAngles.y;
+            if (MonsterToPlayer.x > 0 && Mathf.Approximately(yRotation, 180f))
+            {
+                Animator.SetTrigger("Block");
+                return;
+            }
+            else if (MonsterToPlayer.x < 0 && Mathf.Approximately(yRotation, 0f))
+            {
+                Animator.SetTrigger("Block");
+                return;
+            }
+            Animator.SetTrigger("Hit");
+            _stateMachine.GuardState.Turn();
+            return;
+        }
+    }
+
+
+
+
+    private void TakeDamage(int damage)
+    {
+        if (DebugCurrentState == "EnemyGuardState")
+        {
+            Vector2 MonsterToPlayer = PlayerTransform.position - this.transform.position;
+
+            float yRotation = SpritePivot.localEulerAngles.y;
+            if (MonsterToPlayer.x > 0 && Mathf.Approximately(yRotation, 180f))
+            {
+                Animator.SetTrigger("Block");
+                return;
+            }
+            else if (MonsterToPlayer.x < 0 && Mathf.Approximately(yRotation, 0f))
+            {
+                Animator.SetTrigger("Block");
+                return;
+            }
+            _stateMachine.GuardState.Turn();
+        }
+
         currentHealth -= damage;
+        Animator.SetTrigger("Hit");
         if (currentHealth <= 0)
         {
             Die();
         }
     }
+
+    [ContextMenu("DieTest")]
     public void Die()
     {
-        // 적 사망 로직
         Debug.Log("Enemy died");
-        // 예: 애니메이션 재생, 오브젝트 비활성화 등
         _stateMachine.ChangeState(_stateMachine.DeathState);
     }
 
-
+    void IDamageable.TakeDamage(int damage)
+    {
+        this.TakeDamage(damage);
+    }
 }

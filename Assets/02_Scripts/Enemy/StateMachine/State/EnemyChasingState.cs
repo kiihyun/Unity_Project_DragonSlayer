@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyChasingState : EnemyBaseState
-{ 
-    private float _curTime = 0f;
+{
     private Vector2 directionToPlayer; // 플레이어와 적의 위치 차이
+    private float _curTime = 0f;
     public EnemyChasingState(EnemyStateMachine stateMachine) : base(stateMachine)
     {
     }
@@ -36,16 +36,19 @@ public class EnemyChasingState : EnemyBaseState
             TurnRight(); // 오른쪽으로 돌기
         }
 
-        if (directionToPlayer.magnitude <= _stateMachine.Enemy.Data._attackRange)   //사거리보다 가까우면?
+
+        if (directionToPlayer.magnitude <= _stateMachine.Enemy.Data.AttackRange)   //사거리보다 가까우면?
         {
-            _stateMachine.ChangeState(_stateMachine.AttackState); //공격
+            //방어가능하면 방어스테이트로
+            if (_stateMachine.Enemy.Data.Guardable)
+            {
+                _stateMachine.ChangeState(_stateMachine.GuardState);
+                return;
+            }
+
+            _stateMachine.ChangeState(_stateMachine.AttackState); //공격\
         }
 
-
-
-
-        
-        
 
         _curTime += Time.deltaTime;
         if (_curTime >= _stateMachine.Enemy._moveCooldown*0.7)// 0.7초에 1번씩 움직임

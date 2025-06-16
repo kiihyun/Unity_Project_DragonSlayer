@@ -14,7 +14,7 @@ public class PlayerDashState : PlayerStates
     public override void OnEnter()
     {
         base.OnEnter();
-        player.ChangeAnime(PlayerState.Dash);
+        player.anim.CrossFade("Dash", 0.1f);
         player.Controller.Dash();
     }
 

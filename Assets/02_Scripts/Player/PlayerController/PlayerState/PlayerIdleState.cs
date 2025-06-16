@@ -14,13 +14,15 @@ public class PlayerIdleState : PlayerStates
     public override void OnEnter()
     {
         base.OnEnter();
-        player.ChangeAnime(PlayerState.Idle);
+        player.anim.CrossFade("Idle", 0.1f);
     }
 
     public override void OnUpdate(float deltaTime)
     {
         base.OnUpdate(deltaTime);
-
+        player.Controller.IsJump();
+        player.Controller.IsDash();
+        player.Controller.IsAttack();
         player.Controller.IsMove();
 
         

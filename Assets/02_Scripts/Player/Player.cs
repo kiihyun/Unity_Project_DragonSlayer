@@ -52,6 +52,7 @@ public class Player : MonoBehaviour
         controller.RegisterState(new PlayerJumpState(), this);
         controller.RegisterState(new PlayerDashState(), this);
         controller.RegisterState(new PlayerAttackState(), this);
+        controller.RegisterState(new PlayerDeathState(), this);
     }
 
     public void ChangeAnime(PlayerState nextAnime)

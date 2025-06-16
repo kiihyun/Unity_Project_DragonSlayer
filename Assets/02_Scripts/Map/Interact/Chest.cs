@@ -8,7 +8,8 @@ public class Chest : MonoBehaviour, IInteract
     [SerializeField] private GameObject openedSprite;
     private bool isOpen = false;
     protected GameObject _player;
-
+    public bool IsInteractable { get; set; } = true;
+    
     private void Awake()
     {
         // 시작 시 닫힌 상태로 초기화
@@ -17,9 +18,7 @@ public class Chest : MonoBehaviour, IInteract
 
     public virtual void Interact()
     {
-        if (isOpen)
-            Close();
-        else
+        if (!isOpen && IsInteractable)
             Open();
     }
 
@@ -27,14 +26,7 @@ public class Chest : MonoBehaviour, IInteract
     {
         isOpen = true;
         SetSpriteState(isOpen);
-        Debug.Log("Open");
-    }
-
-    public virtual void Close()
-    {
-        isOpen = false;
-        SetSpriteState(isOpen);
-        Debug.Log("Close");
+        IsInteractable = false;
     }
 
     private void SetSpriteState(bool open)
@@ -57,11 +49,5 @@ public class Chest : MonoBehaviour, IInteract
         {
             _player = null;
         }
-    }
-
-    [ContextMenu("Test")]
-    public void Test()
-    {
-        Interact();
     }
 }

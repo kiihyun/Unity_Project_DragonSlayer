@@ -15,7 +15,7 @@ public class PlayerJumpState : PlayerStates
     public override void OnEnter()
     {
         base.OnEnter();
-        player.ChangeAnime(PlayerState.Jump);
+        player.anim.CrossFade("Jump", 0.1f);
         player.Controller.Jumping();
     }
 

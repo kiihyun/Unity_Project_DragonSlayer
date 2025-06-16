@@ -19,10 +19,8 @@ public class PlayerController : BaseController<Player>
     public override void OnUpdate(float deltaTime)
     {
         GetInputDir();
-        IsJump();
-        IsDash();   
-        IsAttack();
-        IsGrounded();
+        
+        IsDead();
 
         base.OnUpdate(deltaTime);
     }
@@ -67,6 +65,15 @@ public class PlayerController : BaseController<Player>
         if (Input.GetKeyDown(KeyCode.X) && !isAttack)
         {
             ChangeState(nameof(PlayerAttackState));
+            return;
+        }
+    }
+
+    public void IsDead()
+    {
+        if(player.stat.CurrentHealth <= 0)
+        {
+            ChangeState(nameof(PlayerDeathState));
             return;
         }
     }
