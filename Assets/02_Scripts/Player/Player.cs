@@ -69,7 +69,6 @@ public class Player : MonoBehaviour
 
     public void OnAttackEnd()
     {
-        Debug.Log("Attack Ended!");
 
         if(controller.GetInputDir().x != 0)
         {
@@ -84,14 +83,13 @@ public class Player : MonoBehaviour
     public void OnAttackHit()
     {
 
-        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 1f, LayerMask.GetMask("TestEnemy"));
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 1f, LayerMask.GetMask("Enemy"));
 
         foreach (var hit in hits)
         {
             Enemy enemy = hit.GetComponent<Enemy>();
             if (enemy.TryGetComponent<IDamageble>(out IDamageble target))
             {
-                Debug.Log("Hit!");
                 target.TakeDamage(10);
             }
         }

@@ -6,10 +6,10 @@ public class PlayerStat : MonoBehaviour , IDamageble
 {
     [Header("Player Stats")]
     [SerializeField, Tooltip("플레이어 최대 체력")]
-    private int _maxHealth;
+    private float _maxHealth;
 
     [SerializeField, Tooltip("현재 체력")]
-    private int _currentHealth;
+    private float _currentHealth;
 
     [SerializeField, Range(1f, 20f), Tooltip("이동 속도")]
     private int _moveSpeed;
@@ -22,9 +22,9 @@ public class PlayerStat : MonoBehaviour , IDamageble
 
 
 
-    public int MaxHealth => _maxHealth;
+    public float  MaxHealth => _maxHealth;
 
-    public int CurrentHealth => _currentHealth;
+    public float CurrentHealth => _currentHealth;
 
     public float MoveSpeed { get { return _moveSpeed; } }
 
@@ -32,9 +32,7 @@ public class PlayerStat : MonoBehaviour , IDamageble
 
     public int JumpPower { get { return _jumpPower; } }
 
-    float IDamageble.MaxHealth => MaxHealth;
-
-    float IDamageble.CurrentHealth => CurrentHealth;
+    
 
     public void StartStat()
     {
@@ -44,6 +42,6 @@ public class PlayerStat : MonoBehaviour , IDamageble
 
     public void TakeDamage(float damage)
     {
-        
+        Debug.Log("Damage Taken: " + damage);
     }
 }
