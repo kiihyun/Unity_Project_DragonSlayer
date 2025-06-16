@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
     public Animator anim;
     [HideInInspector]
     public Rigidbody2D rb;
-
+    [HideInInspector]
     public DashFX dashFX;
     
     public SpriteRenderer CharacterImage { get { return characterImage; } }
@@ -44,7 +44,7 @@ public class Player : MonoBehaviour
         stat = GetComponent<PlayerStat>();
         rb = GetComponent<Rigidbody2D>();
         stat.Init();
-        dashFX = GetComponent<DashFX>();
+        dashFX = GetComponentInChildren<DashFX>();
         ControllerRegister();
     }
 
@@ -87,6 +87,8 @@ public class Player : MonoBehaviour
     {
 
         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 1f, LayerMask.GetMask("Enemy"));
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, 1f);
 
         foreach (var hit in hits)
         {

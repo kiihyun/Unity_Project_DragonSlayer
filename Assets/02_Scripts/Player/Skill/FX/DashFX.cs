@@ -24,9 +24,9 @@ public class DashFX : MonoBehaviour
     private void SpawnAfterImage()
     {
         GameObject clone = Instantiate(afterImagePrefab, transform.position, transform.rotation);
-        SpriteRenderer sr = clone.GetComponent<SpriteRenderer>();
-        sr.sprite = GetComponent<SpriteRenderer>().sprite;
-        sr.flipX = GetComponent<SpriteRenderer>().flipX;
+        SpriteRenderer sr = clone.GetComponentInParent<SpriteRenderer>();
+        sr.sprite = GetComponentInParent<SpriteRenderer>().sprite;
+        sr.flipX = GetComponentInParent<SpriteRenderer>().flipX;
         Destroy(clone, afterImageLifetime);
     }
 }
