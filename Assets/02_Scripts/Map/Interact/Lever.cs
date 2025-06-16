@@ -28,7 +28,20 @@ public class Lever : Interaction
         isOn = false;
         SetSpriteState(isOn);
         IsInteractable = true;
+
+        if(_interactObjects.Count > 0)
+        {
+            foreach(var interactObject in _interactObjects)
+            {
+                var target = interactObject as IInteractableTarget;
+                if(target != null)
+                {
+                    target.OnLeverDeactivated();
+                }
+            }
+        }
     }
+    
 
     public virtual void OnLever()
     {
