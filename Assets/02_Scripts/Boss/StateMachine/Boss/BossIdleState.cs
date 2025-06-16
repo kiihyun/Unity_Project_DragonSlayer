@@ -40,14 +40,17 @@ public class BossIdleState : IBossState
             _boss.StateMachine.ChangeState(new BossSkillState(_boss));
         }
         
-        // if (_boss.PlayerTarget != null)
-        // {
-        //     float dist = Vector2.Distance(_boss.transform.position, _boss.PlayerTarget.position);
-        //     if (dist <= _boss.ChaseRange)
-        //     {
-        //         _boss.StateMachine.ChangeState(new BossChaseState(_boss));
-        //     }
-        // }
+        if (_boss.PlayerTarget != null)
+        {
+            float dist = Vector2.Distance(_boss.transform.position, _boss.PlayerTarget.position);
+
+            // 멀리 있으면 추적 시작
+            if (dist > _boss.StopDistance && dist <= _boss.ChaseRange)
+            {
+                _boss.StateMachine.ChangeState(new BossChaseState(_boss));
+                return;
+            }
+        }
     }
 
     public void Exit()
