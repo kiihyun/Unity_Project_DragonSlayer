@@ -6,30 +6,52 @@ public class Door : MonoBehaviour, IInteract
 {
     public GameObject OppositeDoor;
 
-    public void Interact()
+    public Player player;
+
+    public bool IsInteractable { get; set; } = true;
+
+    public virtual void Update()
     {
-        // TODO: 임시
-        Player player = FindObjectOfType<Player>();
-        if (player != null)
+        // 임시
+        if(Input.GetKeyDown(KeyCode.E) && player != null)
         {
-            player.transform.position = OppositeDoor.transform.position + new Vector3(0, 1, 0);
+            Interact();
         }
     }
 
-    [ContextMenu("Test")]
-    public void Test()
+    public virtual void Interact()
     {
-        StartCoroutine(Test2());
+        if (player != null && IsInteractable)
+        {
+            StartCoroutine(MoveToOppositeDoor()); // 조작 입력 필요
+        }
     }
 
-
-    
-    public IEnumerator Test2()
+    public virtual void OnTriggerEnter2D(Collider2D other)
     {
-        FadeManager.Instance.FadeOut(1f);
-        yield return new WaitForSeconds(1f);
-        Interact();
+        if(other.CompareTag("Player"))
+        {
+            player = other.GetComponent<Player>();
+        }
+    }
+
+    public virtual void OnTriggerExit2D(Collider2D other)
+    {
+        if(other.CompareTag("Player"))
+        {
+            player = null;
+        }
+    }
+
+    public virtual IEnumerator MoveToOppositeDoor()
+    {
+        IsInteractable = false;
+        FadeManager.Instance.FadeOut(0.5f);
+        yield return new WaitForSeconds(0.5f);
+        player.transform.position = new Vector3(OppositeDoor.transform.position.x, OppositeDoor.transform.position.y + 1, player.transform.position.z);
+        yield return new WaitForSeconds(0.5f);
         FadeManager.Instance.FadeIn(1f);
         yield return new WaitForSeconds(1f);
+        IsInteractable = true;
     }
 }

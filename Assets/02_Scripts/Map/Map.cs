@@ -49,7 +49,7 @@ public class Map : MonoBehaviour
         foreach (var spawnArea in _mapData.enemySpawnAreas)
         {
             Vector3 spawnPosition = new Vector3(spawnArea.spawnArea.center.x, spawnArea.spawnArea.center.y); 
-            spawnPosition = new Vector3(spawnPosition.x - spawnArea.spawnArea.width / 2, spawnPosition.y - spawnArea.spawnArea.height / 2);
+            spawnPosition = new Vector3(spawnPosition.x - spawnArea.spawnArea.width / 2, spawnPosition.y - spawnArea.spawnArea.height / 2 + 2);
             spawnPosition = transform.TransformPoint(spawnPosition);
             
             for(int i = 0; i < spawnArea.enemies.Count; i++)
