@@ -7,7 +7,7 @@ using UnityEngine;
 public class Beam : MonoBehaviour
 {
     float Damage = 1f;
-    float DamageInterval = 1f;
+    float DamageInterval = 0.1f;
     float DamageLastTime = 0f;
 
     Player _player;
