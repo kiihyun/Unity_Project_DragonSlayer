@@ -1,18 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Enums;
 
-public class PlayerDeathState : MonoBehaviour
+public class PlayerDeathState : PlayerStates
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void Init(Player owner)
     {
-        
+        base.Init(owner);
+        state = PlayerState.Death;
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void OnEnter()
     {
-        
+        base.OnEnter();
+        player.anim.CrossFade("Death", 0.1f);
     }
+
+    public override void OnUpdate(float deltaTime)
+    {
+        base.OnUpdate(deltaTime);
+    }
+
+
 }

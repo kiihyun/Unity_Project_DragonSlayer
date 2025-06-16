@@ -5,8 +5,6 @@ using Enums;
 
 public class PlayerMoveState : PlayerStates
 {
-    private Vector3 inputDir;
-
     public override void Init(Player owner)
     {
         base.Init(owner);
@@ -16,13 +14,16 @@ public class PlayerMoveState : PlayerStates
     public override void OnEnter()
     {
         base.OnEnter();
-        player.ChangeAnime(PlayerState.Move);
+        player.anim.CrossFade("Run", 0.1f);
     }
 
     public override void OnUpdate(float deltaTime)
     {
         base.OnUpdate(deltaTime);
+        player.Controller.IsJump();
         player.Controller.IsStop();
+        player.Controller.IsDash();
+        player.Controller.IsAttack();
 
     }
 
