@@ -23,7 +23,7 @@ public class PlayerDashState : PlayerStates
         base.OnUpdate(deltaTime);
         if (elapsedTime > 0.3f)
         {
-            if (player.Controller.CheckPreviousState() is PlayerJumpState)
+            if (player.Controller.PreviousState() is PlayerJumpState)
             {
                 player.ChangeAnime(PlayerState.Jump);
             }

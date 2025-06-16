@@ -20,8 +20,6 @@ public class PlayerStat : MonoBehaviour , IDamageble
     [SerializeField, Tooltip("Á¡ÇÁ Èû")]
     private int _jumpPower;
 
-
-
     public float  MaxHealth => _maxHealth;
 
     public float CurrentHealth => _currentHealth;
@@ -33,24 +31,25 @@ public class PlayerStat : MonoBehaviour , IDamageble
     public int JumpPower { get { return _jumpPower; } }
 
 
-    private Player player;
 
 
 
-    public void Init(Player player)
+    public void Init()
     {
-        this.player = player;
         _currentHealth = _maxHealth;
     }
 
 
     public void TakeDamage(float damage)
     {
+        Player player = GetComponent<Player>();
+        StartCoroutine(player.Hit());
         _currentHealth -= damage;
 
         if (_currentHealth <= 0)
         {
             player.Controller.IsDead();
+            
         }
 
     }

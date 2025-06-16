@@ -37,11 +37,11 @@ public class Player : MonoBehaviour
 
     private void Init()
     {
-        characterImage ??= GetComponent<SpriteRenderer>();
+        characterImage = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
         stat = GetComponent<PlayerStat>();
         rb = GetComponent<Rigidbody2D>();
-        stat.Init(this);
+        stat.Init();
         ControllerRegister();
     }
 
@@ -93,6 +93,17 @@ public class Player : MonoBehaviour
                 target.TakeDamage(10);
             }
         }
+    }
+
+    public IEnumerator Hit()
+    {
+        if (controller.CurrentState() is PlayerDeathState)
+            yield break;
+
+        characterImage.color = Color.red;
+        yield return new WaitForSeconds(0.2f);
+        characterImage.color = Color.white;
+
     }
 
 }

@@ -10,6 +10,7 @@ public class PlayerController : BaseController<Player>
     public bool isDash = false;
     public bool isJump = false;
     public bool isAttack = false;
+    public bool isDead = false;
 
     public PlayerController(State<Player> initState, Player player) : base(initState, player)
     {
