@@ -1,10 +1,10 @@
+using System.Collections;
 using UnityEngine;
 
 public class BossSkillState : IBossState
 {
     private BossEnemy _boss;
     private float _elapsedTime;
-    private int _skillIndex;
     private bool _isSkillCasting;
 
     public BossSkillState(BossEnemy boss)
@@ -15,7 +15,6 @@ public class BossSkillState : IBossState
     public void Enter()
     {
         Debug.Log("보스: 스킬 상태 진입");
-        _boss.Animator.SetTrigger("Skill");
         _elapsedTime = 0f;
         _isSkillCasting = false;
     }
@@ -30,10 +29,11 @@ public class BossSkillState : IBossState
             _boss.StateMachine.ChangeState(new BossIdleState(_boss));
             return;
         }
-
+        
         _elapsedTime += Time.deltaTime;
-        var skill = skills[_skillIndex];
+        var skill = skills[_boss.SkillIndex];
 
+        //중복시전 방지
         if (!_isSkillCasting && _elapsedTime >= skill.delayBeforeCast)
         {
             CastSkill(skill);
@@ -41,14 +41,15 @@ public class BossSkillState : IBossState
         }
 
         // 스킬 시전 후 다음 스킬로 넘어가기
-        if (_isSkillCasting && _elapsedTime >= skill.delayBeforeCast + skill.cooldown)
-        {
-            _elapsedTime = 0f;
-            _isSkillCasting = false;
-            _skillIndex = (_skillIndex + 1) % skills.Count;
-
-            _boss.StateMachine.ChangeState(new BossIdleState(_boss));
-        }
+        // if (_isSkillCasting && _elapsedTime >= skill.delayBeforeCast + skill.cooldown)
+        // {
+        //     _elapsedTime = 0f;
+        //     _isSkillCasting = false;
+        //     _boss.SkillIndex = (_boss.SkillIndex + 1) % skills.Count;
+        //
+        //
+        //     _boss.StateMachine.ChangeState(new BossIdleState(_boss));
+        // }
     }
 
     public void Exit()
@@ -58,9 +59,18 @@ public class BossSkillState : IBossState
 
     private void CastSkill(BossSkillData skill)
     {
-        GameObject.Instantiate(skill.skillEffectPrefab, _boss.transform.position, Quaternion.identity);
+        _boss.CurrentSkillData = skill;
+        if (skill.skillName == "FireRain")
+        {
+            _boss.Animator.SetTrigger(skill.animationTriggerName);
+        }
+        else if (skill.skillName == "breath")
+        {
+          _boss.Animator.SetTrigger(skill.animationTriggerName);
+        }
 
         Debug.Log($"보스가 스킬 [{skill.skillName}] 시전! 데미지: {skill.damage}");
-        // 여기에 애니메이션 트리거나 사운드도 연동 가능
     }
+
+    
 }

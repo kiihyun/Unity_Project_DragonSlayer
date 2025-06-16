@@ -13,6 +13,7 @@ public static class UIPath
         {UIType.UIInGame, "UI/UIInGame"},
         
         // Canvus_Window
+        {UIType.MainWindow, "UI/MainWindow"},
         {UIType.UIPlayerStatus, "UI/UIPlayerStatus"},
         {UIType.UIEquipItem, "UI/UIEquipItem"},
         {UIType.UIInventory, "UI/UIInventory"},

@@ -5,4 +5,6 @@ using UnityEngine;
 public class UIEquipItem : BaseWindow
 {
     public override UIType UIType => UIType.UIEquipItem;
+    
+    
 }
