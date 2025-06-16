@@ -6,19 +6,21 @@ public class EnemyAnimationEvent : MonoBehaviour
 {
     [SerializeField] private EnemyAttack _enemyAttack;
     [SerializeField] private Enemy _enemy;
-    [SerializeField] private GameObject GameObject;
+    [SerializeField] private GameObject _gameObject;
+    [SerializeField] private GameObject _projectile;
+    [SerializeField] private EnemyProjectile _enemyProjectile;
 
     private void Awake()
     {
         _enemyAttack = GetComponentInChildren<EnemyAttack>();
     }
-  
+
 
     public void ObjectOff()
     {
-        GameObject.SetActive(false);
+        _gameObject.SetActive(false);
     }
-    
+
     public void ToAttackState()
     {
         _enemy.StateMachine.ChangeState(_enemy.StateMachine.AttackState);
@@ -33,9 +35,27 @@ public class EnemyAnimationEvent : MonoBehaviour
     {
         _enemyAttack.OnAttackHit();
     }
-    
+
     public void ToRangedState()
     {
         _enemy.StateMachine.ChangeState(_enemy.StateMachine.RangedState);
+    }
+
+    public void ShootProjectile()
+    {
+        _projectile.transform.localPosition = new Vector2(0, 0.33f);
+        _enemyProjectile.CurTime = 0f;
+        _projectile.SetActive(true);
+        
+        if (Mathf.Approximately(this.transform.localRotation.y, 0f))
+        {
+            Debug.Log("Leftshoot");
+            _enemyProjectile.IsLeft = true;
+        }
+        else
+        {
+            Debug.Log("Rightshoot");
+            _enemyProjectile.IsLeft = false;
+        }
     }
 }
