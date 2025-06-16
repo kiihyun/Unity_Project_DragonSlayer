@@ -45,7 +45,7 @@ public class EnemyAnimationEvent : MonoBehaviour
 
     public void ShootProjectile()
     {
-        _projectile.transform.localPosition = new Vector2(0, 0.33f);
+        _projectile.transform.localPosition = new Vector2(0, -0.3f);
         _enemyProjectile.CurTime = 0f;
         _projectile.SetActive(true);
         

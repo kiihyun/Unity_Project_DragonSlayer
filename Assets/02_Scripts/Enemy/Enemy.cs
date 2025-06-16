@@ -114,7 +114,8 @@ public class Enemy : MonoBehaviour, IDamageble
             }
             _stateMachine.GuardState.Turn();
         }
-
+        if (DebugCurrentState == "DeathState")
+            return;
         _currentHealth -= damage;
         Animator.SetTrigger("Hit");
         if (_currentHealth <= 0)
@@ -127,7 +128,6 @@ public class Enemy : MonoBehaviour, IDamageble
     public void Die()
     {
         Debug.Log("Enemy died");
-        MainCollider.enabled = false;
         _stateMachine.ChangeState(_stateMachine.DeathState);
     }
 
