@@ -8,7 +8,7 @@ public enum SkillType
     Breath,
     // 향후 Meteor, Laser 등 확장 가능
 }
-public class BossEnemy : MonoBehaviour, IDamageable
+public class BossEnemy : MonoBehaviour, IDamageble
 {
     [SerializeField] private BossEnemyDataSO _bossData;
     [SerializeField] private float _moveSpeed = 1f;
@@ -114,7 +114,11 @@ public class BossEnemy : MonoBehaviour, IDamageable
     }
     public void SpawnSkillEffect() 
     {
-        if (CurrentSkillData == null) return;
+        if (CurrentSkillData == null)
+        {
+            SpawnBasicHitEffect();
+            return;
+        }
 
         switch (CurrentSkillData.skillType)
         {
@@ -126,9 +130,6 @@ public class BossEnemy : MonoBehaviour, IDamageable
                 break;
             case SkillType.FlameMarch:
                 SpawnFlameMarchEffect();
-                break;
-            case SkillType.Default:
-                SpawnBasicHitEffect();
                 break;
             default:
                 Debug.LogWarning($"정의되지 않은 SkillType: {CurrentSkillData.skillType}");
@@ -153,6 +154,7 @@ public class BossEnemy : MonoBehaviour, IDamageable
 
     public void OnSkillAnimationComplete()
     {
+        CurrentSkillData = null;
         var skills = IsPhase2 ? BossData.phase2Skills : BossData.phase1Skills;
         SkillIndex = (SkillIndex + 1) % BossData.phase1Skills.Count;
         StateMachine.ChangeState(new BossIdleState(this));
@@ -185,6 +187,9 @@ public class BossEnemy : MonoBehaviour, IDamageable
     public void OnNormalAttackComplete()
     {
         AttackCount++;
+        CurrentSkillData = null;
+        SkillIndex = (SkillIndex + 1) % BossData.phase1Skills.Count;
+        StateMachine.ChangeState(new BossIdleState(this));
 
         if (AttackCount >= AttackThresholdBeforeSkill)
         {
@@ -265,5 +270,12 @@ public class BossEnemy : MonoBehaviour, IDamageable
             Destroy(flame, data.effectDuration);
             yield return new WaitForSeconds(data.flameInterval);
         }
+    }
+
+    public float MaxHealth { get; }
+    public float CurrentHealth { get; }
+    public void TakeDamage(float damage)
+    {
+        
     }
 }

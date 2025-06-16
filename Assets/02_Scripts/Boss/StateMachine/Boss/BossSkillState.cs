@@ -54,6 +54,7 @@ public class BossSkillState : IBossState
 
     public void Exit()
     {
+        _boss.CurrentSkillData = null;
         Debug.Log("보스: 스킬 상태 종료");
     }
 
@@ -67,6 +68,10 @@ public class BossSkillState : IBossState
         else if (skill.skillName == "breath")
         {
           _boss.Animator.SetTrigger(skill.animationTriggerName);
+        }
+        else if (skill.skillName == "FlameMarch")
+        {
+            _boss.Animator.SetTrigger(skill.animationTriggerName);
         }
 
         Debug.Log($"보스가 스킬 [{skill.skillName}] 시전! 데미지: {skill.damage}");
