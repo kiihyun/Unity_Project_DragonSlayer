@@ -6,6 +6,7 @@ public class BossAttackState : IBossState
     private BossEnemy _boss;
     private float _attackCooldown;
     private bool _hasAttacked;
+    private bool _attackComplete = false;
 
 
     public BossAttackState(BossEnemy boss)
@@ -40,10 +41,10 @@ public class BossAttackState : IBossState
 
     private void Attack()
     {
-        if (BossTestPlayer.Instance == null)
+        if (_boss.PlayerTarget == null)
             return;
 
-        Vector3 diff = _boss.transform.position - BossTestPlayer.Instance.transform.position;
+        Vector3 diff = _boss.transform.position  -  _boss.PlayerTarget.position;
         float sqrDistance = diff.sqrMagnitude;
         float sqrAttackRange = _boss.BossData.attackRange * _boss.BossData.attackRange;
 
@@ -56,25 +57,25 @@ public class BossAttackState : IBossState
 
         string attackTrigger;
 
-        if (_boss.AttackCount >= 2)
-        {
-            // 강한 공격: Attack2
-            attackTrigger = "Attack2";
-            _boss.StartCoroutine(Attack2EffectDeley(3f));
-            _boss.AttackCount = 0; // 카운트 초기화
-        }
-        else
-        {
-            // 일반 공격: Attack1
+        // if (_boss.AttackCount >= 2)
+        // {
+        //     // 강한 공격: Attack2
+        //     attackTrigger = "Attack2";
+        //     _boss.StartCoroutine(BreathEffectDeley(3.2f));
+        //     _boss.AttackCount = 0; // 카운트 초기화
+        // }
+        // else
+        // {
+        //     // 일반 공격: Attack1
+        //     _boss.AttackCount++;
+        // }
             attackTrigger = "Attack1";
-            _boss.AttackCount++;
-        }
 
         _boss.Animator.SetTrigger(attackTrigger);
         _boss.StartCoroutine(ApplyDamageAfterDelay(3f));
 
 
-        BossTestPlayer.Instance.TakeDamage(_boss.BossData.attackDamage);
+        //_boss.PlayerTarget.TakeDamage(_boss.BossData.attackDamage);
         Debug.Log($"보스가 {attackTrigger} 시전! 데미지: {_boss.BossData.attackDamage}");
 
         _hasAttacked = true;
@@ -83,11 +84,11 @@ public class BossAttackState : IBossState
     private IEnumerator ApplyDamageAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        BossTestPlayer.Instance.TakeDamage(_boss.BossData.attackDamage);
+        // _boss.PlayerTarget.TakeDamage(_boss.BossData.attackDamage);
     }
-    private IEnumerator Attack2EffectDeley(float delay)
+    private IEnumerator BreathEffectDeley(float delay)
     {   
         yield return new WaitForSeconds(delay); 
-        _boss.SpawnAttackEffect();
+        _boss.SpawnBreathEffect();
     }
 }
