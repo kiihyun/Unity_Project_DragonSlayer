@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
     
     public SpriteRenderer CharacterImage { get { return characterImage; } }
     private SpriteRenderer characterImage;
-
+    public Inventory inventory;
 
     private void Awake()
     {
@@ -43,6 +43,7 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();   
         stat.StartStat();
         ControllerRegister();
+        inventory = GetComponent<Inventory>();
     }
 
     public void ControllerRegister()

@@ -4,10 +4,16 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+public enum SlotType
+{
+    NormalSlot,
+    QuickSlot
+}
 public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
 
 {
-  
+    public SlotType slotType;     // 노말슬롯은 오브젝트 풀링으로 자동으로 NormalSlot으로, 퀵슬롯은 수동으로 지정 
+    public int quickSlotIndex;    // 퀵슬롯 구분용 int 값
     public Image itemIcon;        // 아이템 아이콘 이미지
     public ItemData data;         // 아이템 데이터
     private GameObject dragIcon;  // 드래그 시 나타나는 이미지
@@ -93,7 +99,16 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public void OnDrop(PointerEventData eventData)
     {
         var targetSlot = eventData.pointerDrag?.GetComponent<InventorySlot>();
-        if (targetSlot != null && targetSlot != this)
+        if (targetSlot == null || targetSlot == this)
+        {
+            return;
+        }
+
+        if (slotType == SlotType.NormalSlot)
+        {
+            UIManager.instance.player.inventory.SetQuickSlotItem(quickSlotIndex, targetSlot.data);
+        }
+        else if (slotType == SlotType.QuickSlot)
         {
             // 아이템 교환 또는 빈 슬롯에 이동
             SwapItems(targetSlot);

@@ -124,6 +124,9 @@ public class UIInventory : BaseWindow
             newSlot.Set(newSlot.data);
             newSlot.gameObject.SetActive(true);
             
+            // 슬롯이 만들어지면 slotType을 Normalslot으로 지정
+            newSlot.slotType = SlotType.NormalSlot;
+            
             // 이전 선택 아이템 복원
             if (prevSelectedData != null && newSlot.data == prevSelectedData)
             {
