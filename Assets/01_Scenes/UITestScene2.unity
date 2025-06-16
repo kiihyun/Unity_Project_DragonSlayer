@@ -41326,6 +41326,7 @@ MonoBehaviour:
   _moveSpeed: 5
   _dashPower: 5
   _jumpPower: 5
+  _attackPower: 0
 --- !u!114 &1466784223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41341,6 +41342,7 @@ MonoBehaviour:
   stat: {fileID: 0}
   anim: {fileID: 0}
   rb: {fileID: 0}
+  dashFX: {fileID: 0}
   inventory: {fileID: 0}
 --- !u!70 &1466784224
 CapsuleCollider2D:
@@ -41486,11 +41488,11 @@ Transform:
   m_GameObject: {fileID: 1466784221}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -669.3717, y: -609.94104, z: -0.5404775}
+  m_LocalPosition: {x: 0, y: -1.3900146, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1631187484}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1466784229
 MonoBehaviour:
@@ -43416,7 +43418,6 @@ Transform:
   - {fileID: 32208993}
   - {fileID: 1275671679}
   - {fileID: 983440962}
-  - {fileID: 1466784228}
   - {fileID: 344961920}
   - {fileID: 1492333460}
   - {fileID: 1655648912}
@@ -61150,6 +61151,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1631187484}
+  - {fileID: 1466784228}
   - {fileID: 804125370}
   - {fileID: 8595806421888784606}
   - {fileID: 1352674634083471773}

@@ -60,7 +60,27 @@ public class Inventory : MonoBehaviour
     // 퀵슬롯에 아이템 넣기, 빼기
     public void SetQuickSlotItem(int slot, ItemData item)
     {
+        if (slot < 0 || slot >= _quickSlotItems.Length)
+        {
+            return;
+        }
+        
+        // 기존 퀵슬롯 아이템을 인벤토리에 넣기 
+        ItemData prevItem = _quickSlotItems[slot];
+        if (prevItem != null && !_consumableItems.Contains(prevItem))
+        {
+            _consumableItems.Add(prevItem);
+        }
+        
+        // 새로 넣는 아이템은 인벤토리에서 제거 (중복 방지)
+        if (item != null && _consumableItems.Contains(item))
+        {
+            _consumableItems.Remove(item);
+        }
+        
+        // 퀵슬롯에 아이템 넣기
         _quickSlotItems[slot] = item;
+        
         InventoryUpdate?.Invoke();
     }
     
