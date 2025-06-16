@@ -309,7 +309,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &805073935653951345
 Transform:
   m_ObjectHideFlags: 0
@@ -360,6 +360,7 @@ MonoBehaviour:
   RangedAttackSensor: {fileID: 0}
   MainCollider: {fileID: 0}
   RangedAttacked: 0
+  MoveCount: 0
   _moveCooldown: 0
 --- !u!50 &2375256639148879844
 Rigidbody2D:
