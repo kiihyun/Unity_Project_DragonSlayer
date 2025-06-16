@@ -12,6 +12,7 @@ public class PlayerController : BaseController<Player>
     public bool isAttack = false;
     public IInteract InteractObject;
     public GameObject InteractObjectUI;
+    public bool isDead = false;
 
     public PlayerController(State<Player> initState, Player player) : base(initState, player)
     {
@@ -131,6 +132,8 @@ public class PlayerController : BaseController<Player>
     public void Dash()
     {
         float dashDir = inputDir.normalized.x != 0 ? Mathf.Sign(inputDir.normalized.x) : player.CharacterImage.flipX ? -1f : 1f;
+        player.rb.gravityScale = 0f; // �뽬 �߿��� �߷� ȿ���� ����
+
         player.rb.velocity = new Vector2(dashDir * player.stat.DashPower, 0);
     }
 

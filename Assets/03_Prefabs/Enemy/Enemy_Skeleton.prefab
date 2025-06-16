@@ -122,7 +122,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyAttack: {fileID: 0}
   _enemy: {fileID: 6419747962865569672}
-  GameObject: {fileID: 5730495856798014877}
+  _gameObject: {fileID: 5730495856798014877}
+  _projectile: {fileID: 0}
+  _enemyProjectile: {fileID: 0}
 --- !u!1 &3416719186730920179
 GameObject:
   m_ObjectHideFlags: 0
@@ -301,13 +303,13 @@ GameObject:
   - component: {fileID: 6419747962865569672}
   - component: {fileID: 2375256639148879844}
   - component: {fileID: 5161086600193770527}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Enemy_Skeleton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &805073935653951345
 Transform:
   m_ObjectHideFlags: 0
@@ -344,14 +346,20 @@ MonoBehaviour:
     _attackAnimationName: Attack
     _dieAnimationName: Die
     _chaseAnimationName: Chase
+    _guardAnimationName: Guard
+    _rangedAnimationName: Ranged
   <DebugCurrentState>k__BackingField: 
   PlayerTransform: {fileID: 0}
   Animator: {fileID: 0}
+  _currentHealth: 0
   Data: {fileID: 11400000, guid: 25fdadad627504e4980c79797946366a, type: 2}
   SpritePivot: {fileID: 0}
   DetectionCollider: {fileID: 4268877476500655326}
   LeftDetect: {fileID: 7568683458925849699}
   RightDetect: {fileID: 5605194258761183423}
+  RangedAttackSensor: {fileID: 0}
+  MainCollider: {fileID: 0}
+  RangedAttacked: 0
   _moveCooldown: 0
 --- !u!50 &2375256639148879844
 Rigidbody2D:
@@ -365,7 +373,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 5
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -542,7 +550,7 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -559,7 +567,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.44389623, y: 0.08220291}

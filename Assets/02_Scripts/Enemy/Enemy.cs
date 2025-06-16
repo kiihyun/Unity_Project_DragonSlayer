@@ -2,10 +2,10 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Enemy : MonoBehaviour, IDamageable    
+public class Enemy : MonoBehaviour, IDamageble
 {
-    [field:SerializeField]public EnemyAnimatorController AnimatorController { get; private set; }
-    [field:SerializeField]public string DebugCurrentState { get; private set; } // 현재 상태 이름을 저장하는 변수
+    [field: SerializeField] public EnemyAnimatorController AnimatorController { get; private set; }
+    [field: SerializeField] public string DebugCurrentState { get; private set; } // 현재 상태 이름을 저장하는 변수
 
     public Transform PlayerTransform;
 
@@ -13,6 +13,10 @@ public class Enemy : MonoBehaviour, IDamageable
     public Animator Animator;
     public Rigidbody2D Rigidbody { get; private set; }
     public EnemyStateMachine StateMachine => _stateMachine;
+
+    public float MaxHealth => Data.Health;
+    public float CurrentHealth { get { return _currentHealth; } }
+    [SerializeField]private float _currentHealth;
 
     private EnemyStateMachine _stateMachine;
     public EnemySO Data;
@@ -23,14 +27,14 @@ public class Enemy : MonoBehaviour, IDamageable
     public Collider2D LeftDetect;
     public Collider2D RightDetect;
     public Collider2D RangedAttackSensor;
+    public Collider2D MainCollider;
 
     public bool RangedAttacked = false;
 
 
     public float _moveCooldown; // 이동 쿨타임 (초 단위)
 
-    public int maxHealth => Data.Health;
-    public int currentHealth { get; private set; }
+    
 
     
 
@@ -40,13 +44,14 @@ public class Enemy : MonoBehaviour, IDamageable
         SpritePivot = this.transform.Find("Sprite").GetComponent<Transform>();
         Animator = GetComponentInChildren<Animator>();
         Rigidbody = GetComponent<Rigidbody2D>();
+        MainCollider = GetComponent<Collider2D>();
         AnimatorController.Initialize(); // 애니메이션 컨트롤러 초기화
 
         _stateMachine.ChangeState(_stateMachine.IdleState); // 초기 상태 설정
     }
     private void Start()
     {
-        currentHealth = maxHealth; // 초기 체력 설정
+        _currentHealth = MaxHealth; // 초기 체력 설정
         _moveCooldown = _stateMachine.Enemy.Data.MoveDelay;
     }
 
@@ -90,7 +95,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
 
 
-    private void TakeDamage(int damage)
+    private void TakeDamage1(float damage)
     {
         if (DebugCurrentState == "EnemyGuardState")
         {
@@ -109,10 +114,11 @@ public class Enemy : MonoBehaviour, IDamageable
             }
             _stateMachine.GuardState.Turn();
         }
-
-        currentHealth -= damage;
+        if (DebugCurrentState == "DeathState")
+            return;
+        _currentHealth -= damage;
         Animator.SetTrigger("Hit");
-        if (currentHealth <= 0)
+        if (_currentHealth <= 0)
         {
             Die();
         }
@@ -125,8 +131,8 @@ public class Enemy : MonoBehaviour, IDamageable
         _stateMachine.ChangeState(_stateMachine.DeathState);
     }
 
-    void IDamageable.TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
-        this.TakeDamage(damage);
+        TakeDamage1(damage);
     }
 }
