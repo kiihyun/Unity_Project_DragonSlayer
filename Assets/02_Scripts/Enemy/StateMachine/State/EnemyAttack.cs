@@ -42,17 +42,10 @@ public class EnemyAttack : MonoBehaviour
     {
         if (_hasDamaged)
             return; // 이미 데미지 준 상태면 무시
-
-        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 1f, LayerMask.GetMask("Player"));
-        foreach (var hit in hits)
+        if (collision.TryGetComponent<IDamageble>(out var target))
         {
-            Player player = hit.GetComponent<Player>();
-            if (collision.TryGetComponent<IDamageble>(out var target))
-            {
-                target.TakeDamage(_enemy.Data.AttackDamage);
-                _hasDamaged = true; // 이번 공격에선 딱 한 번만 데미지 줌
-            }
-
+            target.TakeDamage(_enemy.Data.AttackDamage);
+            _hasDamaged = true; // 이번 공격에선 딱 한 번만 데미지 줌
         }
     }
 }

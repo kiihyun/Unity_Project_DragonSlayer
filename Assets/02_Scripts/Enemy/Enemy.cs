@@ -15,9 +15,8 @@ public class Enemy : MonoBehaviour, IDamageble
     public EnemyStateMachine StateMachine => _stateMachine;
 
     public float MaxHealth => Data.Health;
-
     public float CurrentHealth { get { return _currentHealth; } }
-    private float _currentHealth;
+    [SerializeField]private float _currentHealth;
 
     private EnemyStateMachine _stateMachine;
     public EnemySO Data;
@@ -28,6 +27,7 @@ public class Enemy : MonoBehaviour, IDamageble
     public Collider2D LeftDetect;
     public Collider2D RightDetect;
     public Collider2D RangedAttackSensor;
+    public Collider2D MainCollider;
 
     public bool RangedAttacked = false;
 
@@ -44,13 +44,14 @@ public class Enemy : MonoBehaviour, IDamageble
         SpritePivot = this.transform.Find("Sprite").GetComponent<Transform>();
         Animator = GetComponentInChildren<Animator>();
         Rigidbody = GetComponent<Rigidbody2D>();
+        MainCollider = GetComponent<Collider2D>();
         AnimatorController.Initialize(); // 애니메이션 컨트롤러 초기화
 
         _stateMachine.ChangeState(_stateMachine.IdleState); // 초기 상태 설정
     }
     private void Start()
     {
-        //currentHealth = maxHealth; // 초기 체력 설정
+        _currentHealth = MaxHealth; // 초기 체력 설정
         _moveCooldown = _stateMachine.Enemy.Data.MoveDelay;
     }
 
@@ -126,6 +127,7 @@ public class Enemy : MonoBehaviour, IDamageble
     public void Die()
     {
         Debug.Log("Enemy died");
+        MainCollider.enabled = false;
         _stateMachine.ChangeState(_stateMachine.DeathState);
     }
 

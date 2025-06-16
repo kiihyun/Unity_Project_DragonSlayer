@@ -13,6 +13,8 @@ public class EnemyAnimationEvent : MonoBehaviour
     private void Awake()
     {
         _enemyAttack = GetComponentInChildren<EnemyAttack>();
+        _enemy = GetComponentInParent<Enemy>();
+        _gameObject = _enemy.gameObject;
     }
 
 

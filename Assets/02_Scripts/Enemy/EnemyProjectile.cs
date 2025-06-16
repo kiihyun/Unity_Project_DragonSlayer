@@ -30,7 +30,7 @@ public class EnemyProjectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.TryGetComponent<IDamageable>(out var player))
+        if(collision.TryGetComponent<IDamageble>(out var player))
         {
             player.TakeDamage(10);
             this.gameObject.SetActive(false);

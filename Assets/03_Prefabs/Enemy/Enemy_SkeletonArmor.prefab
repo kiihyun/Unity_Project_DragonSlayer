@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8626941792299017571}
   - component: {fileID: 6598343972859077228}
   - component: {fileID: 9183649327968247192}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Enemy_SkeletonArmor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56,14 +56,19 @@ MonoBehaviour:
     _dieAnimationName: Die
     _chaseAnimationName: Chase
     _guardAnimationName: Guard
+    _rangedAnimationName: Ranged
   <DebugCurrentState>k__BackingField: 
   PlayerTransform: {fileID: 0}
   Animator: {fileID: 0}
+  _currentHealth: 0
   Data: {fileID: 11400000, guid: 39b970c15884ebc4081342af6ac62161, type: 2}
   SpritePivot: {fileID: 0}
   DetectionCollider: {fileID: 8717659302108722244}
   LeftDetect: {fileID: 7326277387468899756}
   RightDetect: {fileID: 2097750925782552204}
+  RangedAttackSensor: {fileID: 0}
+  MainCollider: {fileID: 0}
+  RangedAttacked: 0
   _moveCooldown: 0
 --- !u!50 &6598343972859077228
 Rigidbody2D:
@@ -499,7 +504,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyAttack: {fileID: 0}
   _enemy: {fileID: 8626941792299017571}
-  GameObject: {fileID: 1655139006238922577}
+  _gameObject: {fileID: 1655139006238922577}
+  _projectile: {fileID: 0}
+  _enemyProjectile: {fileID: 0}
 --- !u!1 &6272524962350822045
 GameObject:
   m_ObjectHideFlags: 0
@@ -546,7 +553,7 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -563,7 +570,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.44389623, y: 0.08220291}
