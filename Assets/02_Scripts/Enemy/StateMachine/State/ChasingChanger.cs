@@ -19,15 +19,24 @@ public class ChasingChanger : MonoBehaviour
             Debug.Log("Player detected in ChasingChanger");
             var play = collision.GetComponent<Transform>();
             _enemy.PlayerTransform = play; // 플레이어를 적에게 할당
+
+            if (_enemy.Data.RangeAttackable)
+            {
+                Debug.Log("ranged");
+                _enemy.StateMachine.ChangeState(_enemy.StateMachine.RangedState);
+                return;
+            }
+
             _enemy.StateMachine.ChangeState(_enemy.StateMachine.ChasingState);
             return;
         }
-
+        /*
         if (collision.TryGetComponent<Transform>(out var player))
         {
             _enemy.PlayerTransform = player; // 플레이어를 적에게 할당
             _enemy.StateMachine.ChangeState(_enemy.StateMachine.ChasingState);
         }
+        */
     }
 
     private void OnTriggerStay2D(Collider2D collision)

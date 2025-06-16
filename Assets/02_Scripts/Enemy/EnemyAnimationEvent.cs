@@ -33,4 +33,9 @@ public class EnemyAnimationEvent : MonoBehaviour
     {
         _enemyAttack.OnAttackHit();
     }
+    
+    public void ToRangedState()
+    {
+        _enemy.StateMachine.ChangeState(_enemy.StateMachine.RangedState);
+    }
 }

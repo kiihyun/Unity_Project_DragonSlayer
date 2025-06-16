@@ -12,6 +12,7 @@ public class EnemyStateMachine : E_StateMachine
     public EnemyAttackState AttackState { get; private set; }
     public EnemyDeathState DeathState { get; private set; }
     public EnemyGuardState GuardState { get; private set; }
+    public EnemyRangedState RangedState { get; private set; }
 
     public EnemyStateMachine(Enemy enemy)
     {
@@ -22,6 +23,7 @@ public class EnemyStateMachine : E_StateMachine
         AttackState = new EnemyAttackState(this);
         DeathState = new EnemyDeathState(this);
         GuardState = new EnemyGuardState(this);
+        RangedState = new EnemyRangedState(this);
     }
 
 

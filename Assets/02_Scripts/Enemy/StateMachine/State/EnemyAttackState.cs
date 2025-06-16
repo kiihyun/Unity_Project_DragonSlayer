@@ -18,6 +18,7 @@ public class EnemyAttackState : EnemyBaseState
     {
         base.Exit();
         StopAnimation(_stateMachine.Enemy.AnimatorController.AttackAnimationHash); // 공격 애니메이션 중지
+        _stateMachine.Enemy.RangedAttacked = false;
     }
     public override void Update()
     {

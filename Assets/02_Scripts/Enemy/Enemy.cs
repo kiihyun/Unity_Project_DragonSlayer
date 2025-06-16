@@ -20,11 +20,11 @@ public class Enemy : MonoBehaviour, IDamageable
     public Transform SpritePivot;
 
     public Collider2D DetectionCollider;
-
-
     public Collider2D LeftDetect;
     public Collider2D RightDetect;
+    public Collider2D RangedAttackSensor;
 
+    public bool RangedAttacked = false;
 
 
     public float _moveCooldown; // 이동 쿨타임 (초 단위)
