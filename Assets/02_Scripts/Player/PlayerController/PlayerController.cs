@@ -10,6 +10,8 @@ public class PlayerController : BaseController<Player>
     public bool isDash = false;
     public bool isJump = false;
     public bool isAttack = false;
+    public IInteract InteractObject;
+    public GameObject InteractObjectUI;
     public bool isDead = false;
 
     public PlayerController(State<Player> initState, Player player) : base(initState, player)
@@ -22,6 +24,8 @@ public class PlayerController : BaseController<Player>
         GetInputDir();
         
         IsDead();
+
+        IsInteract();
 
         base.OnUpdate(deltaTime);
     }
@@ -90,6 +94,26 @@ public class PlayerController : BaseController<Player>
         }
     }
 
+    public void IsInteract()
+    {
+        if(InteractObjectUI != null)
+        {
+            if(InteractObject != null)
+            {
+                InteractObjectUI.SetActive(true);
+            }
+            else
+            {
+                InteractObjectUI.SetActive(false);
+            }   
+        }
+        
+        if (Input.GetKeyDown(KeyCode.E) && InteractObject != null)
+        {
+            InteractObject.Interact();
+        }
+    }
+
     public void Moving()
     {
         Vector3 pos = player.transform.position;
@@ -108,7 +132,7 @@ public class PlayerController : BaseController<Player>
     public void Dash()
     {
         float dashDir = inputDir.normalized.x != 0 ? Mathf.Sign(inputDir.normalized.x) : player.CharacterImage.flipX ? -1f : 1f;
-        player.rb.gravityScale = 0f; // ´ë½¬ Áß¿¡´Â Áß·Â È¿°ú¸¦ ¾ø¾Ú
+        player.rb.gravityScale = 0f; // ï¿½ë½¬ ï¿½ß¿ï¿½ï¿½ï¿½ ï¿½ß·ï¿½ È¿ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
         player.rb.velocity = new Vector2(dashDir * player.stat.DashPower, 0);
     }
@@ -125,7 +149,7 @@ public class PlayerController : BaseController<Player>
     
 
 
-    public bool IsGrounded() // ¶¥¿¡ ´ê¾Ò´ÂÁö ¾È´ê¾Ò´ÂÁö È®ÀÎÇÏ´Â ÇÔ¼ö
+    public bool IsGrounded() // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ò´ï¿½ï¿½ï¿½ ï¿½È´ï¿½Ò´ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½
     {
         LayerMask groundLayer = LayerMask.GetMask("Test");
         RaycastHit2D hit = Physics2D.Raycast(player.transform.position, Vector2.down, 0.8f, groundLayer);

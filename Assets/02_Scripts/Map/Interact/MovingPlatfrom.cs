@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovingPlatfrom : MonoBehaviour
+public class MovingPlatfrom : MonoBehaviour, IInteractableTarget
 {
     [SerializeField] Transform _targetPosition;
     [SerializeField] float _moveSpeed = 10f;
@@ -11,6 +11,7 @@ public class MovingPlatfrom : MonoBehaviour
     private bool isReverse = false;
     private Transform player;
     private float interval = 0.001f;
+    private Coroutine moveCoroutine;
 
     void Awake()
     {
@@ -87,12 +88,17 @@ public class MovingPlatfrom : MonoBehaviour
             player.SetParent(transform);
             isMoving = true;
 
+            if(moveCoroutine != null)
+            {
+                StopCoroutine(moveCoroutine);
+            }
+
             if(isReverse)
             {
-                StartCoroutine(MoveToInitial());
+                moveCoroutine = StartCoroutine(MoveToInitial());
             }else
             {
-                StartCoroutine(MoveToTarget());
+                moveCoroutine = StartCoroutine(MoveToTarget());
             }
 
         }
@@ -115,8 +121,13 @@ public class MovingPlatfrom : MonoBehaviour
     }
 
     [ContextMenu("ReverseTest")]
-    public void ReverseTest()
+    public void Reverse()
     {
         isReverse = !isReverse;
+    }
+
+    public void OnLeverActivated()
+    {
+        Reverse();
     }
 }

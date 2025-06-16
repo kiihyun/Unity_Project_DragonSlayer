@@ -2,13 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Chest : MonoBehaviour, IInteract
+public class Chest : Interaction
 {
     [SerializeField] private GameObject closedSprite;
     [SerializeField] private GameObject openedSprite;
     private bool isOpen = false;
-    protected GameObject _player;
-    public bool IsInteractable { get; set; } = true;
     
     private void Awake()
     {
@@ -16,9 +14,9 @@ public class Chest : MonoBehaviour, IInteract
         SetSpriteState(isOpen);
     }
 
-    public virtual void Interact()
+    public override void Interact()
     {
-        if (!isOpen && IsInteractable)
+        if (!isOpen)
             Open();
     }
 
@@ -33,21 +31,5 @@ public class Chest : MonoBehaviour, IInteract
     {
         closedSprite.SetActive(!open);
         openedSprite.SetActive(open);
-    }
-
-    public void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            _player = other.gameObject;
-        }
-    }
-
-    public void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            _player = null;
-        }
     }
 }
