@@ -17,6 +17,6 @@ MonoBehaviour:
   Speed: 1.5
   MoveDelay: 1
   AttackRange: 1.5
-  AttackDamage: 15
+  AttackDamage: 3
   Guardable: 1
   RangeAttackable: 0

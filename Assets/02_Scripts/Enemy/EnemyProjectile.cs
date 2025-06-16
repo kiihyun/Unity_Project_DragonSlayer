@@ -5,11 +5,15 @@ using UnityEngine;
 public class EnemyProjectile : MonoBehaviour
 {
     [SerializeField] private float _velocity;
+    [SerializeField] private Enemy _enemy;
     public bool IsLeft;
     private float _projectileTimer = 2f;
     public float CurTime;
-    
 
+    private void Awake()
+    {
+        _enemy = GetComponentInParent<Enemy>();
+    }
     // Update is called once per frame
     void Update()
     {
@@ -32,7 +36,7 @@ public class EnemyProjectile : MonoBehaviour
     {
         if(collision.TryGetComponent<IDamageble>(out var player))
         {
-            player.TakeDamage(10);
+            player.TakeDamage(_enemy.Data.AttackDamage);
             this.gameObject.SetActive(false);
         }
 
