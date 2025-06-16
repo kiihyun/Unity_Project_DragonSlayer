@@ -6,7 +6,7 @@ public enum SkillType
     FireRain,   // 여러 개 프리팹 반복 생성
     // 향후 Meteor, Laser 등 확장 가능
 }
-public class BossEnemy : MonoBehaviour, IDamageable
+public class BossEnemy : MonoBehaviour, IDamageble
 {
     [SerializeField] private BossEnemyDataSO _bossData;
     [SerializeField] private float _moveSpeed = 1f;
@@ -29,6 +29,11 @@ public class BossEnemy : MonoBehaviour, IDamageable
     public BossSkillData CurrentSkillData { get; set; } //현재 시전 중인 스킬 정보를 저장
 
     public int SkillIndex { get; set; } = 0;
+
+    public float MaxHealth => throw new System.NotImplementedException();
+
+    public float CurrentHealth => throw new System.NotImplementedException();
+
     public int AttackThresholdBeforeSkill = 3;// 일반공격 횟수
     private bool _facingRight = true; //방향
 
@@ -213,5 +218,10 @@ public class BossEnemy : MonoBehaviour, IDamageable
                 Debug.Log("플레이어 감지됨!");
             }
         }
+    }
+
+    public void TakeDamage(float damage)
+    {
+        throw new System.NotImplementedException();
     }
 }

@@ -15,6 +15,8 @@ public class Player : MonoBehaviour
     public Animator anim;
     [HideInInspector]
     public Rigidbody2D rb;
+
+    public DashFX dashFX;
     
     public SpriteRenderer CharacterImage { get { return characterImage; } }
     private SpriteRenderer characterImage;
@@ -37,11 +39,12 @@ public class Player : MonoBehaviour
 
     private void Init()
     {
-        characterImage ??= GetComponent<SpriteRenderer>();
+        characterImage = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
         stat = GetComponent<PlayerStat>();
-        rb = GetComponent<Rigidbody2D>();   
-        stat.StartStat();
+        rb = GetComponent<Rigidbody2D>();
+        stat.Init();
+        dashFX = GetComponent<DashFX>();
         ControllerRegister();
     }
 
@@ -90,9 +93,20 @@ public class Player : MonoBehaviour
             Enemy enemy = hit.GetComponent<Enemy>();
             if (enemy.TryGetComponent<IDamageble>(out IDamageble target))
             {
-                target.TakeDamage(10);
+                target.TakeDamage(stat.AttackPower);
             }
         }
+    }
+
+    public IEnumerator Hit()
+    {
+        if (controller.CurrentState() is PlayerDeathState)
+            yield break;
+
+        characterImage.color = Color.red;
+        yield return new WaitForSeconds(0.2f);
+        characterImage.color = Color.white;
+
     }
 
 }

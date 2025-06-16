@@ -20,7 +20,8 @@ public class PlayerStat : MonoBehaviour , IDamageble
     [SerializeField, Tooltip("점프 힘")]
     private int _jumpPower;
 
-
+    [SerializeField, Tooltip("플레이어의 공격력")]
+    private int _attackPower;
 
     public float  MaxHealth => _maxHealth;
 
@@ -32,16 +33,30 @@ public class PlayerStat : MonoBehaviour , IDamageble
 
     public int JumpPower { get { return _jumpPower; } }
 
-    
+    public int AttackPower { get { return _attackPower; } }
 
-    public void StartStat()
+
+
+
+    public void Init()
     {
-       _currentHealth = _maxHealth;
-
+        _currentHealth = _maxHealth;
     }
+
 
     public void TakeDamage(float damage)
     {
-        Debug.Log("Damage Taken: " + damage);
+        Player player = GetComponent<Player>();
+        StartCoroutine(player.Hit());
+        _currentHealth -= damage;
+
+        if (_currentHealth <= 0)
+        {
+            player.Controller.IsDead();
+            
+        }
+
     }
+
+    
 }
