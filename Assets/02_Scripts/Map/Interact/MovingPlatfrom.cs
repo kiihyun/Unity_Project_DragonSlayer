@@ -18,66 +18,82 @@ public class MovingPlatfrom : MonoBehaviour, IInteractableTarget
         initialPosition = new Vector3(transform.position.x, transform.position.y, 0);
     }
 
-    void Update()
+    void FixedUpdate()
     {
-
+        if(player != null)
+        {
+            if(!IsArrive())
+            {
+                MoveToTarget();
+            }
+        }else       
+        {
+            if(!IsInitialPosition())
+            {
+                MoveToInitial();
+            }
+        }
     }
 
-    public IEnumerator MoveToTarget()
+    public void MoveToTarget()
     {
         if(transform.position == _targetPosition.position)
         {
-            isMoving = false;
-            yield break;
+            return;
         }
         
-        while (isMoving)
+        // 현재 위치에서 목표 위치로 이동
+        transform.position = Vector3.MoveTowards(
+            transform.position,
+            _targetPosition.position,
+            _moveSpeed * interval
+        );
+
+        // 도착 체크 (float 오차 방지 위해 Distance 사용 권장)
+        if (Vector3.Distance(transform.position, _targetPosition.position) < 0.01f)
         {
-            // 현재 위치에서 목표 위치로 이동
-            transform.position = Vector3.MoveTowards(
-                transform.position,
-                _targetPosition.position,
-                _moveSpeed * interval
-            );
-
-            // 도착 체크 (float 오차 방지 위해 Distance 사용 권장)
-            if (Vector3.Distance(transform.position, _targetPosition.position) < 0.01f)
-            {
-                transform.position = _targetPosition.position; // 정확히 맞춤
-                isMoving = false;
-                yield break;
-            }
-
-            yield return new WaitForSeconds(interval);
+            transform.position = _targetPosition.position; // 정확히 맞춤
         }
+
     }
 
-    public IEnumerator MoveToInitial()
+    public void MoveToInitial()
     {
         if(transform.position == initialPosition)
         {
-            isMoving = false;
-            yield break;
+            return;
         }
 
-        while (isMoving)
+        transform.position = Vector3.MoveTowards(
+            transform.position,
+            initialPosition,
+            _moveSpeed * interval
+        );
+
+        // 도착 체크 (float 오차 방지 위해 Distance 사용 권장)
+        if (Vector3.Distance(transform.position, initialPosition) < 0.01f)
         {
-            transform.position = Vector3.MoveTowards(
-                transform.position,
-                initialPosition,
-                _moveSpeed * interval
-            );
-
-            // 도착 체크 (float 오차 방지 위해 Distance 사용 권장)
-            if (Vector3.Distance(transform.position, initialPosition) < 0.01f)
-            {
-                transform.position = initialPosition; // 정확히 맞춤
-                isMoving = false;
-                yield break;
-            }
-
-            yield return new WaitForSeconds(interval);
+            transform.position = initialPosition; // 정확히 맞춤
         }
+
+    }
+
+    public bool IsArrive()
+    {
+        if(transform.position == _targetPosition.position)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public bool IsInitialPosition()
+    {
+        if(transform.position == initialPosition)
+        {
+            return true;
+        }
+        return false;
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -86,23 +102,10 @@ public class MovingPlatfrom : MonoBehaviour, IInteractableTarget
         {
             player = other.gameObject.transform;
             player.SetParent(transform);
-            isMoving = true;
-
-            if(moveCoroutine != null)
-            {
-                StopCoroutine(moveCoroutine);
-            }
-
-            if(isReverse)
-            {
-                moveCoroutine = StartCoroutine(MoveToInitial());
-            }else
-            {
-                moveCoroutine = StartCoroutine(MoveToTarget());
-            }
-
         }
     }
+
+
 
     void OnTriggerExit2D(Collider2D other)
     {
@@ -123,10 +126,17 @@ public class MovingPlatfrom : MonoBehaviour, IInteractableTarget
     [ContextMenu("ReverseTest")]
     public void Reverse()
     {
-        isReverse = !isReverse;
+        Vector3 temp = initialPosition;
+        initialPosition = _targetPosition.position;
+        _targetPosition.position = temp;
     }
 
     public void OnLeverActivated()
+    {
+        Reverse();
+    }
+
+    public void OnLeverDeactivated()
     {
         Reverse();
     }
