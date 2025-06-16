@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5899434989444486110}
   - component: {fileID: 3390210317701486021}
   - component: {fileID: 5550168115880547747}
+  - component: {fileID: 7056716491293033037}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -189,6 +190,7 @@ MonoBehaviour:
   anim: {fileID: 0}
   rb: {fileID: 0}
   dashFX: {fileID: 0}
+  inventory: {fileID: 0}
 --- !u!114 &5550168115880547747
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,6 +209,23 @@ MonoBehaviour:
   _dashPower: 11
   _jumpPower: 17
   _attackPower: 50
+--- !u!114 &7056716491293033037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4992505616780063648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79152049b37c3ab4e8ea03d05dd8ef77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _consumableItems: []
+  _equipableItems: []
+  _quickSlotItems:
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &7240197501337212526
 GameObject:
   m_ObjectHideFlags: 0

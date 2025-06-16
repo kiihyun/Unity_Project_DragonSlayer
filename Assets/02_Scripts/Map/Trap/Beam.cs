@@ -27,14 +27,14 @@ public class Beam : MonoBehaviour
             {
                 DamageLastTime = 0f;
                 print("Beam Damage" + Damage);
+                _player.stat.TakeDamage(Damage);
             }
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.CompareTag("Player"))
-        // if(collision.gameObject.layer == LayerMask.NameToLayer("Player"))
+        if(collision.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             Player player = collision.gameObject.GetComponent<Player>();
             _player = player;
@@ -43,8 +43,7 @@ public class Beam : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if(collision.gameObject.CompareTag("Player"))
-        // if(collision.gameObject.layer == LayerMask.NameToLayer("Player"))
+        if(collision.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             _player = null;
         }
