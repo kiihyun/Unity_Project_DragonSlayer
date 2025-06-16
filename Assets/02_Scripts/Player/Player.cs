@@ -40,8 +40,8 @@ public class Player : MonoBehaviour
         characterImage ??= GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
         stat = GetComponent<PlayerStat>();
-        rb = GetComponent<Rigidbody2D>();   
-        stat.StartStat();
+        rb = GetComponent<Rigidbody2D>();
+        stat.Init(this);
         ControllerRegister();
     }
 

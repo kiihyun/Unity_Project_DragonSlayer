@@ -47,7 +47,7 @@ public class EnemyAttack : MonoBehaviour
         foreach (var hit in hits)
         {
             Player player = hit.GetComponent<Player>();
-            if (collision.TryGetComponent<IDamageble>(out var target))
+            if (player.TryGetComponent<IDamageble>(out var target))
             {
                 target.TakeDamage(_enemy.Data.AttackDamage);
                 _hasDamaged = true; // 이번 공격에선 딱 한 번만 데미지 줌

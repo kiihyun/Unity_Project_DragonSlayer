@@ -32,16 +32,28 @@ public class PlayerStat : MonoBehaviour , IDamageble
 
     public int JumpPower { get { return _jumpPower; } }
 
-    
 
-    public void StartStat()
+    private Player player;
+
+
+
+    public void Init(Player player)
     {
-       _currentHealth = _maxHealth;
-
+        this.player = player;
+        _currentHealth = _maxHealth;
     }
+
 
     public void TakeDamage(float damage)
     {
-        Debug.Log("Damage Taken: " + damage);
+        _currentHealth -= damage;
+
+        if (_currentHealth <= 0)
+        {
+            player.Controller.IsDead();
+        }
+
     }
+
+    
 }
