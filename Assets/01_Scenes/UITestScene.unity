@@ -1480,7 +1480,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1667775042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1659,10 +1659,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b2a3712ab9aaa244a28c14a85fe7121, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerStatusPanel: {fileID: 0}
-  equipItemPanel: {fileID: 0}
-  inventoryPanel: {fileID: 0}
-  optionPanel: {fileID: 0}
+  playerStatusPanel: {fileID: 5358496365003611282}
+  equipItemPanel: {fileID: 1816740979327979673}
+  inventoryPanel: {fileID: 7752205126249366778}
+  optionPanel: {fileID: 506027406809914447}
   playerStatusTabButton: {fileID: 1812565322}
   equipItemTabButton: {fileID: 192258069}
   inventoryTabButton: {fileID: 32271534}
@@ -2295,7 +2295,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97b57474c6a4a984d99f6d158eec521c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tooltipUI: {fileID: 0}
   _slotPrefab: {fileID: 0}
   _slotsParent: {fileID: 0}
   minSlotCount: 16

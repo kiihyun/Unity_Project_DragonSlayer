@@ -2,17 +2,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemData : MonoBehaviour
+public enum ItemType
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    Consumable,
+    Equipable
+}
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+public enum StatType
+{
+    // Consumable
+    Healing,
+    
+    // Equipable
+    Health,
+    Strength,
+    Speed
+}
+
+[System.Serializable]
+public class StatEntry
+{
+    public StatType type;
+    public int value;
+}
+
+[System.Serializable]
+public class ItemData : ScriptableObject
+{
+    public int ItemID;
+    public string ItemName;
+    public string ItemDescription;
+    public Sprite ItemIcon;
+    public ItemType ItemType;
+    public List<StatEntry> stats;
 }

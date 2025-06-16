@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UIInventory : BaseWindow
 {
-    [SerializeField] private GameObject _tooltipUI;
+    // [SerializeField] private GameObject _tooltipUI;
     [SerializeField] private GameObject _slotPrefab;
     [SerializeField] private Transform _slotsParent;
 
@@ -23,10 +24,15 @@ public class UIInventory : BaseWindow
 
     private void Start()
     {
-        // _itemList에 인벤토리 연결해주기
+        inventory = UIManager.instance.inventory;
+        UpdateUI();
     }
     public override void OnOpen(OpenParam param)
     {
+        if (inventory == null)
+        {
+            return;
+        }
         UpdateUI();
     }
 
@@ -34,12 +40,46 @@ public class UIInventory : BaseWindow
     {
         UpdateUI();
     }
-    
 
+    private void OnEnable()
+    {
+        if (inventory != null)
+        {
+            inventory.InventoryUpdate += UpdateUI;
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (inventory != null)
+        {
+            inventory.InventoryUpdate -= UpdateUI;
+        }
+    }
 
     // Inventory 업데이트
     public void UpdateUI()
     {
+        /*
+        if (inventory == null)
+        {
+            Debug.LogError("UpdateUI: inventory가 null입니다.");
+            return;
+        }
+        if (inventory.ConsumableItems == null)
+        {
+            Debug.LogError("UpdateUI: ConsumableItems가 null입니다.");
+            return;
+        }
+        Debug.Log($"ConsumableItems 개수: {inventory.ConsumableItems.Count}");
+        _itemList = inventory.ConsumableItems.ToList();
+        Debug.Log("_itemList 복사 완료. 개수: " + _itemList.Count);
+        */
+        
+        
+        // Inventory의 ConsumableItems를 _itemList에 복사하여 저장
+        _itemList = inventory.ConsumableItems.ToList();
+        
         // 이전에 선택된 아이템 기억 ( 존재한다면 )
         ItemData prevSelectedData = selectedSlot != null ? selectedSlot.data : null;
         
@@ -61,7 +101,6 @@ public class UIInventory : BaseWindow
             if (_slotPool.Count > 0)
             {
                 newSlot = _slotPool.Dequeue();
-                newSlot.data = _itemList[i];
             }
             // 풀에 slot이 없다면 새로 생성
             else
@@ -79,6 +118,8 @@ public class UIInventory : BaseWindow
             {
                 newSlot.data = null;
             }
+            newSlot.Set(newSlot.data);
+            newSlot.gameObject.SetActive(true);
             
             // 이전 선택 아이템 복원
             if (prevSelectedData != null && newSlot.data == prevSelectedData)
