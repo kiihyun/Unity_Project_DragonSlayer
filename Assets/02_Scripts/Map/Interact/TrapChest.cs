@@ -26,7 +26,7 @@ public class TrapChest : Chest
 
             if (_player != null)
             {
-                IDamageable damageable = _player.GetComponent<IDamageable>();
+                IDamageble damageable = _player.GetComponent<IDamageble>();
                 damageable.TakeDamage(damage);
             }
         }
