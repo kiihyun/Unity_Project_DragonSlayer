@@ -33,6 +33,7 @@ public class EnemyProjectile : MonoBehaviour
         if(collision.TryGetComponent<IDamageable>(out var player))
         {
             player.TakeDamage(10);
+            this.gameObject.SetActive(false);
         }
 
     }
