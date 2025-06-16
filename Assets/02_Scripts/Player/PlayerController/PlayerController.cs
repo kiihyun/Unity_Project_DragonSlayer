@@ -108,6 +108,8 @@ public class PlayerController : BaseController<Player>
     public void Dash()
     {
         float dashDir = inputDir.normalized.x != 0 ? Mathf.Sign(inputDir.normalized.x) : player.CharacterImage.flipX ? -1f : 1f;
+        player.rb.gravityScale = 0f; // 대쉬 중에는 중력 효과를 없앰
+
         player.rb.velocity = new Vector2(dashDir * player.stat.DashPower, 0);
     }
 

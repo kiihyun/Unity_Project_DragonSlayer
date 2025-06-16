@@ -20,6 +20,9 @@ public class PlayerStat : MonoBehaviour , IDamageble
     [SerializeField, Tooltip("점프 힘")]
     private int _jumpPower;
 
+    [SerializeField, Tooltip("플레이어의 공격력")]
+    private int _attackPower;
+
     public float  MaxHealth => _maxHealth;
 
     public float CurrentHealth => _currentHealth;
@@ -30,6 +33,7 @@ public class PlayerStat : MonoBehaviour , IDamageble
 
     public int JumpPower { get { return _jumpPower; } }
 
+    public int AttackPower { get { return _attackPower; } }
 
 
 

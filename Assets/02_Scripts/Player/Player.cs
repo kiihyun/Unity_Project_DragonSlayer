@@ -15,6 +15,8 @@ public class Player : MonoBehaviour
     public Animator anim;
     [HideInInspector]
     public Rigidbody2D rb;
+
+    public DashFX dashFX;
     
     public SpriteRenderer CharacterImage { get { return characterImage; } }
     private SpriteRenderer characterImage;
@@ -42,6 +44,7 @@ public class Player : MonoBehaviour
         stat = GetComponent<PlayerStat>();
         rb = GetComponent<Rigidbody2D>();
         stat.Init();
+        dashFX = GetComponent<DashFX>();
         ControllerRegister();
     }
 
@@ -90,7 +93,7 @@ public class Player : MonoBehaviour
             Enemy enemy = hit.GetComponent<Enemy>();
             if (enemy.TryGetComponent<IDamageble>(out IDamageble target))
             {
-                target.TakeDamage(10);
+                target.TakeDamage(stat.AttackPower);
             }
         }
     }
