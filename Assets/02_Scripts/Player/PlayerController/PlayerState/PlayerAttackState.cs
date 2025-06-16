@@ -14,14 +14,16 @@ public class PlayerAttackState : PlayerStates
     public override void OnEnter()
     {
         base.OnEnter();
-        player.ChangeAnime(PlayerState.Attack);
+        player.anim.CrossFade("Attack", 0.1f);
     }
 
     public override void OnUpdate(float deltaTime)
     {
         base.OnUpdate(deltaTime);
         player.Controller.IsDash();
-        player.Controller.IsJump();
+
+        if(!player.Controller.IsGrounded())
+            player.Controller.IsJump();
         
     }
 
