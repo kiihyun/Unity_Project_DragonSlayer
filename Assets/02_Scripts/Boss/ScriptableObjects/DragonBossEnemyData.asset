@@ -25,7 +25,7 @@ MonoBehaviour:
   attackEffectPrefab: {fileID: 7512756569008411512, guid: a30a02ed8820aa44ebb7ff4cded1927f, type: 3}
   phase1Skills:
   - skillName: breath
-    skillType: 0
+    skillType: 3
     damage: 50
     range: 10
     delayBeforeCast: 1
@@ -35,6 +35,9 @@ MonoBehaviour:
     rotationZ: 90
     animationTriggerName: Skill
     effectDuration: 0.7
+    flameCount: 5
+    flameInterval: 0.3
+    flameSpacing: 2
   - skillName: FireRain
     skillType: 1
     damage: 10
@@ -46,6 +49,23 @@ MonoBehaviour:
     rotationZ: 0
     animationTriggerName: Skill2
     effectDuration: 10
+    flameCount: 5
+    flameInterval: 0.3
+    flameSpacing: 2
+  - skillName: FlameMarch
+    skillType: 2
+    damage: 10
+    range: 10
+    delayBeforeCast: 1
+    cooldown: 3
+    skillEffectPrefab: {fileID: 503142907018376304, guid: 26fe67ee1c25c754eabe6b3bfaba3d19, type: 3}
+    offsetFromBreathPos: {x: 0, y: 0, z: 0}
+    rotationZ: 0
+    animationTriggerName: Skill2
+    effectDuration: 10
+    flameCount: 5
+    flameInterval: 0.3
+    flameSpacing: 2
   phase2Skills:
   - skillName: breath
     skillType: 0
@@ -58,6 +78,9 @@ MonoBehaviour:
     rotationZ: 0
     animationTriggerName: 
     effectDuration: 0
+    flameCount: 5
+    flameInterval: 0.3
+    flameSpacing: 2
   phase1Dialogues: []
   phase2Dialogues: []
   bossBGM: {fileID: 0}

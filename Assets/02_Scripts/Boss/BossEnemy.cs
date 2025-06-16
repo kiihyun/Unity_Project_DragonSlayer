@@ -4,6 +4,8 @@ public enum SkillType
 {
     Default,    // 정적 프리팹 생성 (breath 등)
     FireRain,   // 여러 개 프리팹 반복 생성
+    FlameMarch,
+    Breath,
     // 향후 Meteor, Laser 등 확장 가능
 }
 public class BossEnemy : MonoBehaviour, IDamageable
@@ -31,6 +33,8 @@ public class BossEnemy : MonoBehaviour, IDamageable
     public int SkillIndex { get; set; } = 0;
     public int AttackThresholdBeforeSkill = 3;// 일반공격 횟수
     private bool _facingRight = true; //방향
+    
+    public Transform fireStartPoint; //FlameStomp
 
 
     private void Awake()
@@ -114,11 +118,17 @@ public class BossEnemy : MonoBehaviour, IDamageable
 
         switch (CurrentSkillData.skillType)
         {
-            case SkillType.Default:
+            case SkillType.Breath:
                 SpawnBreathEffect();
                 break;
             case SkillType.FireRain:
                 StartCoroutine(CastFireRain(20,0.1f,CurrentSkillData));
+                break;
+            case SkillType.FlameMarch:
+                SpawnFlameMarchEffect();
+                break;
+            case SkillType.Default:
+                SpawnBasicHitEffect();
                 break;
             default:
                 Debug.LogWarning($"정의되지 않은 SkillType: {CurrentSkillData.skillType}");
@@ -212,6 +222,48 @@ public class BossEnemy : MonoBehaviour, IDamageable
                 _playerTarget = hit.transform;
                 Debug.Log("플레이어 감지됨!");
             }
+        }
+    }
+    
+    public void TriggerSkillEffect()
+    {
+        if (CurrentSkillData == null) return;
+
+        switch (CurrentSkillData.skillName)
+        {
+            case "":
+                SpawnFlameMarchEffect();
+                break;
+            case "BasicAttack":
+                SpawnBasicHitEffect();
+                break;
+        }
+    }
+
+    private void SpawnBasicHitEffect()
+    {
+        
+    }
+
+    public void SpawnFlameMarchEffect()
+    {
+        StartCoroutine(FlameMarchRoutine(CurrentSkillData));
+    }
+
+    private IEnumerator FlameMarchRoutine(BossSkillData data)
+    {
+        Vector3 direction = _facingRight ? Vector3.right : Vector3.left;
+        Vector3 startPos = fireStartPoint.position;
+
+        for (int i = 0; i < data.flameCount; i++)
+        {
+            Vector3 spawnPos = startPos + direction * data.flameSpacing * i;
+
+            GameObject flame = Instantiate(data.skillEffectPrefab, spawnPos, Quaternion.identity);
+            flame.transform.SetParent(this.transform);
+
+            Destroy(flame, data.effectDuration);
+            yield return new WaitForSeconds(data.flameInterval);
         }
     }
 }
