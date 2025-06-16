@@ -30,6 +30,7 @@ public class Enemy : MonoBehaviour, IDamageble
     public Collider2D MainCollider;
 
     public bool RangedAttacked = false;
+    public int MoveCount = 0;
 
 
     public float _moveCooldown; // 이동 쿨타임 (초 단위)

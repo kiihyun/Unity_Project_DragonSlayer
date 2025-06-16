@@ -360,6 +360,7 @@ MonoBehaviour:
   RangedAttackSensor: {fileID: 0}
   MainCollider: {fileID: 0}
   RangedAttacked: 0
+  MoveCount: 0
   _moveCooldown: 0
 --- !u!50 &2375256639148879844
 Rigidbody2D:

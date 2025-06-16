@@ -399,6 +399,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _velocity: 0.05
+  _enemy: {fileID: 0}
   IsLeft: 0
   CurTime: 0
 --- !u!1 &5018027016071812801
@@ -679,6 +680,7 @@ MonoBehaviour:
   RangedAttackSensor: {fileID: 3602708146097865360}
   MainCollider: {fileID: 0}
   RangedAttacked: 0
+  MoveCount: 0
   _moveCooldown: 0
 --- !u!50 &8187243807067294893
 Rigidbody2D:

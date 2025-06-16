@@ -69,6 +69,7 @@ MonoBehaviour:
   RangedAttackSensor: {fileID: 0}
   MainCollider: {fileID: 0}
   RangedAttacked: 0
+  MoveCount: 0
   _moveCooldown: 0
 --- !u!50 &8646002340034999208
 Rigidbody2D:
