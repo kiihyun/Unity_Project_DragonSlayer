@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
     
     public SpriteRenderer CharacterImage { get { return characterImage; } }
     private SpriteRenderer characterImage;
-
+    public Inventory inventory;
 
     private void Awake()
     {
@@ -46,6 +46,7 @@ public class Player : MonoBehaviour
         stat.Init();
         dashFX = GetComponentInChildren<DashFX>();
         ControllerRegister();
+        inventory = GetComponent<Inventory>();
     }
 
     public void ControllerRegister()

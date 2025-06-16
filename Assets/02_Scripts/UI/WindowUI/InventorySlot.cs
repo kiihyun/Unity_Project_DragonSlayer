@@ -4,10 +4,16 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+public enum SlotType
+{
+    NormalSlot,
+    QuickSlot
+}
 public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
 
 {
-  
+    public SlotType slotType;     // 노말슬롯은 오브젝트 풀링으로 자동으로 NormalSlot으로, 퀵슬롯은 수동으로 지정 
+    public int quickSlotIndex;    // 퀵슬롯 구분용 int 값
     public Image itemIcon;        // 아이템 아이콘 이미지
     public ItemData data;         // 아이템 데이터
     private GameObject dragIcon;  // 드래그 시 나타나는 이미지
@@ -92,11 +98,36 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     // 다른 슬롯에서 아이템 받아서 교환, 혹은 이동 처리
     public void OnDrop(PointerEventData eventData)
     {
-        var targetSlot = eventData.pointerDrag?.GetComponent<InventorySlot>();
-        if (targetSlot != null && targetSlot != this)
+        // draggedSlot은 마우스로 옮기는 아이템
+        InventorySlot draggedSlot  = eventData.pointerDrag?.GetComponent<InventorySlot>();
+        if (draggedSlot  == null || draggedSlot  == this)
         {
-            // 아이템 교환 또는 빈 슬롯에 이동
-            SwapItems(targetSlot);
+            return;
+        }
+
+        Inventory inventory = UIManager.instance.player.inventory;
+
+        // 퀵슬롯에 드롭 (인벤토리 → 퀵슬롯)
+        if (slotType == SlotType.QuickSlot && draggedSlot.slotType == SlotType.NormalSlot)
+        {
+            inventory.SetQuickSlotItem(quickSlotIndex, draggedSlot.data);
+            inventory.RemoveItem(draggedSlot.data);
+            Set(draggedSlot.data);
+            draggedSlot.Clear();
+        }
+        // 인벤토리 슬롯에 드롭 (퀵슬롯 → 인벤토리)
+        else if (slotType == SlotType.NormalSlot && draggedSlot.slotType == SlotType.QuickSlot)
+        {
+            // 퀵슬롯을 비우고 인벤토리에 추가
+            inventory.SetQuickSlotItem(draggedSlot.quickSlotIndex, null);
+            inventory.AddItem(draggedSlot.data);
+            Set(draggedSlot.data);
+            draggedSlot.Clear();
+        }
+        // 같은 종류끼리 교환 (인벤토리-인벤토리, 퀵슬롯-퀵슬롯)
+        else if (slotType == draggedSlot.slotType)
+        {
+            SwapItems(draggedSlot);
         }
     }
 
