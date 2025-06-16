@@ -5,12 +5,17 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    [SerializeField] List<ItemData> consumableItems = new List<ItemData>();
-    [SerializeField] private List<ItemData> equipableItems = new List<ItemData>();
-
+    [SerializeField] private List<ItemData> _consumableItems = new List<ItemData>();
+    
+    [SerializeField] private List<ItemData> _equipableItems = new List<ItemData>();
+    
+    [SerializeField] private ItemData[] _quickSlotItems = new ItemData[2];
+    
+    
     // 외부에서 읽기만 가능하도록 제한
-    public IReadOnlyList<ItemData> ConsumableItems => consumableItems;
-    public IReadOnlyList<ItemData> EquipableItems => equipableItems;
+    public IReadOnlyList<ItemData> ConsumableItems => _consumableItems;
+    public IReadOnlyList<ItemData> EquipableItems => _equipableItems;
+    public IReadOnlyList<ItemData> QuickSlotItems => _quickSlotItems;
     public event Action InventoryUpdate;
     
     
@@ -19,9 +24,9 @@ public class Inventory : MonoBehaviour
     {
         if (item == null) return;
         if (item.ItemType == ItemType.Consumable)
-            consumableItems.Add(item);
+            _consumableItems.Add(item);
         else if (item.ItemType == ItemType.Equipable)
-            equipableItems.Add(item);
+            _equipableItems.Add(item);
         InventoryUpdate?.Invoke();
     }
 
@@ -30,10 +35,19 @@ public class Inventory : MonoBehaviour
     {
         if (item == null) return;
         if (item.ItemType == ItemType.Consumable)
-            consumableItems.Remove(item);
+            _consumableItems.Remove(item);
         else if (item.ItemType == ItemType.Equipable)
-            equipableItems.Remove(item);
+            _equipableItems.Remove(item);
         InventoryUpdate?.Invoke();
     }
+
+    // 퀵슬롯에 아이템 넣기
+    public void SetQuickSlotItem(int slot, ItemData item)
+    {
+        _quickSlotItems[slot] = item;
+        InventoryUpdate?.Invoke();
+    }
+    
+    
     
 }

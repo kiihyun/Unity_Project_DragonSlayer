@@ -27,6 +27,8 @@ public class UIInventory : BaseWindow
         inventory = UIManager.instance.inventory;
         UpdateUI();
     }
+    
+    // 인벤토리 UI가 열릴 때 UI 갱신
     public override void OnOpen(OpenParam param)
     {
         if (inventory == null)
@@ -36,11 +38,12 @@ public class UIInventory : BaseWindow
         UpdateUI();
     }
 
+    // 인벤토리 UI가 닫힐 때 UI 갱신
     public override void OnClose()
     {
         UpdateUI();
     }
-
+    
     private void OnEnable()
     {
         if (inventory != null)
