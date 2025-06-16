@@ -29,7 +29,7 @@ public class PlayerAttackState : PlayerStates
 
     public override void OnFixedUpdate()
     {
-        if(player.Controller.CheckPreviousState() is PlayerJumpState && !player.Controller.IsGrounded())
+        if(player.Controller.PreviousState() is PlayerJumpState && !player.Controller.IsGrounded())
         {
             player.Controller.Moving();
         }

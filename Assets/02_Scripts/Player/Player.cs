@@ -15,10 +15,12 @@ public class Player : MonoBehaviour
     public Animator anim;
     [HideInInspector]
     public Rigidbody2D rb;
+    [HideInInspector]
+    public DashFX dashFX;
     
     public SpriteRenderer CharacterImage { get { return characterImage; } }
     private SpriteRenderer characterImage;
-
+    public Inventory inventory;
 
     private void Awake()
     {
@@ -37,12 +39,14 @@ public class Player : MonoBehaviour
 
     private void Init()
     {
-        characterImage ??= GetComponent<SpriteRenderer>();
+        characterImage = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
         stat = GetComponent<PlayerStat>();
-        rb = GetComponent<Rigidbody2D>();   
-        stat.StartStat();
+        rb = GetComponent<Rigidbody2D>();
+        stat.Init();
+        dashFX = GetComponentInChildren<DashFX>();
         ControllerRegister();
+        inventory = GetComponent<Inventory>();
     }
 
     public void ControllerRegister()
@@ -69,7 +73,6 @@ public class Player : MonoBehaviour
 
     public void OnAttackEnd()
     {
-        Debug.Log("Attack Ended!");
 
         if(controller.GetInputDir().x != 0)
         {
@@ -84,17 +87,27 @@ public class Player : MonoBehaviour
     public void OnAttackHit()
     {
 
-        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 1f, LayerMask.GetMask("TestEnemy"));
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 1f, LayerMask.GetMask("Enemy"));
 
         foreach (var hit in hits)
         {
             Enemy enemy = hit.GetComponent<Enemy>();
             if (enemy.TryGetComponent<IDamageble>(out IDamageble target))
             {
-                Debug.Log("Hit!");
-                target.TakeDamage(10);
+                target.TakeDamage(stat.AttackPower);
             }
         }
+    }
+
+    public IEnumerator Hit()
+    {
+        if (controller.CurrentState() is PlayerDeathState)
+            yield break;
+
+        characterImage.color = Color.red;
+        yield return new WaitForSeconds(0.2f);
+        characterImage.color = Color.white;
+
     }
 
 }

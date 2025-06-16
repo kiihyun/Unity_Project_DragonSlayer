@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -42,10 +42,9 @@ public class EnemyAttack : MonoBehaviour
     {
         if (_hasDamaged)
             return; // 이미 데미지 준 상태면 무시
-
-        if (collision.TryGetComponent<IDamageable>(out var player))
+        if (collision.TryGetComponent<IDamageble>(out var target))
         {
-            player.TakeDamage(_enemy.Data.AttackDamage);
+            target.TakeDamage(_enemy.Data.AttackDamage);
             _hasDamaged = true; // 이번 공격에선 딱 한 번만 데미지 줌
         }
     }

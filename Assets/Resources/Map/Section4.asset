@@ -22,8 +22,8 @@ MonoBehaviour:
       width: 3.98
       height: 0.68
     enemies:
-    - {fileID: 3990982103773446744, guid: 29d2aba7249bc02479e809ba7f09a982, type: 3}
-    - {fileID: 3990982103773446744, guid: 29d2aba7249bc02479e809ba7f09a982, type: 3}
+    - {fileID: 5730495856798014877, guid: be5a6520529b1394c85b5760057f9af3, type: 3}
+    - {fileID: 5730495856798014877, guid: be5a6520529b1394c85b5760057f9af3, type: 3}
   - spawnArea:
       serializedVersion: 2
       x: -0.83
@@ -31,7 +31,7 @@ MonoBehaviour:
       width: 1.13
       height: 0.68
     enemies:
-    - {fileID: 3990982103773446744, guid: 29d2aba7249bc02479e809ba7f09a982, type: 3}
+    - {fileID: 1015383051441452200, guid: 5e0f719da3b30d8418c8f3b5b8f4bd02, type: 3}
   - spawnArea:
       serializedVersion: 2
       x: 3.6
@@ -39,4 +39,4 @@ MonoBehaviour:
       width: 1.13
       height: 0.68
     enemies:
-    - {fileID: 3990982103773446744, guid: 29d2aba7249bc02479e809ba7f09a982, type: 3}
+    - {fileID: 1015383051441452200, guid: 5e0f719da3b30d8418c8f3b5b8f4bd02, type: 3}

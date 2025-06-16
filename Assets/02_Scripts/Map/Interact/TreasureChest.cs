@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class TreasureChest : Chest
@@ -9,14 +10,19 @@ public class TreasureChest : Chest
     public override void Interact()
     {
         base.Interact();
-    }
+    }   
 
     public override void Open()
     {
         base.Open();
 
         // 아이템 생성
-        // GameObject item = Instantiate(itemPrefab, transform.position, Quaternion.identity);
-        // item.transform.SetParent(transform);
+        foreach(var item in _itemPrefabs)
+        {
+            Inventory inventory = _player.GetComponent<Inventory>();
+            inventory.AddItem(item);
+
+            
+        }
     }
 }

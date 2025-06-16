@@ -17,7 +17,6 @@ public class EnemyIdleState : EnemyBaseState
     public override void Enter()
     {
         base.Enter();
-        Debug.Log("enter idle state");
         StartAnimation(_stateMachine.Enemy.AnimatorController.IdleAnimationHash);
     }
     public override void Update()
@@ -31,8 +30,12 @@ public class EnemyIdleState : EnemyBaseState
             _curTime = 0f; // 쿨타임 초기화
                            // 이동 로직 추가
             Move();
+            _stateMachine.Enemy.MoveCount++;
         }
-
+        if(_stateMachine.Enemy.MoveCount > 2)
+        { 
+            Turn(); 
+        }
 
 
     }

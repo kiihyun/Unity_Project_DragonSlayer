@@ -55,6 +55,7 @@ public class EnemyBaseState : IState
 
     public void Turn()
     {
+        _stateMachine.Enemy.MoveCount = 0;
         MoveDirection = -MoveDirection;
         FlipSprite();
     }

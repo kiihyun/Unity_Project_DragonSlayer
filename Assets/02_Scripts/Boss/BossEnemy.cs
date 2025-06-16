@@ -31,6 +31,11 @@ public class BossEnemy : MonoBehaviour, IDamageble
     public BossSkillData CurrentSkillData { get; set; } //현재 시전 중인 스킬 정보를 저장
 
     public int SkillIndex { get; set; } = 0;
+
+    public float MaxHealth => throw new System.NotImplementedException();
+
+    public float CurrentHealth => throw new System.NotImplementedException();
+
     public int AttackThresholdBeforeSkill = 3;// 일반공격 횟수
     private bool _facingRight = true; //방향
     
@@ -272,10 +277,10 @@ public class BossEnemy : MonoBehaviour, IDamageble
         }
     }
 
-    public float MaxHealth { get; }
-    public float CurrentHealth { get; }
+
     public void TakeDamage(float damage)
     {
-        
+
+
     }
 }

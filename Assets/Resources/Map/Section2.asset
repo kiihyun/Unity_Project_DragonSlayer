@@ -22,10 +22,10 @@ MonoBehaviour:
       width: 4.51
       height: 0.68
     enemies:
-    - {fileID: 3990982103773446744, guid: 29d2aba7249bc02479e809ba7f09a982, type: 3}
-    - {fileID: 3990982103773446744, guid: 29d2aba7249bc02479e809ba7f09a982, type: 3}
-    - {fileID: 1111966825071408624, guid: db12dfea569d8f3488f85e96f15ccdb8, type: 3}
-    - {fileID: 1111966825071408624, guid: db12dfea569d8f3488f85e96f15ccdb8, type: 3}
+    - {fileID: 5730495856798014877, guid: be5a6520529b1394c85b5760057f9af3, type: 3}
+    - {fileID: 5730495856798014877, guid: be5a6520529b1394c85b5760057f9af3, type: 3}
+    - {fileID: 1655139006238922577, guid: 53bbdcebc8575a047911186fa5d3dee8, type: 3}
+    - {fileID: 1655139006238922577, guid: 53bbdcebc8575a047911186fa5d3dee8, type: 3}
   - spawnArea:
       serializedVersion: 2
       x: 11.5
@@ -33,9 +33,9 @@ MonoBehaviour:
       width: 4.51
       height: 0.68
     enemies:
-    - {fileID: 3990982103773446744, guid: 29d2aba7249bc02479e809ba7f09a982, type: 3}
-    - {fileID: 3990982103773446744, guid: 29d2aba7249bc02479e809ba7f09a982, type: 3}
-    - {fileID: 1111966825071408624, guid: db12dfea569d8f3488f85e96f15ccdb8, type: 3}
+    - {fileID: 5730495856798014877, guid: be5a6520529b1394c85b5760057f9af3, type: 3}
+    - {fileID: 5730495856798014877, guid: be5a6520529b1394c85b5760057f9af3, type: 3}
+    - {fileID: 1377454143021202580, guid: 8d157d1491ee7ec48a4455aac25b0f07, type: 3}
   - spawnArea:
       serializedVersion: 2
       x: -0.97
@@ -43,8 +43,8 @@ MonoBehaviour:
       width: 4.51
       height: 0.68
     enemies:
-    - {fileID: 3990982103773446744, guid: 29d2aba7249bc02479e809ba7f09a982, type: 3}
-    - {fileID: 3990982103773446744, guid: 29d2aba7249bc02479e809ba7f09a982, type: 3}
+    - {fileID: 5730495856798014877, guid: be5a6520529b1394c85b5760057f9af3, type: 3}
+    - {fileID: 5730495856798014877, guid: be5a6520529b1394c85b5760057f9af3, type: 3}
   - spawnArea:
       serializedVersion: 2
       x: 0.65
@@ -52,8 +52,8 @@ MonoBehaviour:
       width: 4.51
       height: 0.68
     enemies:
-    - {fileID: 3990982103773446744, guid: 29d2aba7249bc02479e809ba7f09a982, type: 3}
-    - {fileID: 3990982103773446744, guid: 29d2aba7249bc02479e809ba7f09a982, type: 3}
+    - {fileID: 5730495856798014877, guid: be5a6520529b1394c85b5760057f9af3, type: 3}
+    - {fileID: 5730495856798014877, guid: be5a6520529b1394c85b5760057f9af3, type: 3}
   - spawnArea:
       serializedVersion: 2
       x: 3.11
@@ -61,8 +61,8 @@ MonoBehaviour:
       width: 4.51
       height: 0.68
     enemies:
-    - {fileID: 3990982103773446744, guid: 29d2aba7249bc02479e809ba7f09a982, type: 3}
-    - {fileID: 3990982103773446744, guid: 29d2aba7249bc02479e809ba7f09a982, type: 3}
+    - {fileID: 5730495856798014877, guid: be5a6520529b1394c85b5760057f9af3, type: 3}
+    - {fileID: 5730495856798014877, guid: be5a6520529b1394c85b5760057f9af3, type: 3}
   - spawnArea:
       serializedVersion: 2
       x: 16.5
@@ -70,8 +70,8 @@ MonoBehaviour:
       width: 4.51
       height: 0.68
     enemies:
-    - {fileID: 3990982103773446744, guid: 29d2aba7249bc02479e809ba7f09a982, type: 3}
-    - {fileID: 3990982103773446744, guid: 29d2aba7249bc02479e809ba7f09a982, type: 3}
+    - {fileID: 5730495856798014877, guid: be5a6520529b1394c85b5760057f9af3, type: 3}
+    - {fileID: 5730495856798014877, guid: be5a6520529b1394c85b5760057f9af3, type: 3}
   - spawnArea:
       serializedVersion: 2
       x: 11.1
@@ -79,8 +79,8 @@ MonoBehaviour:
       width: 4.51
       height: 0.68
     enemies:
-    - {fileID: 3990982103773446744, guid: 29d2aba7249bc02479e809ba7f09a982, type: 3}
-    - {fileID: 3990982103773446744, guid: 29d2aba7249bc02479e809ba7f09a982, type: 3}
+    - {fileID: 5730495856798014877, guid: be5a6520529b1394c85b5760057f9af3, type: 3}
+    - {fileID: 5730495856798014877, guid: be5a6520529b1394c85b5760057f9af3, type: 3}
   - spawnArea:
       serializedVersion: 2
       x: 15.3
@@ -88,7 +88,7 @@ MonoBehaviour:
       width: 1.54
       height: 0.68
     enemies:
-    - {fileID: 3990982103773446744, guid: 29d2aba7249bc02479e809ba7f09a982, type: 3}
+    - {fileID: 5730495856798014877, guid: be5a6520529b1394c85b5760057f9af3, type: 3}
   - spawnArea:
       serializedVersion: 2
       x: 23.7
@@ -96,4 +96,4 @@ MonoBehaviour:
       width: 1.54
       height: 0.68
     enemies:
-    - {fileID: 3990982103773446744, guid: 29d2aba7249bc02479e809ba7f09a982, type: 3}
+    - {fileID: 5730495856798014877, guid: be5a6520529b1394c85b5760057f9af3, type: 3}
