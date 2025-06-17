@@ -14,7 +14,7 @@ public class PlayerStat : MonoBehaviour , IDamageble
     [SerializeField, Range(1f, 20f), Tooltip("�̵� �ӵ�")]
     private float _moveSpeed;
 
-    [SerializeField, Tooltip("��� ��")]
+    [SerializeField, Tooltip("���?��")]
     private float _dashPower;
 
     [SerializeField, Tooltip("���� ��")]
@@ -123,7 +123,7 @@ public class PlayerStat : MonoBehaviour , IDamageble
                 _moveSpeed += value;
                 break;
             default:
-                Debug.LogError($"존재하지 않는 타입: {type}");
+                Debug.LogError($"존재?��? ?�는 ?�?? {type}");
                 break;
         }
     }
