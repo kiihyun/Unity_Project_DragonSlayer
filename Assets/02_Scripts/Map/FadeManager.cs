@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,6 +12,10 @@ public class FadeManager : Singleton<FadeManager>
         base.Awake();
     }
 
+    private void Start()
+    {
+        FadeIn();
+    }
     public void FadeIn(float duration = -1f)
     {
         StartCoroutine(Fade(1f, 0f, duration < 0 ? defaultFadeDuration : duration));
