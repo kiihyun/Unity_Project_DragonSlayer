@@ -11,6 +11,7 @@ public class UIInGame : BaseFixed
     
     [SerializeField] private Image _healthBar;
     [SerializeField] private Image _DashCoolDown;
+    [SerializeField] private Image _expBar;
     private PlayerStat _playerStat;
     
     private void Start()
@@ -22,6 +23,8 @@ public class UIInGame : BaseFixed
     private void Update()
     {
         _healthBar.fillAmount = _playerStat.CurrentHealth / _playerStat.MaxHealth;
+        _expBar.fillAmount = _playerStat.CurrentHealth / _playerStat.MaxHealth;
+        _DashCoolDown.fillAmount = _playerStat.CurrentDashCooldown / _playerStat.DashCooldown;
     }
 
 }

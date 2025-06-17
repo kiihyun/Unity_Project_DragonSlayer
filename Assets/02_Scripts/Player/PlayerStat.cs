@@ -23,6 +23,12 @@ public class PlayerStat : MonoBehaviour , IDamageble
     [SerializeField, Tooltip("ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ý·ï¿½")]
     private int _attackPower;
 
+    [SerializeField, Tooltip("´ë½Ã ÄðÅ¸ÀÓ (ÃÊ ´ÜÀ§)")]
+    private float dashCooldown = 2f; // ´ë½Ã ÄðÅ¸ÀÓ
+
+    [SerializeField, Tooltip("½ºÅ³ ÄðÅ¸ÀÓ (ÃÊ ´ÜÀ§)")]
+    private float skillCooldown = 5f; // ½ºÅ³ ÄðÅ¸ÀÓ (ÃÊ ´ÜÀ§)
+
     private int _level = 1; 
 
     private int _exp;
@@ -30,6 +36,28 @@ public class PlayerStat : MonoBehaviour , IDamageble
     public float  MaxHealth => _maxHealth;
 
     public float CurrentHealth => _currentHealth;
+
+
+    public float DashCooldown { get { return dashCooldown; } }
+
+    private float currentDashCooldown = 0f; // ÇöÀç ´ë½Ã ÄðÅ¸ÀÓ
+
+    public float CurrentDashCooldown
+    {
+        get { return currentDashCooldown; }
+        set { currentDashCooldown = value; }
+    }
+
+    public float SkillCooldown { get { return skillCooldown; } }
+
+    private float currentSkillCooldown = 0f; // ÇöÀç ½ºÅ³ ÄðÅ¸ÀÓ
+
+    public float CurrentSkillCooldown
+    {
+        get { return currentSkillCooldown; }
+        set { currentSkillCooldown = value; }
+    }
+
 
     public int EXP { get { return _exp; } }
 

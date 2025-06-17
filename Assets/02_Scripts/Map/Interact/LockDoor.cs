@@ -8,22 +8,13 @@ public class LockDoor : Door
     [SerializeField] private GameObject _lockSprite;
     [SerializeField] private GameObject _unlockSprite;
     private bool _isLock = true;
-
-    public override void Update()
-    {
-        // 임시
-        if(Input.GetKeyDown(KeyCode.E) && player != null)
-        {
-            Interact();
-        }
-    }
+    [SerializeField] private ItemData _keyItem;
 
     public override void Interact()
     {
         if(_isLock)
         {
-            if(true)
-            // if(player.inventory.HasItem(ItemData.id))
+            if(_player.GetComponent<Player>().inventory.HasItem(_keyItem.ItemID))
             {
                 _isLock = false;
                 _lockSprite.SetActive(false);
@@ -33,7 +24,7 @@ public class LockDoor : Door
             return;
         }
 
-        if (player != null && IsInteractable)
+        if (_player != null && IsInteractable)
         {
             StartCoroutine(MoveToOppositeDoor());
 

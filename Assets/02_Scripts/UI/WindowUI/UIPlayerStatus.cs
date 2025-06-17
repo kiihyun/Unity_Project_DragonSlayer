@@ -20,7 +20,7 @@ public class UIPlayerStatus : BaseWindow
     {
         _playerStat = UIManager.instance.player.GetComponent<PlayerStat>();
         _inventory = UIManager.instance.inventory;
-        
+        UpdateUI();
     }
 
 

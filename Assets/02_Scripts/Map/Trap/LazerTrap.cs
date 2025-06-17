@@ -10,7 +10,8 @@ public class LaserTrap : MonoBehaviour
     [SerializeField] private GameObject _beamPrefab;
     [SerializeField] private LayerMask _levelLayerMask;
     [SerializeField] private float _startDelay = 0f;
-    [SerializeField] private float _switchDuration = 2f;
+    [SerializeField] private float _onDuration = 2f;
+    [SerializeField] private float _offDuration = 2f;
 
     private float _laserLastTime = 0f;
     private float _laserDamageInterval = 0.01f;
@@ -38,10 +39,10 @@ public class LaserTrap : MonoBehaviour
 
         _beamPrefab.SetActive(false);
 
-        StartCoroutine(SwitchLazer(_switchDuration));
+        StartCoroutine(SwitchLazer(_onDuration, _offDuration));
     }
 
-    public IEnumerator SwitchLazer(float duration)
+    public IEnumerator SwitchLazer(float onDuration, float offDuration)
     {
         yield return new WaitForSeconds(_startDelay);
         
@@ -49,11 +50,11 @@ public class LaserTrap : MonoBehaviour
         {
             _beamPrefab.SetActive(true);
 
-            yield return new WaitForSeconds(duration);
+            yield return new WaitForSeconds(onDuration);
 
             _beamPrefab.SetActive(false);
 
-            yield return new WaitForSeconds(duration);
+            yield return new WaitForSeconds(offDuration);
         }
     }
 

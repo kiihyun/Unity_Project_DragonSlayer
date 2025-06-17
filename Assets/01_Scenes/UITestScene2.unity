@@ -1453,7 +1453,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300004, guid: 34ecf51bcd3f4424eafda7dafd885bd0, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1525,11 +1525,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: 21300004, guid: 34ecf51bcd3f4424eafda7dafd885bd0, type: 3}
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 0
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
@@ -41511,9 +41511,11 @@ MonoBehaviour:
   _maxHealth: 100
   _currentHealth: 100
   _moveSpeed: 0
-  _dashPower: 0
-  _jumpPower: 0
-  _attackPower: 0
+  _dashPower: 5
+  _jumpPower: 10
+  _attackPower: 10
+  dashCooldown: 2
+  skillCooldown: 5
 --- !u!114 &1466784223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41530,6 +41532,8 @@ MonoBehaviour:
   anim: {fileID: 0}
   rb: {fileID: 0}
   dashFX: {fileID: 0}
+  collider: {fileID: 0}
+  energipa: {fileID: 0}
   inventory: {fileID: 0}
 --- !u!70 &1466784224
 CapsuleCollider2D:
@@ -49486,7 +49490,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OppositeDoor: {fileID: 0}
-  player: {fileID: 0}
 --- !u!212 &1749089477
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -58435,10 +58438,10 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300048, guid: 34ecf51bcd3f4424eafda7dafd885bd0, type: 3}
-  m_Type: 0
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 1
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
@@ -59627,6 +59630,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _healthBar: {fileID: 8421360777680443961}
   _DashCoolDown: {fileID: 3690547118340331728}
+  _expBar: {fileID: 370311979}
 --- !u!1 &5629281929855855091
 GameObject:
   m_ObjectHideFlags: 0
