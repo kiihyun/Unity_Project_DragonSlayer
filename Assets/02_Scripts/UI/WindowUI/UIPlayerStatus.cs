@@ -9,13 +9,12 @@ public class UIPlayerStatus : BaseWindow
     public override UIType UIType => UIType.UIPlayerStatus;
     
     [SerializeField] private TextMeshProUGUI _level;
-    [SerializeField] private TextMeshProUGUI _maxExp;
-    [SerializeField] private TextMeshProUGUI _currentexp;
     [SerializeField] private TextMeshProUGUI _maxHealth;
     [SerializeField] private TextMeshProUGUI _currentHealth;
     [SerializeField] private TextMeshProUGUI _attackPower;
     [SerializeField] private TextMeshProUGUI _speed;
     [SerializeField] private Image _healthBar;
+    [SerializeField] private Image _expBar;
     
     private PlayerStat _playerStat;
     private Inventory _inventory;
@@ -56,7 +55,7 @@ public class UIPlayerStatus : BaseWindow
         }
         
         float level = _playerStat.Level;
-        float exp = _playerStat.EXP;
+        
         float health = _playerStat.MaxHealth;
         float attackPower = _playerStat.AttackPower;
         float speed = _playerStat.MoveSpeed;
@@ -83,7 +82,6 @@ public class UIPlayerStatus : BaseWindow
         
         _level.text = level.ToString("F2");
         
-        _currentexp.text = exp.ToString("F2");
         _maxHealth.text = health.ToString("F2");
         _currentHealth.text = _playerStat.CurrentHealth.ToString("F2");
         _attackPower.text = attackPower.ToString("F2");
