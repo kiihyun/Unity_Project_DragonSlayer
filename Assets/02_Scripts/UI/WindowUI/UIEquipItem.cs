@@ -71,6 +71,7 @@ public class UIEquipItem : BaseWindow
     {
         // Inventory의 EquipableItems를 _itemList에 복사하여 저장
         _itemList = inventory.EquipableItems.ToList();
+        
         int slotCount = Mathf.Max(_itemList.Count, minSlotCount);
 
         // 슬롯이 slotCount보다 적으면 풀에서 꺼내거나 새로 생성

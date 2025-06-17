@@ -11,12 +11,24 @@ public class UIInGame : BaseFixed
     
     [SerializeField] private Image _healthBar;
     [SerializeField] private Image _DashCoolDown;
+    [SerializeField] private Image _skillCoolDown;
     [SerializeField] private Image _expBar;
+    [SerializeField] private Image _currentItem;
+    [SerializeField] private Image _swapItem;
     private PlayerStat _playerStat;
     
     private void Start()
     {
         _playerStat = UIManager.instance.player.GetComponent<PlayerStat>();
+        if (_currentItem == null)
+        {
+            _currentItem.gameObject.SetActive(false);
+        }
+
+        if (_swapItem == null)
+        {
+            _swapItem.gameObject.SetActive(false);
+        }
         
     }
     
@@ -25,6 +37,9 @@ public class UIInGame : BaseFixed
         _healthBar.fillAmount = _playerStat.CurrentHealth / _playerStat.MaxHealth;
         _expBar.fillAmount = _playerStat.CurrentHealth / _playerStat.MaxHealth;
         _DashCoolDown.fillAmount = _playerStat.CurrentDashCooldown / _playerStat.DashCooldown;
+        _skillCoolDown.fillAmount = _playerStat.CurrentSkillCooldown / _playerStat.SkillCooldown;
     }
+    
+    
 
 }
