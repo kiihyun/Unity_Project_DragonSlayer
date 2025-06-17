@@ -1,4 +1,4 @@
-using Enums;
+﻿using Enums;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -110,16 +110,12 @@ public class Player : MonoBehaviour
                 }
             }
 
-            if (enemy == null)
+            if (enemy != null)
             {
-                hit.AddComponent<Enemy>();
-
                 if (enemy.TryGetComponent<IDamageble>(out IDamageble target) && target != null)
                 {
                     target.TakeDamage(stat.AttackPower);
                 }
-                
-
             }
         }
     }
