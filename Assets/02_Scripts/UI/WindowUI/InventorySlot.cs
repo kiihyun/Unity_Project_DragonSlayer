@@ -214,11 +214,11 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         }
 
         // 슬롯 타입에 따라 UI 업데이트
-        if (slotType == SlotType.QuickSlot)
+        if (slotType == SlotType.QuickSlot || draggedSlot.slotType == SlotType.QuickSlot)
         {
             uiInventory.UpdateUI();
         }
-        else if (slotType == SlotType.EquipSlot)
+        else if (slotType == SlotType.EquipSlot ||  draggedSlot.slotType == SlotType.EquipSlot)
         { 
             uiEquipItem.UpdateUI();
         }
