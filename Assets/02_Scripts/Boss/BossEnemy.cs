@@ -98,7 +98,7 @@ public class BossEnemy : MonoBehaviour, IDamageble
     public void SpawnBreathEffect()
     {
         GameObject effect = Instantiate(
-            BossData.attackEffectPrefab, // SO에 연결된 이펙트 프리팹
+            BossData.phase1Skills[0].skillEffectPrefab, // SO에 연결된 이펙트 프리팹
                 BreathPos.transform.position , // 보스 앞쪽
             Quaternion.Euler(0, 0, 90)
         );
@@ -173,7 +173,7 @@ public class BossEnemy : MonoBehaviour, IDamageble
                 0f
             );
 
-            GameObject fireRain = GameObject.Instantiate(skill.skillEffectPrefab, spawnPos, Quaternion.identity);
+            GameObject fireRain = GameObject.Instantiate( BossData.phase1Skills[1].skillEffectPrefab, spawnPos, Quaternion.identity);
             fireRain.transform.SetParent(transform);
 
             // Rigidbody2D에 사선 힘 주기
@@ -267,7 +267,7 @@ public class BossEnemy : MonoBehaviour, IDamageble
         {
             Vector3 spawnPos = startPos + direction * data.flameSpacing * i;
 
-            GameObject flame = Instantiate(data.skillEffectPrefab, spawnPos, Quaternion.identity);
+            GameObject flame = Instantiate( BossData.phase1Skills[2].skillEffectPrefab, spawnPos, Quaternion.identity);
             flame.transform.SetParent(this.transform);
 
             Destroy(flame, data.effectDuration);

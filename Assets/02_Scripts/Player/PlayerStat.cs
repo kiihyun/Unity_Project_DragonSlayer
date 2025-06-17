@@ -15,7 +15,7 @@ public class PlayerStat : MonoBehaviour, IDamageble
     [SerializeField, Range(1f, 20f), Tooltip("ï¿½Ìµï¿½ ï¿½Óµï¿½")]
     private float _moveSpeed;
 
-    [SerializeField, Tooltip("ï¿½ï¿½ï¿?ï¿½ï¿½")]
+    [SerializeField, Tooltip("ï¿½ï¿½ï¿½?ï¿½ï¿½")]
     private float _dashPower;
 
     [SerializeField, Tooltip("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½")]
@@ -24,16 +24,22 @@ public class PlayerStat : MonoBehaviour, IDamageble
     [SerializeField, Tooltip("ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ý·ï¿½")]
     private int _attackPower;
 
-    [SerializeField, Tooltip("´ë½Ã ÄðÅ¸ÀÓ (ÃÊ ´ÜÀ§)")]
-    private float dashCooldown = 2f; // ´ë½Ã ÄðÅ¸ÀÓ
+    [SerializeField, Tooltip("ï¿½ï¿½ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½ (ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)")]
+    private float dashCooldown = 2f; // ï¿½ï¿½ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½
 
-    [SerializeField, Tooltip("½ºÅ³ ÄðÅ¸ÀÓ (ÃÊ ´ÜÀ§)")]
-    private float skillCooldown = 5f; // ½ºÅ³ ÄðÅ¸ÀÓ (ÃÊ ´ÜÀ§)
+    [SerializeField, Tooltip("ï¿½ï¿½Å³ ï¿½ï¿½Å¸ï¿½ï¿½ (ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)")]
+    private float skillCooldown = 5f; // ï¿½ï¿½Å³ ï¿½ï¿½Å¸ï¿½ï¿½ (ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
 
-    public int _maxLevel = 10; // ÃÖ´ë ·¹º§ ¼³Á¤ (¿¹: 10·¹º§±îÁö °¡´É)
+    public int _maxLevel = 10; // ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½: 10ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
+    
     private int _level = 1;
+    public int MaxExp => _maxExp;
 
-    private int _exp;
+    private int _maxExp = 10;
+
+    private int _currentexp;
+    
+    
 
     public float MaxHealth => _maxHealth;
 
@@ -42,7 +48,7 @@ public class PlayerStat : MonoBehaviour, IDamageble
 
     public float DashCooldown { get { return dashCooldown; } }
 
-    private float currentDashCooldown = 0f; // ÇöÀç ´ë½Ã ÄðÅ¸ÀÓ
+    private float currentDashCooldown = 0f; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½
 
     public float CurrentDashCooldown
     {
@@ -52,7 +58,7 @@ public class PlayerStat : MonoBehaviour, IDamageble
 
     public float SkillCooldown { get { return skillCooldown; } }
 
-    private float currentSkillCooldown = 0f; // ÇöÀç ½ºÅ³ ÄðÅ¸ÀÓ
+    private float currentSkillCooldown = 0f; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ ï¿½ï¿½Å¸ï¿½ï¿½
 
     public float CurrentSkillCooldown
     {
@@ -61,7 +67,7 @@ public class PlayerStat : MonoBehaviour, IDamageble
     }
 
 
-    public int EXP { get { return _exp; } }
+    public int CurrentEXP { get { return _currentexp; } }
 
     public int Level { get { return _level; } }
 
@@ -76,7 +82,7 @@ public class PlayerStat : MonoBehaviour, IDamageble
     public void Init()
     {
         _currentHealth = _maxHealth;
-        _exp = 0;
+        _currentexp = 0;
     }
 
     public void TakeDamage(float damage)
@@ -94,11 +100,11 @@ public class PlayerStat : MonoBehaviour, IDamageble
 
     public void LevelUP()
     {
-        if (_maxLevel <= _level)
+        if (_maxLevel <= _currentexp)
         {
             Debug.Log($"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½! ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ : {_level}");
             _level++;
-            _exp = 0;
+            _currentexp = 0;
             _attackPower += 2; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ý·ï¿½ ï¿½ï¿½ï¿½ï¿½
             _maxHealth += 5; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             _currentHealth = _maxHealth; // ï¿½Ö´ï¿½ Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¼ï¿½Âµï¿½ È¸ï¿½ï¿½
@@ -108,8 +114,8 @@ public class PlayerStat : MonoBehaviour, IDamageble
 
     public void GainExp(int exp)
     {
-        _exp += exp;
-        Debug.Log($"ï¿½ï¿½ï¿½ï¿½Ä¡ È¹ï¿½ï¿½! ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡ : {_exp}");
+        _currentexp += exp;
+        Debug.Log($"ï¿½ï¿½ï¿½ï¿½Ä¡ È¹ï¿½ï¿½! ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡ : {_currentexp}");
         LevelUP();
     }
 
@@ -128,7 +134,7 @@ public class PlayerStat : MonoBehaviour, IDamageble
                 _moveSpeed += value;
                 break;
             default:
-                Debug.LogError($"ì¡´ìž¬?˜ì? ?ŠëŠ” ?€?? {type}");
+                Debug.LogError($"ì¡´ìž¬?ï¿½ï¿½? ?ï¿½ëŠ” ?ï¿½?? {type}");
                 break;
         }
     }

@@ -72,43 +72,66 @@ public class UIEquipItem : BaseWindow
         // Inventory의 EquipableItems를 _itemList에 복사하여 저장
         _itemList = inventory.EquipableItems.ToList();
         
+        // 슬롯 다시 생성, 필요한 만큼 슬롯 재사용 또는 새로 생성
         int slotCount = Mathf.Max(_itemList.Count, minSlotCount);
 
-        // 슬롯이 slotCount보다 적으면 풀에서 꺼내거나 새로 생성
-        for (int i = 0; i < slotCount; i++)
+        if (_slots.Count == 0 || _itemList.Count > minSlotCount)
         {
-            InventorySlot newSlot;
-            // 풀에 아직 slot이 남아 있을 경우 풀에서 꺼내기
-            if (_slotPool.Count > 0)
+            foreach (var slot in _slots)
             {
-                newSlot = _slotPool.Dequeue();
+                slot.gameObject.SetActive(false);
+                _slotPool.Enqueue(slot);
             }
-            // 풀에 slot이 없다면 새로 생성
-            else
+            _slots.Clear();
+
+            // 슬롯 생성 또는 풀에서 꺼내기
+            for (int i = 0; i < slotCount; i++)
             {
-                GameObject newSlotObj = Instantiate(_slotPrefab, _slotsParent);
-                newSlot = newSlotObj.GetComponent<InventorySlot>();
+                InventorySlot newSlot;
+                if (_slotPool.Count > 0)
+                {
+                    newSlot = _slotPool.Dequeue();
+                }
+                else
+                {
+                    GameObject newSlotObj = Instantiate(_slotPrefab, _slotsParent);
+                    newSlot = newSlotObj.GetComponent<InventorySlot>();
+                }
+
+                // 아이템 데이터가 있다면 데이터 할당, 없다면 null
+                if (i < _itemList.Count)
+                {
+                    newSlot.data = _itemList[i];
+                }
+                else
+                {
+                    newSlot.data = null;
+                }
+
+                newSlot.Set(newSlot.data);
+                newSlot.gameObject.SetActive(true);
+                // 슬롯이 만들어지면 slotType을 Normalslot으로 지정
+                newSlot.slotType = SlotType.NormalSlot;
+                // 리스트에 넣기
+                _slots.Add(newSlot);
             }
-
-            // 아이템 데이터가 있다면 데이터 할당, 없다면 null
-            if (i < _itemList.Count)
-            {
-                newSlot.data = _itemList[i];
-            }
-            else
-            {
-                newSlot.data = null;
-            }
-
-            newSlot.Set(newSlot.data);
-            newSlot.gameObject.SetActive(true);
-
-            // 슬롯이 만들어지면 slotType을 Normalslot으로 지정
-            newSlot.slotType = SlotType.NormalSlot;
-
-            // 리스트에 넣기
-            _slots.Add(newSlot);
-
         }
+        else
+        {
+            // 슬롯 개수는 충분할 때, 슬롯 데이터만 갱신
+            for (int i = 0; i < _slots.Count; i++)
+            {
+                if (i < _itemList.Count)
+                {
+                    _slots[i].Set(_itemList[i]);
+                }
+                else
+                {
+                    _slots[i].Set(null);
+                }
+                _slots[i].gameObject.SetActive(true);
+            }
+        }
+        
     }
 }
