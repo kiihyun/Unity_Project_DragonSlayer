@@ -124,6 +124,9 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
                 // 기존에 아이템이 없었다면 draggedSlot을 비움
                 draggedSlot.Clear();
             }
+#if UNITY_EDITOR
+            Debug.Log("인벤토리 → 퀵슬롯");
+#endif
         }
         // 인벤토리 슬롯에 드롭 (퀵슬롯 → 인벤토리)
         else if (this.slotType == SlotType.NormalSlot && draggedSlot.slotType == SlotType.QuickSlot)
@@ -145,8 +148,11 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
                 // 기존에 아이템이 없었다면 draggedSlot을 비움
                 draggedSlot.Clear();
             }
+#if UNITY_EDITOR
+            Debug.Log("퀵슬롯 → 인벤토리");
+#endif
         }
-        // 퀵슬롯에 드롭 (인벤토리 → 장착슬롯)
+        // 장착슬롯에 드롭 (인벤토리 → 장착슬롯)
         else if (this.slotType == SlotType.EquipSlot && draggedSlot.slotType == SlotType.NormalSlot)
         {
             // 인벤토리 슬롯 비우기, 장비슬롯 아이템을 플레이어의 _consumableItems애서 제거
@@ -166,6 +172,9 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
                 // 기존에 아이템이 없었다면 draggedSlot을 비움
                 draggedSlot.Clear();
             }
+#if UNITY_EDITOR
+            Debug.Log("인벤토리 → 장착슬롯");
+#endif
         }
         // 인벤토리 슬롯에 드롭 (장착슬롯 → 인벤토리)
         else if (this.slotType == SlotType.NormalSlot && draggedSlot.slotType == SlotType.EquipSlot)
@@ -187,6 +196,9 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
                 // 기존에 아이템이 없었다면 draggedSlot을 비움
                 draggedSlot.Clear();
             }
+#if UNITY_EDITOR
+            Debug.Log("장착슬롯 → 인벤토리");
+#endif
         }
         // 같은 종류끼리 교환 (인벤토리 -> 인벤토리, 퀵슬롯 -> 퀵슬롯)
         else if (this.slotType == draggedSlot.slotType)

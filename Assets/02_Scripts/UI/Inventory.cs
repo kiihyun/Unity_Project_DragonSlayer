@@ -82,6 +82,7 @@ public class Inventory : MonoBehaviour
         }
         InventoryUpdate?.Invoke();
     }
+    
     public void swapQuickSlotItem()
     {
         ItemData temp = _quickSlotItems[0];
@@ -116,20 +117,15 @@ public class Inventory : MonoBehaviour
     // 장착슬롯에 아이템 넣기, 빼기
     public void SetEquipSlotItem(int slot, ItemData item)
     {
-        if (slot < 0 || slot >= _equipSlotItems.Length)
-        {
-            return;
-        }
-        
         // 기존 장착슬롯 아이템을 인벤토리에 넣기 
         ItemData prevItem = _equipSlotItems[slot];
-        if (prevItem != null && !_equipableItems.Contains(prevItem))
+        if (prevItem != null)
         {
             AddItem(prevItem);
         }
         
         // 새로 넣는 아이템은 인벤토리에서 제거 (중복 방지)
-        if (item != null && _equipableItems.Contains(item))
+        if (item != null)
         {
             RemoveItem(item);
         }
