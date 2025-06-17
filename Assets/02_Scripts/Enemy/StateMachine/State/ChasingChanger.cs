@@ -16,13 +16,11 @@ public class ChasingChanger : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            Debug.Log("Player detected in ChasingChanger");
             var play = collision.GetComponent<Transform>();
             _enemy.PlayerTransform = play; // 플레이어를 적에게 할당
 
             if (_enemy.Data.RangeAttackable)
             {
-                Debug.Log("ranged");
                 _enemy.StateMachine.ChangeState(_enemy.StateMachine.RangedState);
                 return;
             }
