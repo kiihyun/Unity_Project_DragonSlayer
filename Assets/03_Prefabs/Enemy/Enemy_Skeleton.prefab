@@ -208,6 +208,7 @@ MonoBehaviour:
   _rigidbody: {fileID: 2375256639148879844}
   _collider: {fileID: 0}
   _isLeft: 0
+  _collision: 
 --- !u!1 &5247649785082535328
 GameObject:
   m_ObjectHideFlags: 0
@@ -291,6 +292,7 @@ MonoBehaviour:
   _rigidbody: {fileID: 2375256639148879844}
   _collider: {fileID: 0}
   _isLeft: 0
+  _collision: 
 --- !u!1 &5730495856798014877
 GameObject:
   m_ObjectHideFlags: 0
@@ -341,6 +343,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37778aa81f81bfe439a09f484c4d9b1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerStat: {fileID: 0}
   <AnimatorController>k__BackingField:
     _idleAnimationName: Idle
     _attackAnimationName: Attack

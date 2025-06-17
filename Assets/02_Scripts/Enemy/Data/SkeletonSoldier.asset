@@ -20,4 +20,4 @@ MonoBehaviour:
   AttackDamage: 5
   Guardable: 0
   RangeAttackable: 0
-  experience: 3
+  experience: 1

@@ -30,8 +30,9 @@ public class Enemy : MonoBehaviour, IDamageble
     public Collider2D MainCollider;
 
     public bool RangedAttacked = false;
+    public bool IsDead;
     public int MoveCount = 0;
-
+    
 
     public float _moveCooldown; // 이동 쿨타임 (초 단위)
 
@@ -54,6 +55,7 @@ public class Enemy : MonoBehaviour, IDamageble
     {
         _currentHealth = MaxHealth; // 초기 체력 설정
         _moveCooldown = _stateMachine.Enemy.Data.MoveDelay;
+        IsDead = false;
     }
 
     // Update is called once per frame
@@ -62,10 +64,6 @@ public class Enemy : MonoBehaviour, IDamageble
         _stateMachine.Update();
         DebugCurrentState = _stateMachine.DebugCurrentState; // 상태 이름 업데이트
 
-    }
-    private void FixedUpdate()
-    {
-        
     }
 
     //피격시 color 하얗게?
@@ -115,13 +113,17 @@ public class Enemy : MonoBehaviour, IDamageble
             }
             _stateMachine.GuardState.Turn();
         }
-        if (DebugCurrentState == "DeathState")
+        if (IsDead)
+        {
             return;
+        }
         _currentHealth -= damage;
         Animator.SetTrigger("Hit");
+        
         if (_currentHealth <= 0)
         {
             Die();
+            IsDead = true;
         }
     }
 
@@ -129,7 +131,9 @@ public class Enemy : MonoBehaviour, IDamageble
     public void Die()
     {
         Debug.Log("Enemy died");
+        UIManager.instance.player.stat.GainExp(Data.experience);
         _stateMachine.ChangeState(_stateMachine.DeathState);
+
     }
 
     public void TakeDamage(float damage)
