@@ -11,18 +11,11 @@ public enum SkillType
 public class BossEnemy : MonoBehaviour, IDamageble
 {
     [SerializeField] private BossEnemyDataSO _bossData;
-    [SerializeField] private float _moveSpeed = 1f;
-    [SerializeField] private float _chaseRange = 20f;
-    [SerializeField] private float _stopDistance = 10f;
-    public float ChaseRange => _chaseRange;
-    public float StopDistance => _stopDistance;
-    public float MoveSpeed => _moveSpeed;
     private float _currentHp;
     public Animator Animator { get; private set; }
     public BossStateMachine StateMachine { get; private set; }
     public BossEnemyDataSO BossData => _bossData;
 
-    public bool IsPhase2 => _currentHp <= _bossData.maxHP * (_bossData.phase2ThresholdPercent / 100f);
     
     public int AttackCount { get; set; } = 0;
     public GameObject BreathPos;
@@ -32,9 +25,9 @@ public class BossEnemy : MonoBehaviour, IDamageble
 
     public int SkillIndex { get; set; } = 0;
 
-    public float MaxHealth => throw new System.NotImplementedException();
+    public float MaxHealth {get; private set;}
 
-    public float CurrentHealth => throw new System.NotImplementedException();
+    public float CurrentHealth {get; private set;}
 
     public int AttackThresholdBeforeSkill = 3;// 일반공격 횟수
     private bool _facingRight = true; //방향
@@ -50,7 +43,7 @@ public class BossEnemy : MonoBehaviour, IDamageble
 
     private void Start()
     {
-        _currentHp = _bossData.maxHP;
+        CurrentHealth = _bossData.maxHP;
         StateMachine.Initialize(new BossIdleState(this));
     }
 
@@ -107,16 +100,7 @@ public class BossEnemy : MonoBehaviour, IDamageble
     }
 
 
-    public void TakeDamage(int dmg)
-    {
-        _currentHp -= dmg;
-        
-        if (_currentHp <= 0)
-        {
-            StateMachine.ChangeState(new BossDieState(this));
-            return;
-        }
-    }
+
     public void SpawnSkillEffect() 
     {
         if (CurrentSkillData == null)
@@ -160,7 +144,7 @@ public class BossEnemy : MonoBehaviour, IDamageble
     public void OnSkillAnimationComplete()
     {
         CurrentSkillData = null;
-        var skills = IsPhase2 ? BossData.phase2Skills : BossData.phase1Skills;
+        var skills =  BossData.phase1Skills;
         SkillIndex = (SkillIndex + 1) % BossData.phase1Skills.Count;
         StateMachine.ChangeState(new BossIdleState(this));
     }
@@ -226,7 +210,7 @@ public class BossEnemy : MonoBehaviour, IDamageble
     {
         if (PlayerTarget == null)
         {
-            Collider2D hit = Physics2D.OverlapCircle(transform.position, _bossData.detectionRange , LayerMask.GetMask("Test"));
+            Collider2D hit = Physics2D.OverlapCircle(transform.position, _bossData.detectionRange , LayerMask.GetMask("Player"));
             if (hit != null)
             {
                 _playerTarget = hit.transform;
@@ -280,7 +264,12 @@ public class BossEnemy : MonoBehaviour, IDamageble
 
     public void TakeDamage(float damage)
     {
-
-
+        CurrentHealth -= damage;
+        
+        if (CurrentHealth <= 0)
+        {
+            StateMachine.ChangeState(new BossDieState(this));
+            return;
+        }
     }
 }

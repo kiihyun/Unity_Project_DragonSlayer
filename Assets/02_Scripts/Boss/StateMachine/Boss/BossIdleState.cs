@@ -45,7 +45,7 @@ public class BossIdleState : IBossState
             float dist = Vector2.Distance(_boss.transform.position, _boss.PlayerTarget.position);
 
             // 멀리 있으면 추적 시작
-            if (dist > _boss.StopDistance && dist <= _boss.ChaseRange)
+            if (dist > _boss.BossData.StopDistance && dist <= _boss.BossData.ChaseRange)
             {
                 _boss.StateMachine.ChangeState(new BossChaseState(_boss));
                 return;

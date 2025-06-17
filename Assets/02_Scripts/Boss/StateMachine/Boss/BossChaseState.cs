@@ -25,7 +25,7 @@ public class BossChaseState : IBossState
         float distance = Vector2.Distance(_boss.transform.position, _boss.PlayerTarget.position);
 
         // 너무 멀면 추적 중단
-        if (distance > _boss.ChaseRange)
+        if (distance > _boss.BossData.ChaseRange)
         {
             _boss.Animator.SetBool("IsWalking", false);
             _boss.StateMachine.ChangeState(new BossIdleState(_boss));
@@ -33,7 +33,7 @@ public class BossChaseState : IBossState
         }
 
         // 충분히 가까우면 추적 중단 (공격 등 다음 행동 가능)
-        if (distance <= _boss.StopDistance)
+        if (distance <= _boss.BossData.StopDistance)
         {
             _boss.Animator.SetBool("IsWalking", false);
             _boss.StateMachine.ChangeState(new BossIdleState(_boss));
@@ -45,7 +45,7 @@ public class BossChaseState : IBossState
         _boss.transform.position = Vector3.MoveTowards(
             _boss.transform.position,
             targetPos,
-            _boss.MoveSpeed * Time.deltaTime
+            _boss.BossData.moveSpeed * Time.deltaTime
         );
     }
 

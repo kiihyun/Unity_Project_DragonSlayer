@@ -21,7 +21,7 @@ public class BossSkillState : IBossState
 
     public void Execute()
     {
-        var skills = _boss.IsPhase2 ? _boss.BossData.phase2Skills : _boss.BossData.phase1Skills;
+        var skills =  _boss.BossData.phase1Skills;
 
         if (skills == null || skills.Count == 0)
         {

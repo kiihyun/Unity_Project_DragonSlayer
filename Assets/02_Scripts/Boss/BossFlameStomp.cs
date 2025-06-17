@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class BossFlameStomp : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private float _damage = 10f;
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        
+        if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
+        {
+            other.GetComponent<Player>()?.stat.TakeDamage(_damage);
+        }
     }
 }
