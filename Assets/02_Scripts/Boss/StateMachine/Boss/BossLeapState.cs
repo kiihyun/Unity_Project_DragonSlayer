@@ -44,9 +44,6 @@ public class BossLeapState : IBossState
 
     void OnLand()
     {
-        UnityEngine.Object.Instantiate(_data.LandFXPrefab,
-            _boss.transform.position,
-            Quaternion.identity);
 
         foreach (var c in Physics2D.OverlapCircleAll(
                      _boss.transform.position,
