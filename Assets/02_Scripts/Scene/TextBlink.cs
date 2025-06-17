@@ -20,6 +20,10 @@ public class TextBlink : MonoBehaviour
     {
          _color_Alpha = Mathf.Sin(Time.time * Mathf.PI / duration) * 0.5f + 0.5f;
 
-        MainText.color = new Color( 1,1,1 ,_color_Alpha); 
+        MainText.color = new Color( 1,1,1 ,_color_Alpha);
+        if (Input.anyKeyDown || Input.GetMouseButton(0))
+        {
+
+        }
     }
 }
