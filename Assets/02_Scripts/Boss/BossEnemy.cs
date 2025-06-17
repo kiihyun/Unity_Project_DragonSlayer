@@ -31,7 +31,7 @@ public class BossEnemy : MonoBehaviour, IDamageble
 
     public float CurrentHealth {get; private set;}
 
-    public int AttackThresholdBeforeSkill = 3;// 일반공격 횟수
+    public int AttackThresholdBeforeSkill = 2;// 일반공격 횟수
     private bool _facingRight = true; //방향
     
     public Transform fireStartPoint; //FlameStomp
@@ -191,7 +191,7 @@ public class BossEnemy : MonoBehaviour, IDamageble
     {
         AttackCount++;
         CurrentSkillData = null;
-        SkillIndex = (SkillIndex + 1) % BossData.phase1Skills.Count;
+        SkillIndex = Random.Range(0,_bossData.phase1Skills.Count);
         StateMachine.ChangeState(new BossIdleState(this));
 
         if (AttackCount >= AttackThresholdBeforeSkill)
