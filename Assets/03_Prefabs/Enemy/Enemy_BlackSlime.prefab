@@ -50,7 +50,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37778aa81f81bfe439a09f484c4d9b1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerStat: {fileID: 0}
   <AnimatorController>k__BackingField:
     _idleAnimationName: Idle
     _attackAnimationName: Attack
@@ -70,6 +69,7 @@ MonoBehaviour:
   RangedAttackSensor: {fileID: 0}
   MainCollider: {fileID: 0}
   RangedAttacked: 0
+  IsDead: 0
   MoveCount: 0
   _moveCooldown: 0
 --- !u!50 &8646002340034999208
@@ -384,7 +384,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 100
   m_Sprite: {fileID: 21300000, guid: 265406c4eb5581249bb0f7999d03774c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
