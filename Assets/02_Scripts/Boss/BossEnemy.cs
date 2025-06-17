@@ -6,6 +6,7 @@ public enum SkillType
     FireRain,   // 여러 개 프리팹 반복 생성
     FlameMarch,
     Breath,
+    SwordWind,
     // 향후 Meteor, Laser 등 확장 가능
 }
 public class BossEnemy : MonoBehaviour, IDamageble
@@ -119,6 +120,9 @@ public class BossEnemy : MonoBehaviour, IDamageble
                 break;
             case SkillType.FlameMarch:
                 SpawnFlameMarchEffect();
+                break;
+            case SkillType.SwordWind:
+                SpawnSwordWind();
                 break;
             default:
                 Debug.LogWarning($"정의되지 않은 SkillType: {CurrentSkillData.skillType}");
@@ -271,5 +275,17 @@ public class BossEnemy : MonoBehaviour, IDamageble
             StateMachine.ChangeState(new BossDieState(this));
             return;
         }
+    }
+    
+    public void SpawnSwordWind()
+    {
+        GameObject effect = Instantiate(
+            BossData.phase1Skills[0].skillEffectPrefab, // SO에 연결된 이펙트 프리팹
+             BreathPos.transform.position, // 보스 앞쪽
+            Quaternion.identity
+        );
+        effect.transform.SetParent(this.transform);
+
+        Destroy(effect, BossData.phase1Skills[0].effectDuration); // 일정 시간 후 파괴
     }
 }

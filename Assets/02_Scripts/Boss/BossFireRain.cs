@@ -22,6 +22,7 @@ public class BossFireRain : MonoBehaviour
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             other.GetComponent<Player>()?.stat.TakeDamage(_damage);
+            Destroy(this.gameObject);
         }
     }
 }

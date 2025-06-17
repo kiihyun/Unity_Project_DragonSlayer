@@ -73,6 +73,10 @@ public class BossSkillState : IBossState
         {
             _boss.Animator.SetTrigger(skill.animationTriggerName);
         }
+        else if (skill.skillName == "SwordWind")
+        {
+            _boss.Animator.SetTrigger(skill.animationTriggerName);
+        }
 
         Debug.Log($"보스가 스킬 [{skill.skillName}] 시전! 데미지: {skill.damage}");
     }

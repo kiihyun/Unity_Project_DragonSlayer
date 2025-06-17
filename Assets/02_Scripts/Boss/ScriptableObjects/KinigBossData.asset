@@ -24,8 +24,24 @@ MonoBehaviour:
   phase2ThresholdPercent: 0
   attackEffectPrefab: {fileID: 0}
   ChaseRange: 10
-  StopDistance: 3
-  phase1Skills: []
+  StopDistance: 4
+  NormalAttackDamageDelay: 0.8
+  phase1Skills:
+  - skillName: SwordWind
+    skillType: 4
+    damage: 10
+    range: 10
+    delayBeforeCast: 1
+    cooldown: 1
+    skillEffectPrefab: {fileID: 828464571756506977, guid: a9c51c1fabfb60c4f984977eccc2a4e1, type: 3}
+    offsetPos: {fileID: 0}
+    offsetFromBreathPos: {x: -1, y: -1, z: 0}
+    rotationZ: 0
+    animationTriggerName: Attack2
+    effectDuration: 5
+    flameCount: 0
+    flameInterval: 0
+    flameSpacing: 0
   phase2Skills: []
   phase1Dialogues: []
   phase2Dialogues: []

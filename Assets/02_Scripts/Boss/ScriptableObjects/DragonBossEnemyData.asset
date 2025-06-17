@@ -25,6 +25,7 @@ MonoBehaviour:
   attackEffectPrefab: {fileID: 7512756569008411512, guid: a30a02ed8820aa44ebb7ff4cded1927f, type: 3}
   ChaseRange: 20
   StopDistance: 10
+  NormalAttackDamageDelay: 2
   phase1Skills:
   - skillName: breath
     skillType: 3
@@ -33,6 +34,7 @@ MonoBehaviour:
     delayBeforeCast: 1
     cooldown: 2
     skillEffectPrefab: {fileID: 7512756569008411512, guid: a30a02ed8820aa44ebb7ff4cded1927f, type: 3}
+    offsetPos: {fileID: 0}
     offsetFromBreathPos: {x: -21, y: -2, z: 0}
     rotationZ: 90
     animationTriggerName: Skill
@@ -47,6 +49,7 @@ MonoBehaviour:
     delayBeforeCast: 1
     cooldown: 3
     skillEffectPrefab: {fileID: 3269781502987044549, guid: 7e0a8e52e68bbc64d9f43ac5ffa8a578, type: 3}
+    offsetPos: {fileID: 0}
     offsetFromBreathPos: {x: 0, y: 0, z: 0}
     rotationZ: 0
     animationTriggerName: Skill2
@@ -61,6 +64,7 @@ MonoBehaviour:
     delayBeforeCast: 1
     cooldown: 3
     skillEffectPrefab: {fileID: 503142907018376304, guid: 26fe67ee1c25c754eabe6b3bfaba3d19, type: 3}
+    offsetPos: {fileID: 0}
     offsetFromBreathPos: {x: 0, y: 0, z: 0}
     rotationZ: 0
     animationTriggerName: Attack1
@@ -76,6 +80,7 @@ MonoBehaviour:
     delayBeforeCast: 10
     cooldown: 10
     skillEffectPrefab: {fileID: 7512756569008411512, guid: a30a02ed8820aa44ebb7ff4cded1927f, type: 3}
+    offsetPos: {fileID: 0}
     offsetFromBreathPos: {x: 0, y: 0, z: 0}
     rotationZ: 0
     animationTriggerName: 

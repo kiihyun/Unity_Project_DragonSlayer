@@ -72,7 +72,7 @@ public class BossAttackState : IBossState
             attackTrigger = "Attack1";
 
         _boss.Animator.SetTrigger(attackTrigger);
-        _boss.StartCoroutine(ApplyDamageAfterDelay(2f));
+        _boss.StartCoroutine(ApplyDamageAfterDelay(_boss.BossData.NormalAttackDamageDelay));
 
 
         //_boss.PlayerTarget.TakeDamage(_boss.BossData.attackDamage);
@@ -85,7 +85,7 @@ public class BossAttackState : IBossState
     {
         yield return new WaitForSeconds(delay);
         // 플레이어가 아직 존재하고, 공격 범위 안에 있는지 다시 확인
-        if (_boss.PlayerTarget == null) yield break;
+        if (_boss.PlayerTarget == null) yield break;    
 
         Vector3 diff           = _boss.fireStartPoint.position - _boss.PlayerTarget.position;
         float sqrDistance      = diff.sqrMagnitude;

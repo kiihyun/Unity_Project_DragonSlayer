@@ -22,6 +22,7 @@ public class BossEnemyDataSO : ScriptableObject
     public GameObject attackEffectPrefab;
     public float ChaseRange;
     public float StopDistance;
+    public float NormalAttackDamageDelay   = 0.8f;
     
     [Header("페이즈1 스킬")]
     public List<BossSkillData> phase1Skills;
