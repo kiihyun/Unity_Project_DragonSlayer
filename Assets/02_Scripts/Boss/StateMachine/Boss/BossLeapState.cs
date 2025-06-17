@@ -30,7 +30,7 @@ public class BossLeapState : IBossState
         rb.velocity   = Vector2.zero;       // 혹시 남아있을 잔속도 제거
 
         Vector2 start   = rb.position;      // 점프 시작 지점
-        Vector2 target  = _targetPos;       // 착지 목표
+        Vector2 target  = _targetPos + new Vector2(Random.Range(-0.5f,0.5f),0);       // 착지 목표
         float   totalT  = _data.LeapTime;   // 체공 시간 (예: 0.8f)
         float   apexY   = _data.LeapApexHeight;  // 최고 높이
         _boss.Animator.SetTrigger("Leap");
@@ -42,7 +42,7 @@ public class BossLeapState : IBossState
             float t01 = Mathf.Clamp01(elapsed / totalT);   // 0 → 1
 
             // 1) 수평?: 선형 보간 (start → target)
-            Vector2 horiz = Vector2.Lerp(start, target +new Vector2(Random.Range(-0.5f,0.5f),0), t01);
+            Vector2 horiz = Vector2.Lerp(start, target, t01);
 
             // 2) 수직?: 포물선 y = 4h * t(1-t)  (0~h~0)
             float parabolaY = 4f * apexY * t01 * (1f - t01);
