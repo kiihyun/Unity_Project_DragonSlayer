@@ -133,11 +133,19 @@ public class PlayerController : BaseController<Player>
 
     public void Moving()
     {
-        Vector3 pos = player.transform.position;
-        pos.x += inputDir.normalized.x * player.stat.MoveSpeed * Time.deltaTime;
-        player.transform.position = pos;
-
+        player.rb.velocity = new Vector2(
+            inputDir.normalized.x * player.stat.MoveSpeed,
+            player.rb.velocity.y
+        );
         player.CharacterImage.flipX = inputDir.x < 0 ? true : false;
+
+
+
+        // Vector3 pos = player.transform.position;
+        // pos.x += inputDir.normalized.x * player.stat.MoveSpeed * Time.deltaTime;
+        // player.transform.position = pos;
+
+        // player.CharacterImage.flipX = inputDir.x < 0 ? true : false;
     }
 
     public void Jumping()
@@ -156,9 +164,9 @@ public class PlayerController : BaseController<Player>
 
     public void Nonslip()
     {
-        if (inputDir.x == 0 && !isDash)
+        if (IsOnSlope() && inputDir.x == 0 && !isDash && !isJump)
         {
-            player.rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
+            player.rb.velocity = Vector2.zero;
         }
     }
 
@@ -204,5 +212,17 @@ public class PlayerController : BaseController<Player>
         return false;
     }
 
+    // 경사면 체크 함수
+    private bool IsOnSlope()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(player.transform.position, Vector2.down, 1.1f, LayerMask.GetMask("Test", "Ground"));
+        if (hit)
+        {
+            // 경사 각도 계산
+            float angle = Vector2.Angle(hit.normal, Vector2.up);
+            return angle > 0.1f && angle <= 60;
+        }
+        return false;
+    }
 
 }
