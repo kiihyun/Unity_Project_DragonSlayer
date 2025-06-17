@@ -61,7 +61,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 149177407902780192}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -100,6 +100,8 @@ MonoBehaviour:
   minSlotCount: 16
   _slots: []
   _itemList: []
+  _quickSlot_0: {fileID: 7295500925301995742}
+  _quickSlot_1: {fileID: 4197631834163550406}
 --- !u!1 &698739229274399812
 GameObject:
   m_ObjectHideFlags: 0
@@ -237,6 +239,8 @@ MonoBehaviour:
   slotIndex: 0
   itemIcon: {fileID: 914124085010594405}
   data: {fileID: 0}
+  uiInventory: {fileID: 0}
+  uiEquipItem: {fileID: 0}
 --- !u!1 &2357829208904031202
 GameObject:
   m_ObjectHideFlags: 0
@@ -331,6 +335,8 @@ MonoBehaviour:
   slotIndex: 1
   itemIcon: {fileID: 2799076258170570496}
   data: {fileID: 0}
+  uiInventory: {fileID: 0}
+  uiEquipItem: {fileID: 0}
 --- !u!1 &2541610165611650399
 GameObject:
   m_ObjectHideFlags: 0

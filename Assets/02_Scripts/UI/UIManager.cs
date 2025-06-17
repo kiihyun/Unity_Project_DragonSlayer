@@ -7,9 +7,9 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager instance {get; private set;}
 
-    [SerializeField] private Transform _canvas_Fixed;
-    [SerializeField] private Transform _canvas_Window;
-    [SerializeField] private Transform _canvas_Popup;
+    public Transform canvas_Fixed;
+    public Transform canvas_Window;
+    public Transform canvas_Popup;
     
     public Player player;
     public Inventory inventory;
@@ -66,7 +66,7 @@ public class UIManager : MonoBehaviour
     public BaseFixed OpenFixedUI(UIType type, OpenParam param = null)
     {
         // GetUI로 생성 시, BaseUI 타입으로 생성되기 때문에 BaseFixed 타입으로 수정
-        BaseFixed Fixed = (BaseFixed)_pool.GetUI(type, _canvas_Fixed); 
+        BaseFixed Fixed = (BaseFixed)_pool.GetUI(type, canvas_Fixed); 
         Fixed.OnOpen(param);
         _fixedUIs.Add(Fixed); // 고정된 UI는 한번에 여러 UI가 존재할 수 있음
         Fixed.gameObject.SetActive(true);
@@ -86,7 +86,7 @@ public class UIManager : MonoBehaviour
     // 호출 시 param을 따로 입력해주지 않으면 자동으로 null이 할당
     public BaseWindow OpenWindowUI(UIType type, OpenParam param = null)
     {
-        BaseWindow UI = (BaseWindow)_pool.GetUI(type, _canvas_Window);
+        BaseWindow UI = (BaseWindow)_pool.GetUI(type, canvas_Window);
         UI.OnOpen(param);
         UI.gameObject.SetActive(true);  // 기존 UI는 비활성화 해주는 기능 필요
         _windowUI[type] = UI;  // WindowUI는 한번에 하나의 UI만 활성화 가능
@@ -127,7 +127,7 @@ public class UIManager : MonoBehaviour
         else
         {
             // UI가 생성되어 있지 않다면 풀에서 가져옴
-            Window = (BaseWindow)_pool.GetUI(type, _canvas_Window);
+            Window = (BaseWindow)_pool.GetUI(type, canvas_Window);
             _windowUI[type] = Window;
         }
         Window.OnOpen(param);
@@ -141,7 +141,7 @@ public class UIManager : MonoBehaviour
     // 호출시 param을 따로 입력해주지 않으면 자동으로 null이 할당
     public BasePopup OpenPopupUI(UIType type, OpenParam param = null)
     {
-        BasePopup popup = (BasePopup)_pool.GetUI(type, _canvas_Popup);
+        BasePopup popup = (BasePopup)_pool.GetUI(type, canvas_Popup);
         popup.OnOpen(param);
         _popupUIs.Push(popup);   // _popupUIs은 스택구조를 갖기 때문에 Push를 해준다
         popup.gameObject.SetActive(true);
@@ -163,12 +163,12 @@ public class UIManager : MonoBehaviour
 
     public void OnOpenMainWindow()
     {
-        _canvas_Window.gameObject.SetActive(true);
+        canvas_Window.gameObject.SetActive(true);
     }
 
     public void OnCloseMainWindow()
     {
-        _canvas_Window.gameObject.SetActive(false);
+        canvas_Window.gameObject.SetActive(false);
     }
     
     
