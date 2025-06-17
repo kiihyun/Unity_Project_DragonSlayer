@@ -18,6 +18,7 @@ public class PlayerDashState : PlayerStates
     {
         base.OnEnter();
         player.anim.CrossFade("Dash", 0.1f);
+        player.stat.CurrentDashCooldown = 0f;
         player.Controller.Dash();
     }
 
