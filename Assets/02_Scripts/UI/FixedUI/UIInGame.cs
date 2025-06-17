@@ -15,8 +15,8 @@ public class UIInGame : BaseFixed
     [SerializeField] private Image _expBar;
     [SerializeField] private Image _currentItem;
     [SerializeField] private Image _swapItem;
-    [SerializeField]private PlayerStat _playerStat;
-    [SerializeField]private Inventory _inventory;
+    [SerializeField] private PlayerStat _playerStat;
+    [SerializeField] private Inventory _inventory;
     
     private void Start()
     {
@@ -31,7 +31,7 @@ public class UIInGame : BaseFixed
     private void Update()
     {
         _healthBar.fillAmount = _playerStat.CurrentHealth / _playerStat.MaxHealth;
-        _expBar.fillAmount = _playerStat.EXP / _playerStat.MaxHealth;
+        _expBar.fillAmount = _playerStat.CurrentEXP / _playerStat.MaxExp;
         _DashCoolDown.fillAmount = _playerStat.CurrentDashCooldown / _playerStat.DashCooldown;
         _skillCoolDown.fillAmount = _playerStat.CurrentSkillCooldown / _playerStat.SkillCooldown;
         

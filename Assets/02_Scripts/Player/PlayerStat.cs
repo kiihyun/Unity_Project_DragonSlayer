@@ -33,8 +33,13 @@ public class PlayerStat : MonoBehaviour, IDamageble
     public int _maxLevel = 10; // �ִ� ���� ���� (��: 10�������� ����)
     
     private int _level = 1;
+    public int MaxExp => _maxExp;
 
-    private int _exp;
+    private int _maxExp = 10;
+
+    private int _currentexp;
+    
+    
 
     public float MaxHealth => _maxHealth;
 
@@ -62,7 +67,7 @@ public class PlayerStat : MonoBehaviour, IDamageble
     }
 
 
-    public int EXP { get { return _exp; } }
+    public int CurrentEXP { get { return _currentexp; } }
 
     public int Level { get { return _level; } }
 
@@ -77,7 +82,7 @@ public class PlayerStat : MonoBehaviour, IDamageble
     public void Init()
     {
         _currentHealth = _maxHealth;
-        _exp = 0;
+        _currentexp = 0;
     }
 
     public void TakeDamage(float damage)
@@ -95,11 +100,11 @@ public class PlayerStat : MonoBehaviour, IDamageble
 
     public void LevelUP()
     {
-        if (_maxLevel <= _level)
+        if (_maxLevel <= _currentexp)
         {
             Debug.Log($"������! ���� ���� : {_level}");
             _level++;
-            _exp = 0;
+            _currentexp = 0;
             _attackPower += 2; // ������ �� ���ݷ� ����
             _maxHealth += 5; // ������ �� �ִ� ü�� ����
             _currentHealth = _maxHealth; // �ִ� ü�� ���� �� ���� ü�µ� ȸ��
@@ -109,8 +114,8 @@ public class PlayerStat : MonoBehaviour, IDamageble
 
     public void GainExp(int exp)
     {
-        _exp += exp;
-        Debug.Log($"����ġ ȹ��! ���� ����ġ : {_exp}");
+        _currentexp += exp;
+        Debug.Log($"����ġ ȹ��! ���� ����ġ : {_currentexp}");
         LevelUP();
     }
 

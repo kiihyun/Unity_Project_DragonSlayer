@@ -55,8 +55,8 @@ public class UIPlayerStatus : BaseWindow
         }
         
         float level = _playerStat.Level;
-        
-        float health = _playerStat.MaxHealth;
+        float exp = _playerStat.CurrentEXP;
+        float health = _playerStat.CurrentHealth;
         float attackPower = _playerStat.AttackPower;
         float speed = _playerStat.MoveSpeed;
 
@@ -81,7 +81,7 @@ public class UIPlayerStatus : BaseWindow
         }
         
         _level.text = level.ToString("F2");
-        
+        _expBar.fillAmount = exp / _playerStat.MaxExp;
         _maxHealth.text = health.ToString("F2");
         _currentHealth.text = _playerStat.CurrentHealth.ToString("F2");
         _attackPower.text = attackPower.ToString("F2");
