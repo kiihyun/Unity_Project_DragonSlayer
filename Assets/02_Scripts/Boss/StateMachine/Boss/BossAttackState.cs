@@ -12,7 +12,7 @@ public class BossAttackState : IBossState
     public BossAttackState(BossEnemy boss)
     {
         _boss = boss;
-        _attackCooldown = 5.1f; // 공격 후 딜레이 (초)
+        _attackCooldown = _boss.BossData.normalAttackCooldown; // 공격 후 딜레이 (초)
         _hasAttacked = false;
     }
 
