@@ -32,9 +32,10 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     }
     
     // 슬롯 초기화
-    public void Set(ItemData newData)
+    public void Set(ItemData newData, int index = -1)
     {
         data = newData;
+        if(index >= 0) slotIndex = index;
         if(newData != null)
         {
             itemIcon.sprite = newData.ItemIcon; // 아이콘 이미지 할당
@@ -85,9 +86,10 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     }
     
     // 슬롯에 아이템 데이터 할당 후 아이콘 갱신
-    public void SetItem(ItemData newData)
+    public void SetItem(ItemData newData, int index = -1)
     {
         data = newData;
+        if(index >= 0) slotIndex = index;
         itemIcon.sprite = data?.ItemIcon;
         itemIcon.enabled = data != null;
     }
@@ -95,14 +97,11 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     // 다른 슬롯에서 아이템 받아서 교환, 혹은 이동 처리
     public void OnDrop(PointerEventData eventData)
     {
-        // draggedSlot은 마우스로 옮기는 아이템 슬롯
-        // this는 드롭이 일어나는 대상 슬롯
         InventorySlot draggedSlot  = eventData.pointerDrag?.GetComponent<InventorySlot>();
         if (draggedSlot  == null || draggedSlot  == this)
         {
             return;
         }
-        
         ItemData prevData = data; // this 슬롯의 기존 아이템 저장
         
         // 퀵슬롯에 드롭 (인벤토리 → 퀵슬롯)
@@ -130,7 +129,7 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         else if (this.slotType == SlotType.NormalSlot && draggedSlot.slotType == SlotType.QuickSlot)
         {
             // 퀵슬롯 비우기, 퀵슬롯 아이템을 플레이어의 _consumableItems 리스트로 복귀
-            _inventory.SetQuickSlotItem(draggedSlot.slotIndex, null);
+            _inventory.SetQuickSlotItem(draggedSlot.slotIndex, this.data);
             
             // this 슬롯 초기화
             Set(draggedSlot.data);
@@ -192,6 +191,7 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         // 같은 종류끼리 교환 (인벤토리 -> 인벤토리, 퀵슬롯 -> 퀵슬롯)
         else if (this.slotType == draggedSlot.slotType)
         {
+            _inventory.swapQuickSlotItem();
             SwapItems(draggedSlot);
         }
     }

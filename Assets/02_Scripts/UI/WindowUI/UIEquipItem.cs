@@ -15,7 +15,7 @@ public class UIEquipItem : BaseWindow
     [SerializeField] private List<InventorySlot> _slots = new List<InventorySlot>();
     [SerializeField] private List<ItemData> _itemList = new List<ItemData>();
     private Queue<InventorySlot> _slotPool = new Queue<InventorySlot>();
-    
+
     public Inventory inventory { get; private set; }
     
     public override UIType UIType => UIType.UIEquipItem;
@@ -48,6 +48,7 @@ public class UIEquipItem : BaseWindow
         {
             inventory.InventoryUpdate += UpdateUI;
         }
+        UpdateUI();
     }
 
     private void OnDisable()
@@ -56,15 +57,22 @@ public class UIEquipItem : BaseWindow
         {
             inventory.InventoryUpdate -= UpdateUI;
         }
+
+        foreach (var slot in _slots)
+        {
+            slot.gameObject.SetActive(false);
+            slot.data = null;
+            _slotPool.Enqueue(slot);
+        }
+        _slots.Clear();
     }
 
     public void UpdateUI()
     {
-        // Inventory의 ConsumableItems를 _itemList에 복사하여 저장
+        // Inventory의 EquipableItems를 _itemList에 복사하여 저장
         _itemList = inventory.EquipableItems.ToList();
-        
         int slotCount = Mathf.Max(_itemList.Count, minSlotCount);
-        
+
         // 슬롯이 slotCount보다 적으면 풀에서 꺼내거나 새로 생성
         for (int i = 0; i < slotCount; i++)
         {

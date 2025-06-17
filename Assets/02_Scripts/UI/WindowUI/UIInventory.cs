@@ -49,6 +49,8 @@ public class UIInventory : BaseWindow
         {
             inventory.InventoryUpdate += UpdateUI;
         }
+
+        UpdateUI();
     }
 
     private void OnDisable()
@@ -57,14 +59,7 @@ public class UIInventory : BaseWindow
         {
             inventory.InventoryUpdate -= UpdateUI;
         }
-    }
 
-    // Inventory 업데이트
-    public void UpdateUI()
-    {
-        // Inventory의 ConsumableItems를 _itemList에 복사하여 저장
-        _itemList = inventory.ConsumableItems.ToList();
-        
         // 기존 슬롯 모두 풀에 반환
         foreach (var slot in _slots)
         {
@@ -72,6 +67,13 @@ public class UIInventory : BaseWindow
             _slotPool.Enqueue(slot);
         }
         _slots.Clear();
+    }
+
+    // Inventory 업데이트
+    public void UpdateUI()
+    {
+        // Inventory의 ConsumableItems를 _itemList에 복사하여 저장
+        _itemList = inventory.ConsumableItems.ToList();
         
         // 슬롯 다시 생성, 필요한 만큼 슬롯 재사용 또는 새로 생성
         int slotCount = Mathf.Max(_itemList.Count, minSlotCount);

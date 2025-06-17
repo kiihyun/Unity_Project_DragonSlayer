@@ -42,6 +42,28 @@ public class Inventory : MonoBehaviour
         InventoryUpdate?.Invoke();
     }
 
+    
+    public bool HasItem(int itemID)
+    {
+        foreach(var item in _consumableItems)
+        {
+            if(item.ItemID == itemID)
+            {
+                return true;
+            }
+        }
+
+        foreach(var item in _equipableItems)
+        {
+            if(item.ItemID == itemID)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     // 인벤토리의 아이템 타입을 확인하고 제거
     public void RemoveItem(ItemData item)
     {
@@ -60,24 +82,27 @@ public class Inventory : MonoBehaviour
         }
         InventoryUpdate?.Invoke();
     }
+    public void swapQuickSlotItem()
+    {
+        ItemData temp = _quickSlotItems[0];
+        _quickSlotItems[0] = _quickSlotItems[1];
+        _quickSlotItems[1] = temp;
+        InventoryUpdate?.Invoke();
+    }
 
     // 퀵슬롯에 아이템 넣기, 빼기
     public void SetQuickSlotItem(int slot, ItemData item)
     {
-        if (slot < 0 || slot >= _quickSlotItems.Length)
-        {
-            return;
-        }
-        
         // 기존 퀵슬롯 아이템을 인벤토리에 넣기 
         ItemData prevItem = _quickSlotItems[slot];
-        if (prevItem != null && !_consumableItems.Contains(prevItem))
+
+        if (prevItem != null)
         {
             AddItem(prevItem);
         }
         
-        // 새로 넣는 아이템은 인벤토리에서 제거 (중복 방지)
-        if (item != null && _consumableItems.Contains(item))
+        // // 새로 넣는 아이템은 인벤토리에서 제거 (중복 방지)
+        if (item != null)
         {
             RemoveItem(item);
         }
