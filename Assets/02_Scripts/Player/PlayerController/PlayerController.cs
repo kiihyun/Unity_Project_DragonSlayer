@@ -141,11 +141,11 @@ public class PlayerController : BaseController<Player>
 
 
 
-        // Vector3 pos = player.transform.position;
-        // pos.x += inputDir.normalized.x * player.stat.MoveSpeed * Time.deltaTime;
-        // player.transform.position = pos;
+        //Vector3 pos = player.transform.position;
+        //pos.x += inputDir.normalized.x * player.stat.MoveSpeed * Time.deltaTime;
+        //player.transform.position = pos;
 
-        // player.CharacterImage.flipX = inputDir.x < 0 ? true : false;
+        //player.CharacterImage.flipX = inputDir.x < 0 ? true : false;
     }
 
     public void Jumping()
@@ -175,7 +175,6 @@ public class PlayerController : BaseController<Player>
         if (player.stat.CurrentDashCooldown >= player.stat.DashCooldown)
         {
             isDash = false;
-            player.stat.CurrentDashCooldown = 0f; // 쿨타임 초기화
         }
 
         else
@@ -189,7 +188,6 @@ public class PlayerController : BaseController<Player>
         if (player.stat.CurrentSkillCooldown >= player.stat.SkillCooldown)
         {
             isSkill = false;
-            player.stat.CurrentSkillCooldown = 0f; // 쿨타임 초기화
         }
         else
         {

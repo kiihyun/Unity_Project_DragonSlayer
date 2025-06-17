@@ -23,7 +23,7 @@ public class TextBlink : MonoBehaviour
         MainText.color = new Color( 1,1,1 ,_color_Alpha);
         if (Input.anyKeyDown || Input.GetMouseButton(0))
         {
-
+            this.gameObject.SetActive(false);
         }
     }
 }

@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22c8ab5633ee43d44af875ed7a60fc08, type: 3}
+  m_Name: KinigBossData
+  m_EditorClassIdentifier: 
+  bossName: KnightKing
+  bossNum: 2
+  maxHP: 100
+  moveSpeed: 2
+  bossPortrait: {fileID: 0}
+  bossPrefab: {fileID: 0}
+  attackDamage: 10
+  attackRange: 2
+  detectionRange: 10
+  phase2ThresholdPercent: 0
+  attackEffectPrefab: {fileID: 0}
+  ChaseRange: 10
+  StopDistance: 7
+  NormalAttackDamageDelay: 0.3
+  normalAttackCooldown: 2.5
+  phase1Skills:
+  - skillName: SwordWind
+    skillType: 4
+    damage: 10
+    range: 10
+    delayBeforeCast: 1
+    cooldown: 1
+    skillEffectPrefab: {fileID: 828464571756506977, guid: a9c51c1fabfb60c4f984977eccc2a4e1, type: 3}
+    offsetPos: {fileID: 0}
+    offsetFromBreathPos: {x: -1, y: -1, z: 0}
+    rotationZ: 0
+    animationTriggerName: Attack2
+    effectDuration: 5
+    flameCount: 0
+    flameInterval: 0
+    flameSpacing: 0
+    LeapApexHeight: 4
+    LeapTime: 1
+    LandRadius: 2.5
+    LandDamage: 30
+    LandFXPrefab: {fileID: 0}
+    WindUpAnim: {fileID: 0}
+    LeapAnim: {fileID: 0}
+  - skillName: LeapSmash
+    skillType: 5
+    damage: 10
+    range: 10
+    delayBeforeCast: 1
+    cooldown: 1
+    skillEffectPrefab: {fileID: 639216930076180025, guid: b00a3140ef0458649a88dc4590098255, type: 3}
+    offsetPos: {fileID: 0}
+    offsetFromBreathPos: {x: -1, y: -1, z: 0}
+    rotationZ: 0
+    animationTriggerName: Leap
+    effectDuration: 0.3
+    flameCount: 0
+    flameInterval: 0
+    flameSpacing: 0
+    LeapApexHeight: 2
+    LeapTime: 0.8
+    LandRadius: 2.5
+    LandDamage: 10
+    LandFXPrefab: {fileID: 639216930076180025, guid: b00a3140ef0458649a88dc4590098255, type: 3}
+    WindUpAnim: {fileID: 0}
+    LeapAnim: {fileID: 7400000, guid: 414ec627ae16d1f4aa8490100fac00cb, type: 2}
+  phase2Skills: []
+  phase1Dialogues: []
+  phase2Dialogues: []
+  bossBGM: {fileID: 0}
+  phaseTransitionInvincibleTime: 2

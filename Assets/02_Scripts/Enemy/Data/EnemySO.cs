@@ -14,4 +14,5 @@ public class EnemySO : ScriptableObject
     public int AttackDamage;
     public bool Guardable;
     public bool RangeAttackable;
+    public int experience;
 }

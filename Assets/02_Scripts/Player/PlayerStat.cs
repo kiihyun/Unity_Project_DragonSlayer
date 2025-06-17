@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-public class PlayerStat : MonoBehaviour , IDamageble
+public class PlayerStat : MonoBehaviour, IDamageble
 {
     [Header("Player Stats")]
     [SerializeField, Tooltip("ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½Ö´ï¿½ Ã¼ï¿½ï¿½")]
@@ -14,7 +15,7 @@ public class PlayerStat : MonoBehaviour , IDamageble
     [SerializeField, Range(1f, 20f), Tooltip("ï¿½Ìµï¿½ ï¿½Óµï¿½")]
     private float _moveSpeed;
 
-    [SerializeField, Tooltip("ï¿½ï¿½ï¿½ ï¿½ï¿½")]
+    [SerializeField, Tooltip("ï¿½ï¿½ï¿?ï¿½ï¿½")]
     private float _dashPower;
 
     [SerializeField, Tooltip("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½")]
@@ -29,11 +30,12 @@ public class PlayerStat : MonoBehaviour , IDamageble
     [SerializeField, Tooltip("ï¿½ï¿½Å³ ï¿½ï¿½Å¸ï¿½ï¿½ (ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)")]
     private float skillCooldown = 5f; // ï¿½ï¿½Å³ ï¿½ï¿½Å¸ï¿½ï¿½ (ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
 
-    private int _level = 1; 
+    public int _maxLevel = 10; // ÃÖ´ë ·¹º§ ¼³Á¤ (¿¹: 10·¹º§±îÁö °¡´É)
+    private int _level = 1;
 
     private int _exp;
 
-    public float  MaxHealth => _maxHealth;
+    public float MaxHealth => _maxHealth;
 
     public float CurrentHealth => _currentHealth;
 
@@ -92,6 +94,8 @@ public class PlayerStat : MonoBehaviour , IDamageble
 
     public void LevelUP()
     {
+        if (_maxLevel <= _level)
+        {
             Debug.Log($"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½! ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ : {_level}");
             _level++;
             _exp = 0;
@@ -99,6 +103,7 @@ public class PlayerStat : MonoBehaviour , IDamageble
             _maxHealth += 5; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             _currentHealth = _maxHealth; // ï¿½Ö´ï¿½ Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¼ï¿½Âµï¿½ È¸ï¿½ï¿½
             _moveSpeed += 0.2f; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ìµï¿½ ï¿½Óµï¿½ ï¿½ï¿½ï¿½ï¿½
+        }
     }
 
     public void GainExp(int exp)
@@ -123,10 +128,10 @@ public class PlayerStat : MonoBehaviour , IDamageble
                 _moveSpeed += value;
                 break;
             default:
-                Debug.LogError($"ì¡´ìž¬í•˜ì§€ ì•ŠëŠ” íƒ€ìž…: {type}");
+                Debug.LogError($"ì¡´ìž¬?˜ì? ?ŠëŠ” ?€?? {type}");
                 break;
         }
     }
 
-    
+
 }

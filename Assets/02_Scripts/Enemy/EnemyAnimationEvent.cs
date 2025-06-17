@@ -20,7 +20,8 @@ public class EnemyAnimationEvent : MonoBehaviour
 
     public void ObjectOff()
     {
-        _gameObject.SetActive(false);
+        //_gameObject.SetActive(false);
+        Destroy(_gameObject);
     }
 
     public void ToAttackState()

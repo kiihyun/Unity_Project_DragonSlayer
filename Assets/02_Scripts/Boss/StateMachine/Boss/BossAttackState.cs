@@ -12,7 +12,7 @@ public class BossAttackState : IBossState
     public BossAttackState(BossEnemy boss)
     {
         _boss = boss;
-        _attackCooldown = 5.1f; // 공격 후 딜레이 (초)
+        _attackCooldown = _boss.BossData.normalAttackCooldown; // 공격 후 딜레이 (초)
         _hasAttacked = false;
     }
 
@@ -72,7 +72,7 @@ public class BossAttackState : IBossState
             attackTrigger = "Attack1";
 
         _boss.Animator.SetTrigger(attackTrigger);
-        _boss.StartCoroutine(ApplyDamageAfterDelay(3f));
+        _boss.StartCoroutine(ApplyDamageAfterDelay(_boss.BossData.NormalAttackDamageDelay));
 
 
         //_boss.PlayerTarget.TakeDamage(_boss.BossData.attackDamage);
@@ -84,11 +84,33 @@ public class BossAttackState : IBossState
     private IEnumerator ApplyDamageAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        // _boss.PlayerTarget.TakeDamage(_boss.BossData.attackDamage);
+        // 플레이어가 아직 존재하고, 공격 범위 안에 있는지 다시 확인
+        if (_boss.PlayerTarget == null) yield break;    
+
+        Vector3 diff           = _boss.fireStartPoint.position - _boss.PlayerTarget.position;
+        float sqrDistance      = diff.sqrMagnitude;
+        float sqrAttackRange   = _boss.BossData.attackRange * _boss.BossData.attackRange;
+
+        if (sqrDistance > sqrAttackRange)
+        {
+            Debug.Log(" 범위를 벗어나 데미지 미적용");
+            _hasAttacked = true;
+            yield break;
+        }
+
+        if (_boss.PlayerTarget.TryGetComponent<IDamageble>(out var target))
+        {
+            target.TakeDamage(_boss.BossData.attackDamage);
+            Debug.Log(" 데미지 적용!");
+        }
+
+        _hasAttacked = true;
     }
     private IEnumerator BreathEffectDeley(float delay)
     {   
         yield return new WaitForSeconds(delay); 
         _boss.SpawnBreathEffect();
     }
+    
+
 }

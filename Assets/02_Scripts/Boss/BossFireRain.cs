@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class BossFireRain : MonoBehaviour
 {
-    public float fallSpeed = 10f;
-    private float _damage;
+    public float fallSpeed = 5f;
+    public float _damage = 10f;
 
     public void Init(float damage)
     {
@@ -19,15 +19,10 @@ public class BossFireRain : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            // other.GetComponent<Player>()?.TakeDamage(damage);
-            Debug.Log("�÷��̾ �ҵ��̿� ����!");
-            Destroy(gameObject); // �浹 �� ����
-        }
-        else if (other.gameObject.layer == LayerMask.NameToLayer("Test"))
-        {
-            Destroy(gameObject);
+            other.GetComponent<Player>()?.stat.TakeDamage(_damage);
+            Destroy(this.gameObject);
         }
     }
 }

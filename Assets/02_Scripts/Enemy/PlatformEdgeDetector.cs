@@ -6,6 +6,7 @@ public class PlatformEdgeDetector : MonoBehaviour
     [SerializeField] private Rigidbody2D _rigidbody;
     [SerializeField] private Collider2D _collider;
     [SerializeField] private bool _isLeft; // 회전 속도 조절
+    [SerializeField] private string _collision;
     private void Awake()
     {
         
@@ -15,6 +16,10 @@ public class PlatformEdgeDetector : MonoBehaviour
     private void Start()
     {
         _stateMachine = GetComponentInParent<Enemy>().StateMachine;
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        _collision = collision.name;
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -42,5 +47,6 @@ public class PlatformEdgeDetector : MonoBehaviour
                 _rigidbody.velocity = Vector2.right * 1;
             }
         }
+        
     }
 }
