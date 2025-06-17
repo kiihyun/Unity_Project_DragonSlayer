@@ -13,6 +13,7 @@ public class PlayerController : BaseController<Player>
     public IInteract InteractObject;
     public GameObject InteractObjectUI;
     public bool isDead = false;
+    public bool isSkill = false;
 
 
     public PlayerController(State<Player> initState, Player player) : base(initState, player)
@@ -29,6 +30,7 @@ public class PlayerController : BaseController<Player>
         IsInteract();
 
         DashCoolTime();
+        SkillCoolTime();
 
         base.OnUpdate(deltaTime);
         
@@ -98,6 +100,17 @@ public class PlayerController : BaseController<Player>
         }
     }
 
+    public void IsSkill()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && !isSkill)
+        {
+            isSkill = true;
+            ChangeState(nameof(PlayerSkillState));
+            return;
+        }
+    }
+
+
     public void IsInteract()
     {
         if(InteractObjectUI != null)
@@ -162,7 +175,20 @@ public class PlayerController : BaseController<Player>
             player.stat.CurrentDashCooldown += Time.deltaTime;
         }
     }
-    
+
+    public void SkillCoolTime()
+    {
+        if (player.stat.CurrentSkillCooldown >= player.stat.SkillCooldown)
+        {
+            isSkill = false;
+            player.stat.CurrentSkillCooldown = 0f; // 쿨타임 초기화
+        }
+        else
+        {
+            player.stat.CurrentSkillCooldown += Time.deltaTime;
+        }
+    }
+
 
 
     public bool IsGrounded() 

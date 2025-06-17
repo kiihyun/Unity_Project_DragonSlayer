@@ -24,6 +24,7 @@ public class PlayerIdleState : PlayerStates
         player.Controller.IsDash();
         player.Controller.IsAttack();
         player.Controller.IsMove();
+        player.Controller.IsSkill();
         player.Controller.Nonslip();
 
 

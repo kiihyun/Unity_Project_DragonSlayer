@@ -12,5 +12,6 @@ namespace Enums
         Dash,
         Attack,
         Death,
+        SKill,
     }
 }
