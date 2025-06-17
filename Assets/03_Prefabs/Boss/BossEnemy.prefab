@@ -51,12 +51,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bossData: {fileID: 11400000, guid: d6737ec15177b814296c1a90b63d4372, type: 2}
-  _moveSpeed: 0.5
-  _chaseRange: 20
-  _stopDistance: 10
   BreathPos: {fileID: 6189487555201100311}
   AttackThresholdBeforeSkill: 3
   fireStartPoint: {fileID: 7815997655556944231}
+  groundCheck: {fileID: 0}
+  groundRadius: 0.15
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!212 &899616623101648967
 SpriteRenderer:
   m_ObjectHideFlags: 0

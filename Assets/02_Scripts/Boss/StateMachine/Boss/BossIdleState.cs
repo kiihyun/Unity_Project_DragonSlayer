@@ -25,7 +25,6 @@ public class BossIdleState : IBossState
     {
 
         _boss.TryDetectPlayer();
-        Debug.Log(_boss.PlayerTarget);
         _boss.FlipToFacePlayer();
         _idleTimer += Time.deltaTime;
         _attackReadyTimer += Time.deltaTime;

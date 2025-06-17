@@ -7,6 +7,7 @@ public enum SkillType
     FlameMarch,
     Breath,
     SwordWind,
+    LeapSmash,
     // 향후 Meteor, Laser 등 확장 가능
 }
 public class BossEnemy : MonoBehaviour, IDamageble
@@ -34,10 +35,16 @@ public class BossEnemy : MonoBehaviour, IDamageble
     private bool _facingRight = true; //방향
     
     public Transform fireStartPoint; //FlameStomp
-
+    public Rigidbody2D Rb { get; private set; }
+    
+    [Header("Grounded Check")]
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private float     groundRadius = 0.15f;
+    [SerializeField] private LayerMask groundLayer;
 
     private void Awake()
     {
+        Rb = GetComponent<Rigidbody2D>();
         Animator = GetComponent<Animator>();
         StateMachine = new BossStateMachine();
     }
@@ -124,6 +131,9 @@ public class BossEnemy : MonoBehaviour, IDamageble
             case SkillType.SwordWind:
                 SpawnSwordWind();
                 break;
+            case SkillType.LeapSmash:
+                StateMachine.ChangeState(new BossLeapState(this, CurrentSkillData));
+                return;   
             default:
                 Debug.LogWarning($"정의되지 않은 SkillType: {CurrentSkillData.skillType}");
                 break;
@@ -287,5 +297,23 @@ public class BossEnemy : MonoBehaviour, IDamageble
         effect.transform.SetParent(this.transform);
 
         Destroy(effect, BossData.phase1Skills[0].effectDuration); // 일정 시간 후 파괴
+    }
+    /// <summary>발밑 원형 영역에 Ground 레이어가 닿아 있는지.</summary>
+    public bool IsGrounded()
+    {
+        return Physics2D.OverlapCircle(groundCheck.position,
+            groundRadius,
+            groundLayer);
+    }
+    public void SpawnLeap()
+    {
+        GameObject effect = Instantiate(
+            BossData.phase1Skills[1].skillEffectPrefab , // SO에 연결된 이펙트 프리팹
+            groundCheck.transform.position+ new Vector3(0,0.6f,0), // 보스 앞쪽
+            Quaternion.identity
+        );
+        effect.transform.SetParent(this.transform);
+
+        Destroy(effect, BossData.phase1Skills[1].effectDuration); // 일정 시간 후 파괴
     }
 }

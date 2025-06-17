@@ -19,4 +19,13 @@ public class BossSkillData
     public float flameInterval = 0.3f;      // 간격 시간
     public float flameSpacing = 2f;         // 거리 간격
     
+    [Header("Leap Smash")]
+    public float LeapApexHeight = 4f;       // 최고점 높이
+    public float LeapTime       = 1.0f;     // 공중 이동 시간
+    public float LandRadius     = 2.5f;     // 착지 데미지 반경
+    public float LandDamage     = 30f;
+    public GameObject LandFXPrefab;         // 땅울림 이펙트
+    public AnimationClip WindUpAnim;        // 충전 모션
+    public AnimationClip LeapAnim;          // 점프 중 모션
+    
 }
