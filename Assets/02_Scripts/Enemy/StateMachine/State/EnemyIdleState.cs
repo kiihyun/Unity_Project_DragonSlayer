@@ -29,13 +29,14 @@ public class EnemyIdleState : EnemyBaseState
         {
             _curTime = 0f; // 쿨타임 초기화
                            // 이동 로직 추가
+            if (_stateMachine.Enemy.MoveCount > 2)
+            {
+                Turn();
+            }
             Move();
             _stateMachine.Enemy.MoveCount++;
         }
-        if(_stateMachine.Enemy.MoveCount > 2)
-        { 
-            Turn(); 
-        }
+        
 
 
     }
