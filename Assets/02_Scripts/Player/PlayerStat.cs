@@ -31,6 +31,20 @@ public class PlayerStat : MonoBehaviour , IDamageble
 
     public float CurrentHealth => _currentHealth;
 
+    [SerializeField, Tooltip("대시 쿨타임 (초 단위)")]
+    private float dashCooldown = 2f; // 대시 쿨타임
+
+    public float DashCooldown { get { return dashCooldown; } }
+
+    private float currentDashCooldown = 0f; // 현재 대시 쿨타임
+
+    public float CurrentDashCooldown
+    {
+        get { return currentDashCooldown; }
+        set { currentDashCooldown = value; }
+    }
+
+
     public int EXP { get { return _exp; } }
 
     public int Level { get { return _level; } }

@@ -17,6 +17,7 @@ public class PlayerDashState : PlayerStates
     public override void OnEnter()
     {
         base.OnEnter();
+        player.rb.constraints &= ~RigidbodyConstraints2D.FreezePositionX;
         player.anim.CrossFade("Dash", 0.1f);
         player.Controller.Dash();
     }
@@ -30,11 +31,12 @@ public class PlayerDashState : PlayerStates
             ResetGravity();
             if (player.Controller.PreviousState() is PlayerJumpState)
             {
-                player.ChangeAnime(PlayerState.Jump);
+                player.anim.CrossFade("Jump", 0.1f);
             }
 
-            if (player.Controller.IsGrounded())
+            if (player.Controller.IsGrounded() )
             {
+                player.collider.excludeLayers = LayerMask.GetMask("Nothing");
                 player.Controller.IsAttack();
 
                 player.rb.velocity = Vector3.zero;

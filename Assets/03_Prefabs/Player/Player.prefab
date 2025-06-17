@@ -151,7 +151,7 @@ CapsuleCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -190,6 +190,7 @@ MonoBehaviour:
   anim: {fileID: 0}
   rb: {fileID: 0}
   dashFX: {fileID: 0}
+  collider: {fileID: 0}
   inventory: {fileID: 0}
 --- !u!114 &5550168115880547747
 MonoBehaviour:
@@ -209,6 +210,7 @@ MonoBehaviour:
   _dashPower: 11
   _jumpPower: 17
   _attackPower: 50
+  currentDashCooldown: 0
 --- !u!114 &7056716491293033037
 MonoBehaviour:
   m_ObjectHideFlags: 0
