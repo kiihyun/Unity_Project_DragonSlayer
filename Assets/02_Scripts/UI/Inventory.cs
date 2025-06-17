@@ -14,7 +14,6 @@ public class Inventory : MonoBehaviour
     [SerializeField] private ItemData[] _equipSlotItems = new ItemData[2];
     
     
-    
     // 외부에서 읽기만 가능하도록 제한
     public IReadOnlyList<ItemData> ConsumableItems => _consumableItems;
     public IReadOnlyList<ItemData> EquipableItems => _equipableItems;
@@ -69,7 +68,7 @@ public class Inventory : MonoBehaviour
             return;
         }
         
-        // 기존 퀵슬롯 아이템을 인벤토리에 넣기 
+        // 기존 퀵슬롯 아이템을 인벤토리에 넣기
         ItemData prevItem = _quickSlotItems[slot];
         if (prevItem != null && !_consumableItems.Contains(prevItem))
         {
@@ -114,7 +113,6 @@ public class Inventory : MonoBehaviour
         
         InventoryUpdate?.Invoke();
     }
-    
     
     
 }

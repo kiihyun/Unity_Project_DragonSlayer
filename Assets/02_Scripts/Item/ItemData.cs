@@ -15,7 +15,7 @@ public enum StatType
     
     // Equipable
     Health,
-    Strength,
+    AttackPower,
     Speed
 }
 
