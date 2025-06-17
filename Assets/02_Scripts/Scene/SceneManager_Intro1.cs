@@ -1,52 +1,36 @@
 ﻿using Cinemachine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class SceneManager_Town : MonoBehaviour
+public class SceneManager_Intro1 : MonoBehaviour
 {
-    [SerializeField] private Transform _backGround;
     [SerializeField] private CinemachineVirtualCamera _vCamera;
-    [SerializeField] private Image _image;
+    [SerializeField] private CinemachineBasicMultiChannelPerlin _perlin;
+
     [SerializeField] private float shakeAmplitude;
     [SerializeField] private float shakeFrequency;
+    [SerializeField] private Image _fadeImage;
     [SerializeField] private float _fadeDuration;
-
-    private CinemachineBasicMultiChannelPerlin _perlin;
     // Start is called before the first frame update
     private void Awake()
     {
-        _perlin =  _vCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+        _perlin = _vCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+        ShakeOff();
     }
+
     private void Start()
     {
-        ShakeOff();
         FadeIn();
-        Invoke(nameof(ShakeOn), 2f);
+        Invoke(nameof(ShakeOn),1.5f);
     }
-    private void Update()
-    {
-        _backGround.transform.localPosition += Vector3.left * 0.0005f;
-        if (_backGround.transform.localPosition.x <= -3.85f)
-            _backGround.transform.localPosition = new Vector3(0,0,0);
-
-        if(_image.color.a == 1)
-        {
-            Debug.Log("SceneChange");
-            SceneManager.LoadScene("StartScene");
-        }
-    }
-
-
-
     public void ShakeOn()
     {
         _perlin.m_AmplitudeGain = shakeAmplitude;
         _perlin.m_FrequencyGain = shakeFrequency;
-        Invoke(nameof(FadeOut), 1.5f);
     }
-
 
     public void ShakeOff()
     {
@@ -55,32 +39,38 @@ public class SceneManager_Town : MonoBehaviour
     }
 
 
+    // Update is called once per frame
+    void Update()
+    {
+        if (_fadeImage.color.a == 1)
+        {
+            Debug.Log("SceneChange");
+            SceneManager.LoadScene("Intro2");
+        }
+    }
     public void FadeOut()
     {
         _fadeDuration *= 2f;
-        _image.color = Color.white;
         StartCoroutine(Fade(0f, 1f));
     }
-
 
     public void FadeIn()
     {
         StartCoroutine(Fade(1f, 0f));
     }
 
-
     private IEnumerator Fade(float startAlpha, float endAlpha)
     {
         float timer = 0f;
-        Color color = _image.color;
+        Color color = _fadeImage.color;
 
         while (timer < _fadeDuration)
         {
             timer += Time.deltaTime;
             float alpha = Mathf.Lerp(startAlpha, endAlpha, timer / _fadeDuration);
-            _image.color = new Color(color.r, color.g, color.b, alpha);
+            _fadeImage.color = new Color(color.r, color.g, color.b, alpha);
             yield return null;
         }
-        _image.color = new Color(color.r, color.g, color.b, endAlpha);
+        _fadeImage.color = new Color(color.r, color.g, color.b, endAlpha);
     }
 }
