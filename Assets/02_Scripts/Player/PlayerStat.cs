@@ -15,7 +15,7 @@ public class PlayerStat : MonoBehaviour, IDamageble
     [SerializeField, Range(1f, 20f), Tooltip("ï¿½Ìµï¿½ ï¿½Óµï¿½")]
     private float _moveSpeed;
 
-    [SerializeField, Tooltip("ï¿½ï¿½ï¿?ï¿½ï¿½")]
+    [SerializeField, Tooltip("ï¿½ï¿½ï¿½?ï¿½ï¿½")]
     private float _dashPower;
 
     [SerializeField, Tooltip("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½")]
@@ -24,13 +24,14 @@ public class PlayerStat : MonoBehaviour, IDamageble
     [SerializeField, Tooltip("ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ý·ï¿½")]
     private int _attackPower;
 
-    [SerializeField, Tooltip("´ë½Ã ÄðÅ¸ÀÓ (ÃÊ ´ÜÀ§)")]
-    private float dashCooldown = 2f; // ´ë½Ã ÄðÅ¸ÀÓ
+    [SerializeField, Tooltip("ï¿½ï¿½ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½ (ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)")]
+    private float dashCooldown = 2f; // ï¿½ï¿½ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½
 
-    [SerializeField, Tooltip("½ºÅ³ ÄðÅ¸ÀÓ (ÃÊ ´ÜÀ§)")]
-    private float skillCooldown = 5f; // ½ºÅ³ ÄðÅ¸ÀÓ (ÃÊ ´ÜÀ§)
+    [SerializeField, Tooltip("ï¿½ï¿½Å³ ï¿½ï¿½Å¸ï¿½ï¿½ (ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)")]
+    private float skillCooldown = 5f; // ï¿½ï¿½Å³ ï¿½ï¿½Å¸ï¿½ï¿½ (ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
 
-    public int _maxLevel = 10; // ÃÖ´ë ·¹º§ ¼³Á¤ (¿¹: 10·¹º§±îÁö °¡´É)
+    public int _maxLevel = 10; // ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½: 10ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
+    
     private int _level = 1;
 
     private int _exp;
@@ -42,7 +43,7 @@ public class PlayerStat : MonoBehaviour, IDamageble
 
     public float DashCooldown { get { return dashCooldown; } }
 
-    private float currentDashCooldown = 0f; // ÇöÀç ´ë½Ã ÄðÅ¸ÀÓ
+    private float currentDashCooldown = 0f; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½
 
     public float CurrentDashCooldown
     {
@@ -52,7 +53,7 @@ public class PlayerStat : MonoBehaviour, IDamageble
 
     public float SkillCooldown { get { return skillCooldown; } }
 
-    private float currentSkillCooldown = 0f; // ÇöÀç ½ºÅ³ ÄðÅ¸ÀÓ
+    private float currentSkillCooldown = 0f; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ ï¿½ï¿½Å¸ï¿½ï¿½
 
     public float CurrentSkillCooldown
     {
@@ -128,7 +129,7 @@ public class PlayerStat : MonoBehaviour, IDamageble
                 _moveSpeed += value;
                 break;
             default:
-                Debug.LogError($"ì¡´ìž¬?˜ì? ?ŠëŠ” ?€?? {type}");
+                Debug.LogError($"ì¡´ìž¬?ï¿½ï¿½? ?ï¿½ëŠ” ?ï¿½?? {type}");
                 break;
         }
     }
