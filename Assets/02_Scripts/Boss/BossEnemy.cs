@@ -4,23 +4,20 @@ public enum SkillType
 {
     Default,    // 정적 프리팹 생성 (breath 등)
     FireRain,   // 여러 개 프리팹 반복 생성
+    FlameMarch,
+    Breath,
+    SwordWind,
+    LeapSmash,
     // 향후 Meteor, Laser 등 확장 가능
 }
 public class BossEnemy : MonoBehaviour, IDamageble
 {
     [SerializeField] private BossEnemyDataSO _bossData;
-    [SerializeField] private float _moveSpeed = 1f;
-    [SerializeField] private float _chaseRange = 20f;
-    [SerializeField] private float _stopDistance = 10f;
-    public float ChaseRange => _chaseRange;
-    public float StopDistance => _stopDistance;
-    public float MoveSpeed => _moveSpeed;
     private float _currentHp;
     public Animator Animator { get; private set; }
     public BossStateMachine StateMachine { get; private set; }
     public BossEnemyDataSO BossData => _bossData;
 
-    public bool IsPhase2 => _currentHp <= _bossData.maxHP * (_bossData.phase2ThresholdPercent / 100f);
     
     public int AttackCount { get; set; } = 0;
     public GameObject BreathPos;
@@ -30,23 +27,31 @@ public class BossEnemy : MonoBehaviour, IDamageble
 
     public int SkillIndex { get; set; } = 0;
 
-    public float MaxHealth => throw new System.NotImplementedException();
+    public float MaxHealth {get; private set;}
 
-    public float CurrentHealth => throw new System.NotImplementedException();
+    public float CurrentHealth {get; private set;}
 
-    public int AttackThresholdBeforeSkill = 3;// 일반공격 횟수
+    public int AttackThresholdBeforeSkill = 2;// 일반공격 횟수
     private bool _facingRight = true; //방향
-
+    
+    public Transform fireStartPoint; //FlameStomp
+    public Rigidbody2D Rb { get; private set; }
+    
+    [Header("Grounded Check")]
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private float     groundRadius = 0.15f;
+    [SerializeField] private LayerMask groundLayer;
 
     private void Awake()
     {
+        Rb = GetComponent<Rigidbody2D>();
         Animator = GetComponent<Animator>();
         StateMachine = new BossStateMachine();
     }
 
     private void Start()
     {
-        _currentHp = _bossData.maxHP;
+        CurrentHealth = _bossData.maxHP;
         StateMachine.Initialize(new BossIdleState(this));
     }
 
@@ -103,28 +108,32 @@ public class BossEnemy : MonoBehaviour, IDamageble
     }
 
 
-    public void TakeDamage(int dmg)
-    {
-        _currentHp -= dmg;
-        
-        if (_currentHp <= 0)
-        {
-            StateMachine.ChangeState(new BossDieState(this));
-            return;
-        }
-    }
+
     public void SpawnSkillEffect() 
     {
-        if (CurrentSkillData == null) return;
+        if (CurrentSkillData == null)
+        {
+            SpawnBasicHitEffect();
+            return;
+        }
 
         switch (CurrentSkillData.skillType)
         {
-            case SkillType.Default:
+            case SkillType.Breath:
                 SpawnBreathEffect();
                 break;
             case SkillType.FireRain:
                 StartCoroutine(CastFireRain(20,0.1f,CurrentSkillData));
                 break;
+            case SkillType.FlameMarch:
+                SpawnFlameMarchEffect();
+                break;
+            case SkillType.SwordWind:
+                SpawnSwordWind();
+                break;
+            case SkillType.LeapSmash:
+                StateMachine.ChangeState(new BossLeapState(this, CurrentSkillData));
+                return;   
             default:
                 Debug.LogWarning($"정의되지 않은 SkillType: {CurrentSkillData.skillType}");
                 break;
@@ -148,7 +157,8 @@ public class BossEnemy : MonoBehaviour, IDamageble
 
     public void OnSkillAnimationComplete()
     {
-        var skills = IsPhase2 ? BossData.phase2Skills : BossData.phase1Skills;
+        CurrentSkillData = null;
+        var skills =  BossData.phase1Skills;
         SkillIndex = (SkillIndex + 1) % BossData.phase1Skills.Count;
         StateMachine.ChangeState(new BossIdleState(this));
     }
@@ -180,6 +190,9 @@ public class BossEnemy : MonoBehaviour, IDamageble
     public void OnNormalAttackComplete()
     {
         AttackCount++;
+        CurrentSkillData = null;
+        SkillIndex = Random.Range(0,_bossData.phase1Skills.Count);
+        StateMachine.ChangeState(new BossIdleState(this));
 
         if (AttackCount >= AttackThresholdBeforeSkill)
         {
@@ -211,7 +224,7 @@ public class BossEnemy : MonoBehaviour, IDamageble
     {
         if (PlayerTarget == null)
         {
-            Collider2D hit = Physics2D.OverlapCircle(transform.position, _bossData.detectionRange , LayerMask.GetMask("Test"));
+            Collider2D hit = Physics2D.OverlapCircle(transform.position, _bossData.detectionRange , LayerMask.GetMask("Player"));
             if (hit != null)
             {
                 _playerTarget = hit.transform;
@@ -219,9 +232,88 @@ public class BossEnemy : MonoBehaviour, IDamageble
             }
         }
     }
+    
+    public void TriggerSkillEffect()
+    {
+        if (CurrentSkillData == null) return;
+
+        switch (CurrentSkillData.skillName)
+        {
+            case "":
+                SpawnFlameMarchEffect();
+                break;
+            case "BasicAttack":
+                SpawnBasicHitEffect();
+                break;
+        }
+    }
+
+    private void SpawnBasicHitEffect()
+    {
+        
+    }
+
+    public void SpawnFlameMarchEffect()
+    {
+        StartCoroutine(FlameMarchRoutine(CurrentSkillData));
+    }
+
+    private IEnumerator FlameMarchRoutine(BossSkillData data)
+    {
+        Vector3 direction = _facingRight ? Vector3.right : Vector3.left;
+        Vector3 startPos = fireStartPoint.position;
+
+        for (int i = 0; i < data.flameCount; i++)
+        {
+            Vector3 spawnPos = startPos + direction * data.flameSpacing * i;
+
+            GameObject flame = Instantiate(data.skillEffectPrefab, spawnPos, Quaternion.identity);
+            flame.transform.SetParent(this.transform);
+
+            Destroy(flame, data.effectDuration);
+            yield return new WaitForSeconds(data.flameInterval);
+        }
+    }
+
 
     public void TakeDamage(float damage)
     {
-        throw new System.NotImplementedException();
+        CurrentHealth -= damage;
+        
+        if (CurrentHealth <= 0)
+        {
+            StateMachine.ChangeState(new BossDieState(this));
+            return;
+        }
+    }
+    
+    public void SpawnSwordWind()
+    {
+        GameObject effect = Instantiate(
+            BossData.phase1Skills[0].skillEffectPrefab, // SO에 연결된 이펙트 프리팹
+             BreathPos.transform.position, // 보스 앞쪽
+            Quaternion.identity
+        );
+        effect.transform.SetParent(this.transform);
+
+        Destroy(effect, BossData.phase1Skills[0].effectDuration); // 일정 시간 후 파괴
+    }
+    /// <summary>발밑 원형 영역에 Ground 레이어가 닿아 있는지.</summary>
+    public bool IsGrounded()
+    {
+        return Physics2D.OverlapCircle(groundCheck.position,
+            groundRadius,
+            groundLayer);
+    }
+    public void SpawnLeap()
+    {
+        GameObject effect = Instantiate(
+            BossData.phase1Skills[1].skillEffectPrefab , // SO에 연결된 이펙트 프리팹
+            groundCheck.transform.position+ new Vector3(0,0.6f,0), // 보스 앞쪽
+            Quaternion.identity
+        );
+        effect.transform.SetParent(this.transform);
+
+        Destroy(effect, BossData.phase1Skills[1].effectDuration); // 일정 시간 후 파괴
     }
 }

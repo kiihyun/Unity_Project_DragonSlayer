@@ -21,7 +21,7 @@ public class BossSkillState : IBossState
 
     public void Execute()
     {
-        var skills = _boss.IsPhase2 ? _boss.BossData.phase2Skills : _boss.BossData.phase1Skills;
+        var skills =  _boss.BossData.phase1Skills;
 
         if (skills == null || skills.Count == 0)
         {
@@ -54,19 +54,48 @@ public class BossSkillState : IBossState
 
     public void Exit()
     {
+        _boss.CurrentSkillData = null;
         Debug.Log("보스: 스킬 상태 종료");
     }
 
     private void CastSkill(BossSkillData skill)
     {
-        _boss.CurrentSkillData = skill;
-        if (skill.skillName == "FireRain")
+        Debug.Log($"[CastSkill] index:{skill} " +
+                  $"name:{skill.skillName} type:{skill.skillType}");
+        _boss.CurrentSkillData = skill;   // 이후 SpawnSkillEffect 에서 참조
+
+        switch (skill.skillType)
         {
-            _boss.Animator.SetTrigger(skill.animationTriggerName);
-        }
-        else if (skill.skillName == "breath")
-        {
-          _boss.Animator.SetTrigger(skill.animationTriggerName);
+            /* ――― 도약(Leap Smash) → 별도 State ――― */
+            case SkillType.LeapSmash:                              // ← enum에 추가
+                _boss.StateMachine.ChangeState(
+                    new BossLeapState(_boss, skill));              // ★
+                return;                                            // 여기서 바로 종료
+
+            /* ――― Breath ――― */
+            case SkillType.Breath:
+                _boss.Animator.SetTrigger(skill.animationTriggerName);
+                break;
+
+            /* ――― Fire Rain ――― */
+            case SkillType.FireRain:
+                _boss.Animator.SetTrigger(skill.animationTriggerName);
+                break;
+
+            /* ――― Flame March ――― */
+            case SkillType.FlameMarch:
+                _boss.Animator.SetTrigger(skill.animationTriggerName);
+                break;
+
+            /* ――― Sword Wind ――― */
+            case SkillType.SwordWind:
+                _boss.Animator.SetTrigger(skill.animationTriggerName);
+                break;
+
+            /* ――― 예외 처리 ――― */
+            default:
+                Debug.LogWarning($"정의되지 않은 SkillType : {skill.skillType}");
+                break;
         }
 
         Debug.Log($"보스가 스킬 [{skill.skillName}] 시전! 데미지: {skill.damage}");
