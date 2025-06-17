@@ -24,6 +24,7 @@ public class PlayerMoveState : PlayerStates
         player.Controller.IsStop();
         player.Controller.IsDash();
         player.Controller.IsAttack();
+        player.Controller.IsSkill();
     }
 
     public override void OnFixedUpdate()

@@ -17,7 +17,11 @@ public class Player : MonoBehaviour
     public Rigidbody2D rb;
     [HideInInspector]
     public DashFX dashFX;
-    
+    [HideInInspector]
+    public Collider2D collider;
+    [HideInInspector]
+    public Energipa energipa;
+
     public SpriteRenderer CharacterImage { get { return characterImage; } }
     private SpriteRenderer characterImage;
     public Inventory inventory;
@@ -43,10 +47,12 @@ public class Player : MonoBehaviour
         anim = GetComponent<Animator>();
         stat = GetComponent<PlayerStat>();
         rb = GetComponent<Rigidbody2D>();
+        collider = GetComponent<Collider2D>();
         stat.Init();
         dashFX = GetComponentInChildren<DashFX>();
         ControllerRegister();
         inventory = GetComponent<Inventory>();
+        energipa = GetComponentInChildren<Energipa>();
     }
 
     public void ControllerRegister()
@@ -57,6 +63,7 @@ public class Player : MonoBehaviour
         controller.RegisterState(new PlayerDashState(), this);
         controller.RegisterState(new PlayerAttackState(), this);
         controller.RegisterState(new PlayerDeathState(), this);
+        controller.RegisterState(new PlayerSkillState(), this);
     }
 
     public void ChangeAnime(PlayerState nextAnime)
