@@ -323,7 +323,6 @@ MonoBehaviour:
   _slotPrefab: {fileID: 29246389805254995, guid: 62aa0ae7989c981469da892a8421ef3e, type: 3}
   _slotsParent: {fileID: 1917857299}
   minSlotCount: 16
-  selectedSlot: {fileID: 0}
   _slots: []
   _itemList: []
 --- !u!222 &23808745
@@ -795,6 +794,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3df8ec99c5b23f24ea99d629b040c1df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _slotPrefab: {fileID: 0}
+  _slotsParent: {fileID: 0}
+  minSlotCount: 8
+  _slots: []
+  _itemList: []
 --- !u!222 &44985831
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3110,7 +3114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotType: 0
-  quickSlotIndex: 0
+  slotIndex: 0
   itemIcon: {fileID: 1783627392}
   data: {fileID: 0}
 --- !u!114 &177021416
@@ -6351,7 +6355,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotType: 0
-  quickSlotIndex: 0
+  slotIndex: 0
   itemIcon: {fileID: 0}
   data: {fileID: 0}
 --- !u!114 &358335560
@@ -37757,7 +37761,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotType: 0
-  quickSlotIndex: 0
+  slotIndex: 0
   itemIcon: {fileID: 0}
   data: {fileID: 0}
 --- !u!114 &750086206
@@ -40224,7 +40228,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotType: 0
-  quickSlotIndex: 0
+  slotIndex: 0
   itemIcon: {fileID: 0}
   data: {fileID: 0}
 --- !u!114 &885745955
@@ -43864,7 +43868,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotType: 0
-  quickSlotIndex: 0
+  slotIndex: 0
   itemIcon: {fileID: 0}
   data: {fileID: 0}
 --- !u!114 &899521149
@@ -52899,7 +52903,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotType: 0
-  quickSlotIndex: 0
+  slotIndex: 0
   itemIcon: {fileID: 0}
   data: {fileID: 0}
 --- !u!114 &1035623959
@@ -61664,7 +61668,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotType: 0
-  quickSlotIndex: 0
+  slotIndex: 0
   itemIcon: {fileID: 0}
   data: {fileID: 0}
 --- !u!114 &1371879336
@@ -64313,7 +64317,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotType: 0
-  quickSlotIndex: 0
+  slotIndex: 0
   itemIcon: {fileID: 1115662017}
   data: {fileID: 0}
 --- !u!114 &1465257091
@@ -72556,7 +72560,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotType: 0
-  quickSlotIndex: 0
+  slotIndex: 0
   itemIcon: {fileID: 0}
   data: {fileID: 0}
 --- !u!114 &1574663049
@@ -111683,7 +111687,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotType: 0
-  quickSlotIndex: 0
+  slotIndex: 0
   itemIcon: {fileID: 0}
   data: {fileID: 0}
 --- !u!114 &1902548200
