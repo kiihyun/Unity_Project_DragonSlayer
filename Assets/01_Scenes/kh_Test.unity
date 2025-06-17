@@ -323,7 +323,6 @@ MonoBehaviour:
   _slotPrefab: {fileID: 29246389805254995, guid: 62aa0ae7989c981469da892a8421ef3e, type: 3}
   _slotsParent: {fileID: 1917857299}
   minSlotCount: 16
-  selectedSlot: {fileID: 0}
   _slots: []
   _itemList: []
 --- !u!222 &23808745
@@ -795,6 +794,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3df8ec99c5b23f24ea99d629b040c1df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _slotPrefab: {fileID: 0}
+  _slotsParent: {fileID: 0}
+  minSlotCount: 8
+  _slots: []
+  _itemList: []
 --- !u!222 &44985831
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3110,7 +3114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotType: 0
-  quickSlotIndex: 0
+  slotIndex: 0
   itemIcon: {fileID: 1783627392}
   data: {fileID: 0}
 --- !u!114 &177021416
@@ -6346,7 +6350,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotType: 0
-  quickSlotIndex: 0
+  slotIndex: 0
   itemIcon: {fileID: 0}
   data: {fileID: 0}
 --- !u!114 &358335560
@@ -6575,6 +6579,14 @@ PrefabInstance:
     - target: {fileID: 5718316761512293423, guid: f5519679ebab6f14d9374c6faf0c1b96, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6009403314024175609, guid: f5519679ebab6f14d9374c6faf0c1b96, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8402873484002391744, guid: f5519679ebab6f14d9374c6faf0c1b96, type: 3}
+      propertyPath: m_BodyType
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -37809,7 +37821,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotType: 0
-  quickSlotIndex: 0
+  slotIndex: 0
   itemIcon: {fileID: 0}
   data: {fileID: 0}
 --- !u!114 &750086206
@@ -40333,7 +40345,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotType: 0
-  quickSlotIndex: 0
+  slotIndex: 0
   itemIcon: {fileID: 0}
   data: {fileID: 0}
 --- !u!114 &885745955
@@ -43973,7 +43985,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotType: 0
-  quickSlotIndex: 0
+  slotIndex: 0
   itemIcon: {fileID: 0}
   data: {fileID: 0}
 --- !u!114 &899521149
@@ -53110,7 +53122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotType: 0
-  quickSlotIndex: 0
+  slotIndex: 0
   itemIcon: {fileID: 0}
   data: {fileID: 0}
 --- !u!114 &1035623959
@@ -53704,6 +53716,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 370a949a986a8ee49bd3e51d75771613, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SettingButon: {fileID: 0}
+  MainMenuButon: {fileID: 0}
 --- !u!222 &1074526007
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -60837,9 +60851,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3378a0ce889a434449129004ca508fb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: {fileID: 0}
-  _strength: {fileID: 0}
+  _level: {fileID: 0}
+  _maxHealth: {fileID: 0}
+  _currentHealth: {fileID: 0}
+  _attackPower: {fileID: 0}
   _speed: {fileID: 0}
+  _healthBar: {fileID: 0}
+  _expBar: {fileID: 0}
 --- !u!222 &1332402686
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -61875,7 +61893,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotType: 0
-  quickSlotIndex: 0
+  slotIndex: 0
   itemIcon: {fileID: 0}
   data: {fileID: 0}
 --- !u!114 &1371879336
@@ -64524,7 +64542,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotType: 0
-  quickSlotIndex: 0
+  slotIndex: 0
   itemIcon: {fileID: 1115662017}
   data: {fileID: 0}
 --- !u!114 &1465257091
@@ -64607,6 +64625,9 @@ MonoBehaviour:
   _dashPower: 13
   _jumpPower: 7
   _attackPower: 0
+  dashCooldown: 2
+  skillCooldown: 5
+  _maxLevel: 10
 --- !u!114 &1466784223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64623,6 +64644,8 @@ MonoBehaviour:
   anim: {fileID: 0}
   rb: {fileID: 0}
   dashFX: {fileID: 0}
+  collider: {fileID: 0}
+  energipa: {fileID: 0}
   inventory: {fileID: 0}
 --- !u!70 &1466784224
 CapsuleCollider2D:
@@ -64805,6 +64828,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 579281a31a4ae8c4bb8381911de17823, type: 2}
   _equipableItems: []
   _quickSlotItems:
+  - {fileID: 0}
+  - {fileID: 0}
+  _equipSlotItems:
   - {fileID: 0}
   - {fileID: 0}
 --- !u!1001 &1467879635
@@ -73009,7 +73035,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotType: 0
-  quickSlotIndex: 0
+  slotIndex: 0
   itemIcon: {fileID: 0}
   data: {fileID: 0}
 --- !u!114 &1574663049
@@ -112136,7 +112162,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotType: 0
-  quickSlotIndex: 0
+  slotIndex: 0
   itemIcon: {fileID: 0}
   data: {fileID: 0}
 --- !u!114 &1902548200
