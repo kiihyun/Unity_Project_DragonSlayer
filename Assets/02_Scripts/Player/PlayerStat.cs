@@ -23,6 +23,12 @@ public class PlayerStat : MonoBehaviour , IDamageble
     [SerializeField, Tooltip("플레이어의 공격력")]
     private int _attackPower;
 
+    [SerializeField, Tooltip("대시 쿨타임 (초 단위)")]
+    private float dashCooldown = 2f; // 대시 쿨타임
+
+    [SerializeField, Tooltip("스킬 쿨타임 (초 단위)")]
+    private float skillCooldown = 5f; // 스킬 쿨타임 (초 단위)
+
     private int _level = 1; 
 
     private int _exp;
@@ -31,8 +37,6 @@ public class PlayerStat : MonoBehaviour , IDamageble
 
     public float CurrentHealth => _currentHealth;
 
-    [SerializeField, Tooltip("대시 쿨타임 (초 단위)")]
-    private float dashCooldown = 2f; // 대시 쿨타임
 
     public float DashCooldown { get { return dashCooldown; } }
 
@@ -42,6 +46,16 @@ public class PlayerStat : MonoBehaviour , IDamageble
     {
         get { return currentDashCooldown; }
         set { currentDashCooldown = value; }
+    }
+
+    public float SkillCooldown { get { return skillCooldown; } }
+
+    private float currentSkillCooldown = 0f; // 현재 스킬 쿨타임
+
+    public float CurrentSkillCooldown
+    {
+        get { return currentSkillCooldown; }
+        set { currentSkillCooldown = value; }
     }
 
 
