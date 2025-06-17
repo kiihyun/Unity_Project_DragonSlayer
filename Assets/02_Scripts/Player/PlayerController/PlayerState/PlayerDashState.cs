@@ -17,8 +17,8 @@ public class PlayerDashState : PlayerStates
     public override void OnEnter()
     {
         base.OnEnter();
-        player.rb.constraints &= ~RigidbodyConstraints2D.FreezePositionX;
         player.anim.CrossFade("Dash", 0.1f);
+        player.stat.CurrentDashCooldown = 0f;
         player.Controller.Dash();
     }
 

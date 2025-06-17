@@ -15,6 +15,7 @@ public class PlayerSkillState : PlayerStates
     {
         base.OnEnter();
         player.anim.CrossFade("Skill", 0.1f);
+        player.stat.CurrentSkillCooldown = 0f;
     }
 
 
