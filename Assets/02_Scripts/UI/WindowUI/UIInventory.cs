@@ -15,6 +15,8 @@ public class UIInventory : BaseWindow
     
     [SerializeField] private List<InventorySlot> _slots = new List<InventorySlot>();
     [SerializeField] private List<ItemData> _itemList = new List<ItemData>();
+    [SerializeField] private InventorySlot _quickSlot_0;
+    [SerializeField] private InventorySlot _quickSlot_1;
     private Queue<InventorySlot> _slotPool = new Queue<InventorySlot>();
     
     public Inventory inventory { get; private set; }
@@ -49,8 +51,6 @@ public class UIInventory : BaseWindow
         {
             inventory.InventoryUpdate += UpdateUI;
         }
-
-        UpdateUI();
     }
 
     private void OnDisable()
@@ -64,12 +64,13 @@ public class UIInventory : BaseWindow
         foreach (var slot in _slots)
         {
             slot.gameObject.SetActive(false);
+            slot.data = null;
             _slotPool.Enqueue(slot);
         }
         _slots.Clear();
     }
 
-    // Inventory 업데이트
+    // UIInventory 업데이트 
     public void UpdateUI()
     {
         // Inventory의 ConsumableItems를 _itemList에 복사하여 저장
@@ -113,8 +114,11 @@ public class UIInventory : BaseWindow
 
                 newSlot.Set(newSlot.data);
                 newSlot.gameObject.SetActive(true);
+                newSlot.uiInventory = this;
+                
                 // 슬롯이 만들어지면 slotType을 Normalslot으로 지정
                 newSlot.slotType = SlotType.NormalSlot;
+                
                 // 리스트에 넣기
                 _slots.Add(newSlot);
             }
@@ -133,9 +137,43 @@ public class UIInventory : BaseWindow
                     _slots[i].Set(null);
                 }
                 _slots[i].gameObject.SetActive(true);
+                _slots[i].uiInventory = this;
+                
             }
         }
-        
+
+        updateSlot();
+    }
+
+    private void updateSlot()
+    {
+        // 0번 퀵슬롯
+        if (inventory.QuickSlotItems[0] != null)
+        {
+            _quickSlot_0.data = inventory.QuickSlotItems[0];
+            _quickSlot_0.itemIcon.sprite = inventory.QuickSlotItems[0].ItemIcon;
+            _quickSlot_0.itemIcon.enabled = true;
+        }
+        else
+        {
+            _quickSlot_0.data = null;
+            _quickSlot_0.itemIcon.sprite = null;
+            _quickSlot_0.itemIcon.enabled = false;
+        }
+
+        // 1번 퀵슬롯
+        if (inventory.QuickSlotItems[1] != null)
+        {
+            _quickSlot_1.data = inventory.QuickSlotItems[1];
+            _quickSlot_1.itemIcon.sprite = inventory.QuickSlotItems[1].ItemIcon;
+            _quickSlot_1.itemIcon.enabled = true;
+        }
+        else
+        {
+            _quickSlot_1.data = null;
+            _quickSlot_1.itemIcon.sprite = null;
+            _quickSlot_1.itemIcon.enabled = false;
+        }
     }
     
 }
