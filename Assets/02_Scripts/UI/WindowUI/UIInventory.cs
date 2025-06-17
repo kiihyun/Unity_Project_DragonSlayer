@@ -12,7 +12,6 @@ public class UIInventory : BaseWindow
 
     [Header("Inventory")]
     [SerializeField] private int minSlotCount = 16;
-    public InventorySlot selectedSlot;
     
     [SerializeField] private List<InventorySlot> _slots = new List<InventorySlot>();
     [SerializeField] private List<ItemData> _itemList = new List<ItemData>();
@@ -63,28 +62,8 @@ public class UIInventory : BaseWindow
     // Inventory 업데이트
     public void UpdateUI()
     {
-        /*
-        if (inventory == null)
-        {
-            Debug.LogError("UpdateUI: inventory가 null입니다.");
-            return;
-        }
-        if (inventory.ConsumableItems == null)
-        {
-            Debug.LogError("UpdateUI: ConsumableItems가 null입니다.");
-            return;
-        }
-        Debug.Log($"ConsumableItems 개수: {inventory.ConsumableItems.Count}");
-        _itemList = inventory.ConsumableItems.ToList();
-        Debug.Log("_itemList 복사 완료. 개수: " + _itemList.Count);
-        */
-        
-        
         // Inventory의 ConsumableItems를 _itemList에 복사하여 저장
         _itemList = inventory.ConsumableItems.ToList();
-        
-        // 이전에 선택된 아이템 기억 ( 존재한다면 )
-        ItemData prevSelectedData = selectedSlot != null ? selectedSlot.data : null;
         
         // 기존 슬롯 모두 풀에 반환
         foreach (var slot in _slots)
@@ -93,7 +72,6 @@ public class UIInventory : BaseWindow
             _slotPool.Enqueue(slot);
         }
         _slots.Clear();
-        selectedSlot = null;
         
         // 슬롯 다시 생성, 필요한 만큼 슬롯 재사용 또는 새로 생성
         int slotCount = Mathf.Max(_itemList.Count, minSlotCount);
@@ -127,56 +105,11 @@ public class UIInventory : BaseWindow
             // 슬롯이 만들어지면 slotType을 Normalslot으로 지정
             newSlot.slotType = SlotType.NormalSlot;
             
-            // 이전 선택 아이템 복원
-            if (prevSelectedData != null && newSlot.data == prevSelectedData)
-            {
-                selectedSlot = newSlot;
-            }
-            
             // 리스트에 넣기
             _slots.Add(newSlot);
             
         }
-
-
-        /*
-
-        // 슬롯 전체 초기화
-        foreach (var slot in _slots)
-        {
-            Destroy(slot.gameObject);
-        }
-        _slots.Clear();
-        selectedSlot = null;
-
-        // 슬롯 다시 생성, 인벤토리 내 아이템 갯수만큼 생성하되 최소 갯수 설정
-        int slotCount = Mathf.Max(_itemList.Count, minSlotCount);
-        for (int i = 0; i < _itemList.Count; i++)
-        {
-            GameObject newSlotObj = Instantiate(_slotPrefab, _slotsParent);
-            InventorySlot newSlot = newSlotObj.GetComponent<InventorySlot>();
-            newSlot.data = _itemList[i];
-
-            // 인벤토리에 아이템을 장착중인지 확인해서 bool값 slot에 넘겨주기
-            // 추가 예정
-
-
-            newSlot.Set();
-
-            // 이전에 선택했던 아이템이면 selectedSlot으로 다시 지정
-            if (prevSelectedData != null && newSlot.data == prevSelectedData)
-            {
-                selectedSlot = newSlot;
-            }
-
-            _slots.Add(newSlot);
-        }
-        */
-
-
-
+        
     }
-    
-    
     
 }

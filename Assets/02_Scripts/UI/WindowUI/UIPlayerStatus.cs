@@ -10,4 +10,12 @@ public class UIPlayerStatus : BaseWindow
     [SerializeField] private TextMeshProUGUI _health;
     [SerializeField] private TextMeshProUGUI _strength;
     [SerializeField] private TextMeshProUGUI _speed;
+
+    private PlayerStat _playerStat;
+    
+    private void Start()
+    {
+        
+    }
+    
 }
