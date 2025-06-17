@@ -81,7 +81,7 @@ public class Player : MonoBehaviour
     public void OnAttackEnd()
     {
 
-        if(controller.GetInputDir().x != 0)
+        if (controller.GetInputDir().x != 0)
         {
             controller.IsMove();
         }
@@ -98,10 +98,28 @@ public class Player : MonoBehaviour
 
         foreach (var hit in hits)
         {
+
             Enemy enemy = hit.GetComponent<Enemy>();
-            if (enemy.TryGetComponent<IDamageble>(out IDamageble target))
+            if (enemy == null)
             {
-                target.TakeDamage(stat.AttackPower);
+                BossEnemy boss = hit.GetComponent<BossEnemy>();
+                if(boss.TryGetComponent<IDamageble>(out IDamageble target) && target != null)
+                {
+                    target.TakeDamage(stat.AttackPower);
+                    break;
+                }
+            }
+
+            if (enemy == null)
+            {
+                hit.AddComponent<Enemy>();
+
+                if (enemy.TryGetComponent<IDamageble>(out IDamageble target) && target != null)
+                {
+                    target.TakeDamage(stat.AttackPower);
+                }
+                
+
             }
         }
     }
