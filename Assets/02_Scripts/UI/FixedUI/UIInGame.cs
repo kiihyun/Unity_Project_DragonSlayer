@@ -15,21 +15,17 @@ public class UIInGame : BaseFixed
     [SerializeField] private Image _expBar;
     [SerializeField] private Image _currentItem;
     [SerializeField] private Image _swapItem;
-    private PlayerStat _playerStat;
+    [SerializeField]private PlayerStat _playerStat;
+    [SerializeField]private Inventory _inventory;
     
     private void Start()
     {
         _playerStat = UIManager.instance.player.GetComponent<PlayerStat>();
-        if (_currentItem == null)
-        {
-            _currentItem.gameObject.SetActive(false);
-        }
-
-        if (_swapItem == null)
-        {
-            _swapItem.gameObject.SetActive(false);
-        }
-        
+        _inventory = UIManager.instance.inventory;
+        _inventory.InventoryUpdate += UpdateItemUI;
+        _currentItem.gameObject.SetActive(false);
+        _swapItem.gameObject.SetActive(false);
+        UpdateItemUI();
     }
     
     private void Update()
@@ -38,6 +34,33 @@ public class UIInGame : BaseFixed
         _expBar.fillAmount = _playerStat.CurrentHealth / _playerStat.MaxHealth;
         _DashCoolDown.fillAmount = _playerStat.CurrentDashCooldown / _playerStat.DashCooldown;
         _skillCoolDown.fillAmount = _playerStat.CurrentSkillCooldown / _playerStat.SkillCooldown;
+        
+    }
+    
+
+    private void UpdateItemUI()
+    {
+        // 0번 슬롯: 현재 아이템
+        if (_inventory.QuickSlotItems[0] != null)
+        {
+            _currentItem.sprite = _inventory.QuickSlotItems[0].ItemIcon;
+            _currentItem.gameObject.SetActive(true);
+        }
+        else
+        {
+            _currentItem.gameObject.SetActive(false);
+        }
+
+        // 1번 슬롯: 교체 예비 아이템
+        if (_inventory.QuickSlotItems[1] != null)
+        {
+            _swapItem.sprite = _inventory.QuickSlotItems[1].ItemIcon;
+            _swapItem.gameObject.SetActive(true);
+        }
+        else
+        {
+            _swapItem.gameObject.SetActive(false);
+        }
     }
     
     
