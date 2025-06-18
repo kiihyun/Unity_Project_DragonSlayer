@@ -10,6 +10,18 @@ public class KeyLockDoor : Door
     private bool _isLock = true;
     [SerializeField] private ItemData _keyItem;
 
+    public override string GetInteractText()
+    {
+        if(_isLock)
+        {
+            return "열쇠가 필요해";
+        }
+        else
+        {
+            return "E를 눌러 상호작용";
+        }
+    }
+
     public override void Interact()
     {
         if(_isLock)
