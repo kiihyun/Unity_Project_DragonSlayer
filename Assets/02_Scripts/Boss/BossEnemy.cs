@@ -119,11 +119,8 @@ public class BossEnemy : MonoBehaviour, IDamageble
 
         switch (CurrentSkillData.skillType)
         {
-            case SkillType.Breath:
-                SpawnBreathEffect();
-                break;
             case SkillType.FireRain:
-                StartCoroutine(CastFireRain(20,0.1f,CurrentSkillData));
+                StartCoroutine(CastFireRain());
                 break;
             case SkillType.FlameMarch:
                 SpawnFlameMarchEffect();
@@ -163,12 +160,12 @@ public class BossEnemy : MonoBehaviour, IDamageble
         StateMachine.ChangeState(new BossIdleState(this));
     }
     
-    private IEnumerator CastFireRain(int count, float interval, BossSkillData skill)
+    private IEnumerator CastFireRain()
     {
-        for (int i = 0; i < count; i++)
+        for (int i = 0; i < 40; i++)
         {
             Vector3 spawnPos = new Vector3(
-                transform.position.x + Random.Range(-15f, 15f),
+                transform.position.x + Random.Range(-20f, 20f),
                 transform.position.y + 10f, // 하늘 위
                 0f
             );
@@ -183,7 +180,7 @@ public class BossEnemy : MonoBehaviour, IDamageble
             rb.AddForce(direction * force, ForceMode2D.Impulse);
             UnityEngine.Object.Destroy(fireRain, 10f); // 파괴 시간 설정
 
-            yield return new WaitForSeconds(interval);
+            yield return new WaitForSeconds(0.1f);
         }
     }
     //일반 공격후 스킬시전
