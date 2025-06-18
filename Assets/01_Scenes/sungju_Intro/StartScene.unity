@@ -217,8 +217,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1807546806}
-        m_TargetAssemblyTypeName: LoadManger, Assembly-CSharp
+      - m_Target: {fileID: 1594073289}
+        m_TargetAssemblyTypeName: SceneManager_StartScene, Assembly-CSharp
         m_MethodName: LoadGame
         m_Mode: 1
         m_Arguments:
@@ -654,7 +654,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 50bc08228be16f044bb307e6b7b639d0, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -801,9 +801,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1807546806}
-        m_TargetAssemblyTypeName: LoadManger, Assembly-CSharp
-        m_MethodName: NewGame
+      - m_Target: {fileID: 1594073289}
+        m_TargetAssemblyTypeName: SceneManager_StartScene, Assembly-CSharp
+        m_MethodName: Newgame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1373,6 +1373,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsLoadGame: 0
+  _playerLoad: {fileID: 0}
 --- !u!4 &1807546807
 Transform:
   m_ObjectHideFlags: 0

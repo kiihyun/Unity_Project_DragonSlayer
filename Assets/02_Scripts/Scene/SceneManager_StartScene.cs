@@ -58,4 +58,14 @@ public class SceneManager_StartScene : MonoBehaviour
         }
         _fadeImage.color = new Color(color.r, color.g, color.b, endAlpha);
     }
+
+    public void Newgame()
+    {
+        LoadManger.Instance.NewGame();
+    }
+
+    public void LoadGame()
+    {
+        LoadManger.Instance.LoadGame();
+    }
 }
