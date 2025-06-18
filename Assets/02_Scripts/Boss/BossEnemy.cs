@@ -106,6 +106,7 @@ public class BossEnemy : MonoBehaviour, IDamageble
 
     public void SpawnBreathEffect()
     {
+        SoundManager.Instance.PlaySFX("droagon_fire_breathing");
         GameObject effect = Instantiate(
             BossData.phase1Skills[0].skillEffectPrefab, 
             BreathPos.transform.position, 
@@ -170,6 +171,8 @@ public class BossEnemy : MonoBehaviour, IDamageble
 
     private IEnumerator CastFireRain()
     {
+        SoundManager.Instance.PlaySFX("dragon_roar");
+        
         for (int i = 0; i < 40; i++)
         {
             Vector3 spawnPos = new Vector3(
@@ -259,6 +262,8 @@ public class BossEnemy : MonoBehaviour, IDamageble
 
     public void SpawnFlameMarchEffect()
     {
+        SoundManager.Instance.PlaySFX("dragon_roar");
+        
         StartCoroutine(FlameMarchRoutine(CurrentSkillData));
     }
 
