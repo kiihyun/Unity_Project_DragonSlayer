@@ -136,6 +136,12 @@ public class Inventory : MonoBehaviour
         InventoryUpdate?.Invoke();
     }
     
-    
+    // 아이템 사용 메서드
+    public void UseConsumable()
+    {
+        ItemData item = _quickSlotItems[0];
+        
+        
+    }
     
 }

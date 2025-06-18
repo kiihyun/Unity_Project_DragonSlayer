@@ -65,6 +65,15 @@ public class UIManager : MonoBehaviour
     // 호출시 param을 따로 입력해주지 않으면 자동으로 null이 할당
     public BaseFixed OpenFixedUI(UIType type, OpenParam param = null)
     {
+        // StartGameUISetting 호출 시, 중복되는 UI 방지
+        // 이미 열린 FixedUI가 있으면 재활성화만 하고 반환
+        BaseFixed exitFixed = _fixedUIs.Find(ui => ui.UIType == type);
+        if (exitFixed != null)
+        {
+            exitFixed.gameObject.SetActive(true);
+            return exitFixed;
+        }
+        
         // GetUI로 생성 시, BaseUI 타입으로 생성되기 때문에 BaseFixed 타입으로 수정
         BaseFixed Fixed = (BaseFixed)_pool.GetUI(type, canvas_Fixed); 
         Fixed.OnOpen(param);
@@ -75,10 +84,20 @@ public class UIManager : MonoBehaviour
     
     // FixedUI 비활성화 메서드
     // 특정 FixedUI를 비활성화
-    // public BaseFixed CloseFixedUI(UIType type)
-    // {
-    //     
-    // }
+    public BaseFixed CloseFixedUI(UIType type)
+    {
+        BaseFixed fixedUI = _fixedUIs.Find(ui => ui.UIType == type);
+
+        if (fixedUI != null)
+        {
+            fixedUI.OnClose();
+            fixedUI.gameObject.SetActive(false);
+            _pool.ReturnUI(type, fixedUI);
+            _fixedUIs.Remove(fixedUI);
+            return fixedUI;
+        }
+        return null;
+    }
     
     
     // WindowUI 활성화 메서드
@@ -109,17 +128,21 @@ public class UIManager : MonoBehaviour
     
     
     // WindowUI 스위치 메서드
-    public BaseWindow SwitchWindowUI(UIType type, OpenParam param = null)
+    public BaseWindow SwitchWindowUI(UIType type, OpenParam param = null, Transform parent = null)
     {
-        // 모든 WindowUI 비활성화
+        // MainWindow는 항상 켜두고, 나머지만 비활성화
         foreach (var windowUI in _windowUI.Values)
         {
+            if (windowUI.UIType == UIType.MainWindow)
+                continue; // MainWindow는 끄지 않음
+
             windowUI.OnClose();
             windowUI.gameObject.SetActive(false);
         }
 
         // 이미 생성되어 있는 UI가 있다면 그대로 사용, 없다면 풀에서 가져옴, 대부분의 경우 그대로 사용
         BaseWindow Window;
+        
         if (_windowUI.TryGetValue(type, out Window))
         {
             // 기존 UI를 그대로 사용
@@ -127,11 +150,24 @@ public class UIManager : MonoBehaviour
         else
         {
             // UI가 생성되어 있지 않다면 풀에서 가져옴
-            Window = (BaseWindow)_pool.GetUI(type, canvas_Window);
+            Window = (BaseWindow)_pool.GetUI(type, parent);
             _windowUI[type] = Window;
         }
         Window.OnOpen(param);
         Window.gameObject.SetActive(true);
+        
+        // 부모 오브젝트 설정, null이면 기본값 사용
+        if (_windowUI.TryGetValue(type, out Window))
+        {
+            // 기존 UI를 그대로 사용
+        }
+        else
+        {
+            // parent가 null이면 기본 canvas_Window 사용
+            Transform targetParent = parent ?? canvas_Window;
+            Window = (BaseWindow)_pool.GetUI(type, targetParent);
+            _windowUI[type] = Window;
+        }
 
         return Window;
     }
@@ -163,13 +199,36 @@ public class UIManager : MonoBehaviour
 
     public void OnOpenMainWindow()
     {
-        canvas_Window.gameObject.SetActive(true);
+        OpenWindowUI(UIType.MainWindow);
     }
 
     public void OnCloseMainWindow()
     {
-        canvas_Window.gameObject.SetActive(false);
+        CloseWindowUI(UIType.MainWindow);
     }
     
+    // 게임 시작 시 UI 세팅
+    [ContextMenu("게임 시작 UI 세팅")]
+    public void StartGameUISetting()
+    {
+        // canvas_Fixed
+        OpenFixedUI(UIType.UIInGame);
+        CloseFixedUI(UIType.UIMainMenu);
+        CloseWindowUI(UIType.Joystick);
+        
+        // canvas_Window
+        CloseWindowUI(UIType.MainWindow);
+        CloseWindowUI(UIType.UIPlayerStatus);
+        CloseWindowUI(UIType.UIEquipItem);
+        CloseWindowUI(UIType.UIInventory);
+        CloseWindowUI(UIType.UIOption);
+        
+        // canvas_Popup
+        while (_popupUIs.Count > 0)
+        {
+            CloseTopPopupUI();
+        }
+        
+    } 
     
 }

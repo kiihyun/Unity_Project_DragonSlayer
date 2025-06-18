@@ -62,7 +62,12 @@ public class UIInGame : BaseFixed
             _swapItem.gameObject.SetActive(false);
         }
     }
-    
+
+
+    public void OnSettingUI()
+    {
+        UIManager.instance.OnOpenMainWindow();
+    }
     
 
 }

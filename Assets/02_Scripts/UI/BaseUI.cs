@@ -21,6 +21,7 @@ public enum UIType
     // Canvus_Popup
     UITooltip,
     UIInteraction,
+    UIDeathPopup
 }
 
 public abstract class BaseUI : MonoBehaviour
