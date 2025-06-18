@@ -1,4 +1,5 @@
-﻿using Unity.Mathematics;
+﻿using System.Collections;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -17,8 +18,9 @@ public class Enemy : MonoBehaviour, IDamageble
     public float MaxHealth => Data.Health;
     public float CurrentHealth { get { return _currentHealth; } }
     [SerializeField]private float _currentHealth;
-
+    [SerializeField]private SpriteRenderer _spriteRenderer;
     private EnemyStateMachine _stateMachine;
+    private Color _originalColor;
     public EnemySO Data;
 
     public Transform SpritePivot;
@@ -49,6 +51,7 @@ public class Enemy : MonoBehaviour, IDamageble
         Rigidbody = GetComponent<Rigidbody2D>();
         MainCollider = GetComponent<Collider2D>();
         _capsuleCollider = GetComponent<CapsuleCollider2D>();
+        _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         AnimatorController.Initialize(); // 애니메이션 컨트롤러 초기화
 
         _stateMachine.ChangeState(_stateMachine.IdleState); // 초기 상태 설정\
@@ -121,8 +124,7 @@ public class Enemy : MonoBehaviour, IDamageble
             return;
         }
         _currentHealth -= damage;
-        Animator.SetTrigger("Hit");
-        
+        StartCoroutine(HitFlash());
         if (_currentHealth <= 0)
         {
             Die();
@@ -144,5 +146,14 @@ public class Enemy : MonoBehaviour, IDamageble
     public void TakeDamage(float damage)
     {
         TakeDamage1(damage);
+    }
+
+
+
+    private IEnumerator HitFlash()
+    {
+        _spriteRenderer.color = Color.red;
+        yield return new WaitForSeconds(0.5f);
+        _spriteRenderer.color = Color.white;
     }
 }
