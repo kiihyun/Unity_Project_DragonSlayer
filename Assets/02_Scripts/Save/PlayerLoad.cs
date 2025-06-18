@@ -3,14 +3,16 @@ using UnityEngine;
 public class PlayerLoadExample : MonoBehaviour
 {
     [SerializeField] private Player _player;
-    private PlayerStat playerStat;
-    private Inventory inventory;
-    private PlayerData data;
+    private PlayerStat _playerStat;
+    private Inventory _inventory;
+    private PlayerData _data;
+    private StageManager _stageManager;
 
     private void Awake()
     {
-        playerStat = _player.GetComponent<PlayerStat>();
-        inventory = _player.GetComponent<Inventory>();
+        _playerStat = _player.GetComponent<PlayerStat>();
+        _inventory = _player.GetComponent<Inventory>();
+        _stageManager = StageManager.Instance;
     }
 
     [ContextMenu("Load Player Data")]
@@ -45,5 +47,9 @@ public class PlayerLoadExample : MonoBehaviour
             _player.transform.position = data.position;
             Debug.Log($"[PlayerLoadExample] 플레이어 위치 적용 완료: {data.position}");
         }
+
+        if(_stageManager == null) _stageManager = StageManager.Instance;
+
+        StageManager.Instance.SetMaxClearStage(data.maxClearStage);
     }
 } 

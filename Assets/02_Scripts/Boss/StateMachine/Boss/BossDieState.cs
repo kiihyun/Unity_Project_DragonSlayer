@@ -14,23 +14,23 @@ public class BossDieState : IBossState
     {
         if (_hasDied) return;
 
-        Debug.Log($"º¸½º {_boss.BossData.bossName} »ç¸Á »óÅÂ ÁøÀÔ");
+        Debug.Log($"ï¿½ï¿½ï¿½ï¿½ {_boss.BossData.bossName} ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 
-        // ¾Ö´Ï¸ÞÀÌ¼Ç Æ®¸®°Å
+        // ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ Æ®ï¿½ï¿½ï¿½ï¿½
         Animator animator = _boss.GetComponent<Animator>();
         if (animator != null)
         {
             animator.SetTrigger("Die");
         }
 
-        // ÀÌÆåÆ® Ãâ·Â (¿¹: Æø¹ß)
+        // ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ (ï¿½ï¿½: ï¿½ï¿½ï¿½ï¿½)
         if (_boss.BossData.bossPrefab != null)
         {
-            // Á×À» ¶§ ¾µ ÀÌÆåÆ® ÇÁ¸®ÆÕ µû·Î ¸¸µé ¼öµµ ÀÖÀ½
-            Debug.Log("º¸½º »ç¸Á ÀÌÆåÆ® ¹ß»ý");
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+            Debug.Log("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ß»ï¿½");
         }
 
-        // »ç¸Á ÈÄ ¿òÁ÷ÀÓ ¸ØÃã (ÇÊ¿ä ½Ã Rigidbody2D, NavMesh µî Ã³¸®)
+        // ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½Ê¿ï¿½ ï¿½ï¿½ Rigidbody2D, NavMesh ï¿½ï¿½ Ã³ï¿½ï¿½)
         Rigidbody2D rb = _boss.GetComponent<Rigidbody2D>();
         if (rb != null)
         {
@@ -38,30 +38,32 @@ public class BossDieState : IBossState
             rb.isKinematic = true;
         }
 
-        // º¸»ó Áö±Þ (¿¹: °æÇèÄ¡, ¾ÆÀÌÅÛ µî)
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½: ï¿½ï¿½ï¿½ï¿½Ä¡, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½)
         GiveRewards();
 
-        // Å¬¸®¾î Ã³¸® (UI È°¼ºÈ­ µî)
+        // Å¬ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ (UI È°ï¿½ï¿½È­ ï¿½ï¿½)
         //StageClearUI.Instance.ShowClearPanel();
+
+        _boss.OnBossDie?.Invoke();
 
         _hasDied = true;
     }
 
     public void Execute()
     {
-        // ¾Æ¹« °Íµµ ÇÏÁö ¾ÊÀ½
+        // ï¿½Æ¹ï¿½ ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     }
 
     public void Exit()
     {
-        // ÀÌ »óÅÂ¿¡¼± º¸Åë Exit ¾È ¾¸
+        // ï¿½ï¿½ ï¿½ï¿½ï¿½Â¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Exit ï¿½ï¿½ ï¿½ï¿½
     }
 
     private void GiveRewards()
     {
-        Debug.Log("º¸»ó Áö±Þ: °æÇèÄ¡ + ¾ÆÀÌÅÛ µå¶ø µî");
+        Debug.Log("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½: ï¿½ï¿½ï¿½ï¿½Ä¡ + ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½");
 
-        // ¿¹: GameManager.Instance.AddExp(300);
-        // ¿¹: Instantiate(dropItem, _boss.transform.position, Quaternion.identity);
+        // ï¿½ï¿½: GameManager.Instance.AddExp(300);
+        // ï¿½ï¿½: Instantiate(dropItem, _boss.transform.position, Quaternion.identity);
     }
 }

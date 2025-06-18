@@ -3,6 +3,14 @@ using UnityEngine;
 
 public class SaveManager : Singleton<SaveManager>
 {
+    private PlayerSave _playerSave;
+
+    private void Start()
+    {
+        _playerSave = GetComponent<PlayerSave>();
+    }
+
+
     private string GetPath(string fileName)
     {
         return Path.Combine(Application.persistentDataPath, fileName + ".json");
@@ -60,5 +68,10 @@ public class SaveManager : Singleton<SaveManager>
         {
             Debug.LogWarning($"[SaveManager] 삭제 시도 - 파일 없음: {path}");
         }
+    }
+
+    public void SavePlayer()
+    {
+        _playerSave.SavePlayer();
     }
 } 

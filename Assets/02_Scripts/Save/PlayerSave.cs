@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Linq;
 
-public class PlayerSaveExample : MonoBehaviour
+public class PlayerSave : MonoBehaviour
 {
     public Player player;
 

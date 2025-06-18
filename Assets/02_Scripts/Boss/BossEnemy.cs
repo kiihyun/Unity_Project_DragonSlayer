@@ -1,14 +1,17 @@
 using System.Collections;
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
+
 public enum SkillType
 {
-    Default,    // Á¤Àû ÇÁ¸®ÆÕ »ý¼º (breath µî)
-    FireRain,   // ¿©·¯ °³ ÇÁ¸®ÆÕ ¹Ýº¹ »ý¼º
+    Default,    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (breath ï¿½ï¿½)
+    FireRain,   // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ýºï¿½ ï¿½ï¿½ï¿½ï¿½
     FlameMarch,
     Breath,
     SwordWind,
     LeapSmash,
-    // ÇâÈÄ Meteor, Laser µî È®Àå °¡´É
+    // ï¿½ï¿½ï¿½ï¿½ Meteor, Laser ï¿½ï¿½ È®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 }
 public class BossEnemy : MonoBehaviour, IDamageble
 {
@@ -17,13 +20,14 @@ public class BossEnemy : MonoBehaviour, IDamageble
     public Animator Animator { get; private set; }
     public BossStateMachine StateMachine { get; private set; }
     public BossEnemyDataSO BossData => _bossData;
+    public Action OnBossDie;
 
     
     public int AttackCount { get; set; } = 0;
     public GameObject BreathPos;
     private Transform _playerTarget;
     public Transform PlayerTarget => _playerTarget;
-    public BossSkillData CurrentSkillData { get; set; } //ÇöÀç ½ÃÀü ÁßÀÎ ½ºÅ³ Á¤º¸¸¦ ÀúÀå
+    public BossSkillData CurrentSkillData { get; set; } //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
     public int SkillIndex { get; set; } = 0;
 
@@ -31,8 +35,8 @@ public class BossEnemy : MonoBehaviour, IDamageble
 
     public float CurrentHealth {get; private set;}
 
-    public int AttackThresholdBeforeSkill = 2;// ÀÏ¹Ý°ø°Ý È½¼ö
-    private bool _facingRight = true; //¹æÇâ
+    public int AttackThresholdBeforeSkill = 2;// ï¿½Ï¹Ý°ï¿½ï¿½ï¿½ È½ï¿½ï¿½
+    private bool _facingRight = true; //ï¿½ï¿½ï¿½ï¿½
     
     public Transform fireStartPoint; //FlameStomp
     public Rigidbody2D Rb { get; private set; }
@@ -98,13 +102,13 @@ public class BossEnemy : MonoBehaviour, IDamageble
     public void SpawnBreathEffect()
     {
         GameObject effect = Instantiate(
-            BossData.phase1Skills[0].skillEffectPrefab, // SO¿¡ ¿¬°áµÈ ÀÌÆåÆ® ÇÁ¸®ÆÕ
-                BreathPos.transform.position , // º¸½º ¾ÕÂÊ
+            BossData.phase1Skills[0].skillEffectPrefab, // SOï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+                BreathPos.transform.position , // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             Quaternion.Euler(0, 0, 90)
         );
         effect.transform.SetParent(this.transform);
 
-        Destroy(effect, 0.7f); // ÀÏÁ¤ ½Ã°£ ÈÄ ÆÄ±«
+        Destroy(effect, 0.7f); // ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ ï¿½ï¿½ ï¿½Ä±ï¿½
     }
 
 
@@ -135,12 +139,12 @@ public class BossEnemy : MonoBehaviour, IDamageble
                 StateMachine.ChangeState(new BossLeapState(this, CurrentSkillData));
                 return;   
             default:
-                Debug.LogWarning($"Á¤ÀÇµÇÁö ¾ÊÀº SkillType: {CurrentSkillData.skillType}");
+                Debug.LogWarning($"ï¿½ï¿½ï¿½Çµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ SkillType: {CurrentSkillData.skillType}");
                 break;
         }
         
 
-        Debug.Log($"[¾Ö´Ï¸ÞÀÌ¼Ç ÀÌº¥Æ®] {CurrentSkillData.skillName} ÀÌÆåÆ® »ý¼º!");
+        Debug.Log($"[ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½Ìºï¿½Æ®] {CurrentSkillData.skillName} ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½!");
     }
 
     private void SpawnFireRainEffect()
@@ -169,24 +173,24 @@ public class BossEnemy : MonoBehaviour, IDamageble
         {
             Vector3 spawnPos = new Vector3(
                 transform.position.x + Random.Range(-15f, 15f),
-                transform.position.y + 10f, // ÇÏ´Ã À§
+                transform.position.y + 10f, // ï¿½Ï´ï¿½ ï¿½ï¿½
                 0f
             );
 
             GameObject fireRain = GameObject.Instantiate( BossData.phase1Skills[1].skillEffectPrefab, spawnPos, Quaternion.identity);
             fireRain.transform.SetParent(transform);
 
-            // Rigidbody2D¿¡ »ç¼± Èû ÁÖ±â
+            // Rigidbody2Dï¿½ï¿½ ï¿½ç¼± ï¿½ï¿½ ï¿½Ö±ï¿½
             Rigidbody2D rb = fireRain.GetComponent<Rigidbody2D>();
-            Vector2 direction = new Vector2(-50f, -3f).normalized; // »ç¼± ¹æÇâ
+            Vector2 direction = new Vector2(-50f, -3f).normalized; // ï¿½ç¼± ï¿½ï¿½ï¿½ï¿½
             float force = 5f;
             rb.AddForce(direction * force, ForceMode2D.Impulse);
-            UnityEngine.Object.Destroy(fireRain, 10f); // ÆÄ±« ½Ã°£ ¼³Á¤
+            UnityEngine.Object.Destroy(fireRain, 10f); // ï¿½Ä±ï¿½ ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½
 
             yield return new WaitForSeconds(interval);
         }
     }
-    //ÀÏ¹Ý °ø°ÝÈÄ ½ºÅ³½ÃÀü
+    //ï¿½Ï¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ï¿½ï¿½ï¿½ï¿½
     public void OnNormalAttackComplete()
     {
         AttackCount++;
@@ -204,7 +208,7 @@ public class BossEnemy : MonoBehaviour, IDamageble
             StateMachine.ChangeState(new BossIdleState(this));
         }
     }
-    //ÇÃ·¹ÀÌ¾î ¹Ù¶óº¸±â
+    //ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½Ù¶óº¸±ï¿½
     public void FlipToFacePlayer()
     {
         if (_playerTarget == null) return;
@@ -214,7 +218,7 @@ public class BossEnemy : MonoBehaviour, IDamageble
         if ((directionToPlayer > 0 && _facingRight) || (directionToPlayer < 0 && !_facingRight))
         {
             _facingRight = !_facingRight;
-            // º¸½º ÀÚÃ¼ ¹ÝÀü
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½
             Vector3 scale = transform.localScale;
             scale.x *= -1;
             transform.localScale = scale;
@@ -228,7 +232,7 @@ public class BossEnemy : MonoBehaviour, IDamageble
             if (hit != null)
             {
                 _playerTarget = hit.transform;
-                Debug.Log("ÇÃ·¹ÀÌ¾î °¨ÁöµÊ!");
+                Debug.Log("ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½!");
             }
         }
     }
@@ -290,15 +294,15 @@ public class BossEnemy : MonoBehaviour, IDamageble
     public void SpawnSwordWind()
     {
         GameObject effect = Instantiate(
-            BossData.phase1Skills[0].skillEffectPrefab, // SO¿¡ ¿¬°áµÈ ÀÌÆåÆ® ÇÁ¸®ÆÕ
-             BreathPos.transform.position, // º¸½º ¾ÕÂÊ
+            BossData.phase1Skills[0].skillEffectPrefab, // SOï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+             BreathPos.transform.position, // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             Quaternion.identity
         );
         effect.transform.SetParent(this.transform);
 
-        Destroy(effect, BossData.phase1Skills[0].effectDuration); // ÀÏÁ¤ ½Ã°£ ÈÄ ÆÄ±«
+        Destroy(effect, BossData.phase1Skills[0].effectDuration); // ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ ï¿½ï¿½ ï¿½Ä±ï¿½
     }
-    /// <summary>¹ß¹Ø ¿øÇü ¿µ¿ª¿¡ Ground ·¹ÀÌ¾î°¡ ´ê¾Æ ÀÖ´ÂÁö.</summary>
+    /// <summary>ï¿½ß¹ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ground ï¿½ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½.</summary>
     public bool IsGrounded()
     {
         return Physics2D.OverlapCircle(groundCheck.position,
@@ -308,12 +312,12 @@ public class BossEnemy : MonoBehaviour, IDamageble
     public void SpawnLeap()
     {
         GameObject effect = Instantiate(
-            BossData.phase1Skills[1].skillEffectPrefab , // SO¿¡ ¿¬°áµÈ ÀÌÆåÆ® ÇÁ¸®ÆÕ
-            groundCheck.transform.position+ new Vector3(0,0.6f,0), // º¸½º ¾ÕÂÊ
+            BossData.phase1Skills[1].skillEffectPrefab , // SOï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            groundCheck.transform.position+ new Vector3(0,0.6f,0), // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             Quaternion.identity
         );
         effect.transform.SetParent(this.transform);
 
-        Destroy(effect, BossData.phase1Skills[1].effectDuration); // ÀÏÁ¤ ½Ã°£ ÈÄ ÆÄ±«
+        Destroy(effect, BossData.phase1Skills[1].effectDuration); // ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ ï¿½ï¿½ ï¿½Ä±ï¿½
     }
 }
