@@ -7,14 +7,25 @@ public class PlayerInteractionUI : MonoBehaviour
 {
     private Player _player;
 
+    private GameObject _playerGetItemUI;
+
     public void Start()
     {
-        _player = GetComponent<Player>();
+        _player = GetComponentInParent<Player>();
         HideInteractionUI();
     }
 
 
-    [SerializeField] private TextMeshProUGUI interactionText;   
+    [SerializeField] private TextMeshProUGUI interactionText;
+    [SerializeField] private GameObject itemGetUIPrefab;
+
+    public void ShowItemGetUI(ItemData itemData)
+    {
+        Vector3 position = Camera.main.WorldToScreenPoint(_player.transform.position + new Vector3(0, 1, 0));
+        GameObject itemGetUI = Instantiate(itemGetUIPrefab, transform);
+        itemGetUI.GetComponent<ItemGetUI>().ShowItems(itemData, position);
+    }
+
 
     private void Update()
     {
