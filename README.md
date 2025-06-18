@@ -1,6 +1,6 @@
 # DragonSlayer
 
-[이미지]
+![1](https://github.com/user-attachments/assets/c449f8a1-5ebc-4f29-bd8b-b58aa37ae844)
 
 ## 🎮 1. 게임 개요
 이 프로젝트는 내일배움캠프에서 진행한 과제로, Unity 기반의 2D 플랫포머 액션 게임입니다. 플레이어는 적과 보스를 물리치고 다양한 맵을 탐험하며, 아이템 수집 및 장착하며 성장합니다. 
@@ -14,15 +14,23 @@
 
 ### 주요 특징
 - **전투:** 상태머신 기반으로 플레이어, 적, 보스가 동작
-[이미지]
+![image](https://github.com/user-attachments/assets/a7f2f118-6ef7-42ab-849b-236a2bceebcf)
 - **보스:** 다양한 스킬로 구성된 패턴
-[이미지]
+![image](https://github.com/user-attachments/assets/62d57003-d5e4-4fad-bfea-9b6b9c97f53e)
 - **스테이지:** 여러 스테이지, 적 스폰, 상호작용 오브젝트(상자, 저장포인트 등)
-[이미지]
+
+
+![3](https://github.com/user-attachments/assets/a0c7ad0d-0f4f-491b-9fe4-f55b79a63a0b)
+![5](https://github.com/user-attachments/assets/3fa2bd50-8689-4c3b-9fb4-3a89b0b17d7d)
+![6](https://github.com/user-attachments/assets/5ae7b751-02d1-4994-ab40-c2da2e2af770)
+![4](https://github.com/user-attachments/assets/44ee58c9-6c3c-4918-83ef-0e65e8f498f9)
+
+
+
 - **아이템/인벤토리 시스템:** 무기, 방어구, 소모품 등 다양한 아이템과 장착/퀵슬롯/사용
-[이미지]
+![image](https://github.com/user-attachments/assets/bbb36038-88ae-40ef-9353-e090649ba3f2)
+
 - **세이브/로드:** Json 기반 플레이어 데이터 저장/불러오기
-[이미지]
 
 ## ⚙ 2. 유니티 버전
 Unity 2022.3.17f1
