@@ -302,6 +302,7 @@ public class BossEnemy : MonoBehaviour, IDamageble
 
     public void SpawnSwordWind()
     {
+        SoundManager.Instance.PlaySFX("SwordWind");
         GameObject effect = Instantiate(
             BossData.phase1Skills[0].skillEffectPrefab, 
             BreathPos.transform.position, 
@@ -321,7 +322,8 @@ public class BossEnemy : MonoBehaviour, IDamageble
     }
 
     public void SpawnLeap()
-    {
+    {   
+        SoundManager.Instance.PlaySFX("Smash");
         GameObject effect = Instantiate(
             BossData.phase1Skills[1].skillEffectPrefab, 
             groundCheck.transform.position + new Vector3(0, 0.6f, 0), 

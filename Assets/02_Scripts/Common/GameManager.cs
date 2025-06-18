@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
 
         if(_loadManger != null && _loadManger.IsLoadGame == true)
         {
-            _loadManger.LoadPlayer();
+            //_loadManger.LoadPlayer();
         }
     }
 }
