@@ -31,7 +31,8 @@ public class UIInGame : BaseFixed
     private void Update()
     {
         _healthBar.fillAmount = _playerStat.CurrentHealth / _playerStat.MaxHealth;
-        _expBar.fillAmount = _playerStat.CurrentEXP / _playerStat.MaxExp;
+        float exp = _playerStat.CurrentEXP;
+        _expBar.fillAmount = exp / _playerStat.MaxExp;
         _DashCoolDown.fillAmount = _playerStat.CurrentDashCooldown / _playerStat.DashCooldown;
         _skillCoolDown.fillAmount = _playerStat.CurrentSkillCooldown / _playerStat.SkillCooldown;
         

@@ -5,7 +5,8 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     private LoadManger _loadManger;
-
+    private UIManager _uiManager;
+    
     private void Awake()
     {
         SoundManager.Instance.StopBGM();
@@ -17,7 +18,14 @@ public class GameManager : MonoBehaviour
 
         if(_loadManger != null && _loadManger.IsLoadGame == true)
         {
-            //_loadManger.LoadPlayer();
+            _loadManger.LoadPlayer();
         }
+
+        if (_uiManager == null)
+        {
+            _uiManager = UIManager.instance;
+        }
+
+        _uiManager.StartGameUISetting();
     }
 }

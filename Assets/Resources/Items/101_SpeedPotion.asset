@@ -19,4 +19,4 @@ MonoBehaviour:
   ItemType: 0
   stats:
   - type: 1
-    value: 10
+    value: 3
