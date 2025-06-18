@@ -25,7 +25,7 @@ public class EnemyIdleState : EnemyBaseState
         //if (enterchasingstate)
         //    _stateMachine.ChangeState(_stateMachine.ChasingState);
         _curTime += Time.deltaTime;
-        if (_curTime >= _stateMachine.Enemy._moveCooldown)// 1초에 1번씩 움직임
+        if (_curTime >= _stateMachine.Enemy.MoveCooldown)// 1초에 1번씩 움직임
         {
             _curTime = 0f; // 쿨타임 초기화
                            // 이동 로직 추가

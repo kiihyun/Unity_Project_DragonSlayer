@@ -51,7 +51,7 @@ public class EnemyChasingState : EnemyBaseState
 
 
         _curTime += Time.deltaTime;
-        if (_curTime >= _stateMachine.Enemy._moveCooldown*0.7)// 0.7초에 1번씩 움직임
+        if (_curTime >= _stateMachine.Enemy.MoveCooldown*0.7)// 0.7초에 1번씩 움직임
         {
             _curTime = 0f; // 쿨타임 초기화
             Move();

@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class EnemyBaseState : IState
 {
+    public Vector3 MoveDirection = Vector3.left;
     protected EnemyStateMachine _stateMachine;
     protected Vector2 _moveVector;
-    public Vector3 MoveDirection = Vector3.left;
     public EnemyBaseState(EnemyStateMachine stateMachine)
     {
         this._stateMachine = stateMachine;
@@ -43,15 +43,7 @@ public class EnemyBaseState : IState
         }
 
     }
-    protected void StartAnimation(int animatorHash)
-    {
-        _stateMachine.Enemy.Animator.SetBool(animatorHash, true);
-    }
-
-    protected void StopAnimation(int animatorHash)
-    {
-        _stateMachine.Enemy.Animator.SetBool(animatorHash, false);
-    }
+    
 
     public void Turn()
     {
@@ -59,18 +51,7 @@ public class EnemyBaseState : IState
         MoveDirection = -MoveDirection;
         FlipSprite();
     }
-    private void FlipSprite()
-    {
-        bool _isMovingRight = MoveDirection.x > 0;
-        if(_isMovingRight)
-        {
-            _stateMachine.Enemy.SpritePivot.transform.localRotation = Quaternion.Euler(0, 180, 0); // 오른쪽으로 이동할 때 스프라이트를 기본 방향으로 설정
-        }
-        else
-        {
-            _stateMachine.Enemy.SpritePivot.transform.localRotation = Quaternion.Euler(0, 0, 0); // 왼쪽으로 이동할 때 스프라이트를 뒤집음
-        }
-    }
+    
 
     public void TurnLeft()
     {
@@ -81,5 +62,27 @@ public class EnemyBaseState : IState
     {
         MoveDirection = Vector3.right;
         _stateMachine.Enemy.SpritePivot.transform.localRotation = Quaternion.Euler(0, 180, 0); // 오른쪽으로 이동할 때 스프라이트를 기본 방향으로 설정
+    }
+    private void FlipSprite()
+    {
+        bool _isMovingRight = MoveDirection.x > 0;
+        if (_isMovingRight)
+        {
+            _stateMachine.Enemy.SpritePivot.transform.localRotation = Quaternion.Euler(0, 180, 0); // 오른쪽으로 이동할 때 스프라이트를 기본 방향으로 설정
+        }
+        else
+        {
+            _stateMachine.Enemy.SpritePivot.transform.localRotation = Quaternion.Euler(0, 0, 0); // 왼쪽으로 이동할 때 스프라이트를 뒤집음
+        }
+    }
+
+    protected void StartAnimation(int animatorHash)
+    {
+        _stateMachine.Enemy.Animator.SetBool(animatorHash, true);
+    }
+
+    protected void StopAnimation(int animatorHash)
+    {
+        _stateMachine.Enemy.Animator.SetBool(animatorHash, false);
     }
 }

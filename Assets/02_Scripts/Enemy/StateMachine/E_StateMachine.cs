@@ -6,18 +6,18 @@
 }
 public class E_StateMachine
 {
-    protected IState currentState;
-    public IState CurrentState => currentState;
+    protected IState _currentState;
+    public IState CurrentState => _currentState;
 
     public void ChangeState(IState newState)
     {
-        currentState?.Exit();   //nullable로 만들어서 null 체크
-        currentState = newState;
-        currentState?.Enter();
+        _currentState?.Exit();   //nullable로 만들어서 null 체크
+        _currentState = newState;
+        _currentState?.Enter();
     }
 
     public void Update()
     {
-        currentState?.Update();
+        _currentState?.Update();
     }
 }

@@ -7,8 +7,8 @@ public class EnemyProjectile : MonoBehaviour
     [SerializeField] private float _velocity;
     [SerializeField] private Enemy _enemy;
     public bool IsLeft;
-    private float _projectileTimer = 2f;
     public float CurTime;
+    private float _projectileTimer = 2f;
 
     private void Awake()
     {
@@ -23,9 +23,6 @@ public class EnemyProjectile : MonoBehaviour
             this.gameObject.SetActive(false);
             return;
         }
-
-
-
         if (IsLeft)
             this.transform.position += Vector3.left * _velocity; 
         else
