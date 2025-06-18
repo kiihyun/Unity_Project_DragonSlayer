@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Lever : Interaction
 {
-    [SerializeField] private GameObject offSprite;
-    [SerializeField] private GameObject onSprite;
+    [SerializeField] private GameObject _offSprite;
+    [SerializeField] private GameObject _onSprite;
     [SerializeField] private List<MonoBehaviour> _interactObjects;
     
     private bool isOn = false;
@@ -64,7 +64,7 @@ public class Lever : Interaction
 
     private void SetSpriteState(bool on)
     {
-        offSprite.SetActive(!on);
-        onSprite.SetActive(on);
+        _offSprite.SetActive(!on);
+        _onSprite.SetActive(on);
     }
 }

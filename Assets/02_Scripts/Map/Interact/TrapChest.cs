@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class TrapChest : Chest
 {
-    [SerializeField] private GameObject explosionPrefab;
-    [SerializeField] private int damage = 10;
+    [SerializeField] private GameObject _explosionPrefab;
+    [SerializeField] private int _damage = 10;
     
     private bool isInteracted = false;
 
@@ -21,13 +21,13 @@ public class TrapChest : Chest
         // 폭팔 이펙트
         if(!isInteracted)
         {
-            GameObject explosion = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
-            Destroy(explosion, 0.8f);
+            GameObject explosion = Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
+            Destroy(explosion, Constants.Trap.TRAP_CHEST_EXPLODE_DESTROY_DURATION);
 
             if (_player != null)
             {
                 IDamageble damageable = _player.GetComponent<IDamageble>();
-                damageable.TakeDamage(damage);
+                damageable.TakeDamage(_damage);
             }
         }
 

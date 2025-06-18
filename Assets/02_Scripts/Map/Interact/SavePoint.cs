@@ -6,7 +6,7 @@ public class SavePoint : Interaction
 {
     public override string GetInteractText()
     {
-        return "저장하기";
+        return Constants.Interaction.SAVE_POINT_INTERACT_TEXT;
     }
     public override void Interact()
     {

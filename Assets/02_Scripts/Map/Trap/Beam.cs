@@ -4,48 +4,23 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class Beam : MonoBehaviour
+public class Beam : Trap
 {
-    float Damage = 1f;
-    float DamageInterval = 0.1f;
-    float DamageLastTime = 0f;
-
-    Player _player;
-
-    private void Init(float damage, float damageInterval)
-    {
-        Damage = damage;
-        DamageInterval = damageInterval;
-    }
+    private float _damage = Constants.Trap.BEAM_DAMAGE;
+    private float _damageInterval = Constants.Trap.BEAM_DAMAGE_INTERVAL;
+    private float _damageLastTime = 0f;
 
     private void Update()
     {
         if (_player != null)
         {
-            DamageLastTime += Time.deltaTime;
-            if(DamageLastTime >= DamageInterval)
+            _damageLastTime += Time.deltaTime;
+            if(_damageLastTime >= _damageInterval)
             {
-                DamageLastTime = 0f;
-                print("Beam Damage" + Damage);
-                _player.stat.TakeDamage(Damage);
+                _damageLastTime = 0f;
+                print("Beam Damage" + _damage);
+                _player.stat.TakeDamage(_damage);
             }
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.gameObject.layer == LayerMask.NameToLayer("Player"))
-        {
-            Player player = collision.gameObject.GetComponent<Player>();
-            _player = player;
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if(collision.gameObject.layer == LayerMask.NameToLayer("Player"))
-        {
-            _player = null;
         }
     }
 }

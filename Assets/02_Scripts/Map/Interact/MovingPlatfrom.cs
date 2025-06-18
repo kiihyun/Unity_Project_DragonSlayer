@@ -6,21 +6,19 @@ public class MovingPlatfrom : MonoBehaviour, IInteractableTarget
 {
     [SerializeField] Transform _targetPosition;
     [SerializeField] float _moveSpeed = 10f;
-    private Vector3 initialPosition;
-    private bool isMoving = false;
-    private bool isReverse = false;
-    private Transform player;
-    private float interval = 0.001f;
-    private Coroutine moveCoroutine;
 
-    void Awake()
+    private Vector3 _initialPosition;
+    private Transform _player;
+    private float _interval = Constants.Interaction.MOVING_PLATFORM_INTERVAL;
+
+    private void Awake()
     {
-        initialPosition = new Vector3(transform.position.x, transform.position.y, 0);
+        _initialPosition = new Vector3(transform.position.x, transform.position.y, 0);
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
-        if(player != null)
+        if(_player != null)
         {
             if(!IsArrive())
             {
@@ -35,6 +33,26 @@ public class MovingPlatfrom : MonoBehaviour, IInteractableTarget
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.TryGetComponent<Player>(out Player _))
+        {
+            _player = other.gameObject.transform;
+            _player.SetParent(transform);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        
+        if (other.TryGetComponent<Player>(out Player _))
+        {
+            _player.SetParent(null);
+            _player = null;
+        }
+    }
+    
+
     public void MoveToTarget()
     {
         if(transform.position == _targetPosition.position)
@@ -46,11 +64,11 @@ public class MovingPlatfrom : MonoBehaviour, IInteractableTarget
         transform.position = Vector3.MoveTowards(
             transform.position,
             _targetPosition.position,
-            _moveSpeed * interval
+            _moveSpeed * _interval
         );
 
         // 도착 체크 (float 오차 방지 위해 Distance 사용 권장)
-        if (Vector3.Distance(transform.position, _targetPosition.position) < 0.01f)
+        if (Vector3.Distance(transform.position, _targetPosition.position) < Constants.Interaction.MOVING_PLATFORM_ARRIVE_THRESHOLD)
         {
             transform.position = _targetPosition.position; // 정확히 맞춤
         }
@@ -59,21 +77,21 @@ public class MovingPlatfrom : MonoBehaviour, IInteractableTarget
 
     public void MoveToInitial()
     {
-        if(transform.position == initialPosition)
+        if(transform.position == _initialPosition)
         {
             return;
         }
 
         transform.position = Vector3.MoveTowards(
             transform.position,
-            initialPosition,
-            _moveSpeed * interval
+            _initialPosition,
+            _moveSpeed * _interval
         );
 
         // 도착 체크 (float 오차 방지 위해 Distance 사용 권장)
-        if (Vector3.Distance(transform.position, initialPosition) < 0.01f)
+        if (Vector3.Distance(transform.position, _initialPosition) < Constants.Interaction.MOVING_PLATFORM_ARRIVE_THRESHOLD)
         {
-            transform.position = initialPosition; // 정확히 맞춤
+            transform.position = _initialPosition; // 정확히 맞춤
         }
 
     }
@@ -89,45 +107,16 @@ public class MovingPlatfrom : MonoBehaviour, IInteractableTarget
 
     public bool IsInitialPosition()
     {
-        if(transform.position == initialPosition)
+        if(transform.position == _initialPosition)
         {
             return true;
         }
         return false;
     }
-
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            player = other.gameObject.transform;
-            player.SetParent(transform);
-        }
-    }
-
-
-
-    void OnTriggerExit2D(Collider2D other)
-    {
-        
-        if (other.gameObject.CompareTag("Player"))
-        {
-            player.SetParent(null);
-            player = null;
-        }
-    }
-
-    void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position, _targetPosition.position);
-    }
-
-    [ContextMenu("ReverseTest")]
     public void Reverse()
     {
-        Vector3 temp = initialPosition;
-        initialPosition = _targetPosition.position;
+        Vector3 temp = _initialPosition;
+        _initialPosition = _targetPosition.position;
         _targetPosition.position = temp;
     }
 

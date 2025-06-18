@@ -10,10 +10,11 @@ public class Map : MonoBehaviour
     private List<GameObject> _enemies = new List<GameObject>();
     private bool _isCollided = false;
 
+    
     public void OnTriggerEnter2D(Collider2D other)
     {
         _isCollided = true;
-        if(other.CompareTag("Player"))
+        if(other.TryGetComponent<Player>(out Player _))
         {
             if(_enemies.Count > 0)
             {
@@ -27,21 +28,10 @@ public class Map : MonoBehaviour
     public void OnTriggerExit2D(Collider2D other)
     {
         _isCollided = false;
-        if(other.CompareTag("Player"))
+        if(other.TryGetComponent<Player>(out Player _))
         {
             Invoke("DestroyEnemy", 2f);
         }
-    }
-
-    private void OnDrawGizmos()
-    {
-        UnityEditor.Handles.Label(gameObject.transform.position, gameObject.name);
-        DrawSpawnAreas(0.3f);
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        DrawSpawnAreas(0.8f);
     }
 
     public void SpawnEnemy()
@@ -50,7 +40,6 @@ public class Map : MonoBehaviour
         { return; }
         foreach (var spawnArea in _mapData.enemySpawnAreas)
         {
-
             Vector3 spawnPosition = new Vector3(spawnArea.spawnArea.center.x, spawnArea.spawnArea.center.y); 
             spawnPosition = new Vector3(spawnPosition.x - spawnArea.spawnArea.width / 2, spawnPosition.y - spawnArea.spawnArea.height / 2 + 2);
             spawnPosition = transform.TransformPoint(spawnPosition);
@@ -80,37 +69,36 @@ public class Map : MonoBehaviour
         _enemies.Clear();
     }
 
-    private void DrawSpawnAreas(float alpha)
-    {
-        if (_mapData == null || _mapData.enemySpawnAreas == null)
-            return;
+    // private void OnDrawGizmosSelected()
+    // {
+    //     DrawSpawnAreas(0.8f);
+    // }
 
-        // 각 스폰 영역을 다른 색상으로 표시
+    // private void DrawSpawnAreas(float alpha)
+    // {
+    //     if (_mapData == null || _mapData.enemySpawnAreas == null)
+    //         return;
+
+    //     // 각 스폰 영역을 다른 색상으로 표시
         
-        for (int i = 0; i < _mapData.enemySpawnAreas.Count; i++)
-        {
-            Rect spawnArea = _mapData.enemySpawnAreas[i].spawnArea;
+    //     for (int i = 0; i < _mapData.enemySpawnAreas.Count; i++)
+    //     {
+    //         Rect spawnArea = _mapData.enemySpawnAreas[i].spawnArea;
             
-            Color gizmoColor = Color.red;
-            gizmoColor.a = alpha;
-            Gizmos.color = gizmoColor;
+    //         Color gizmoColor = Color.red;
+    //         gizmoColor.a = alpha;
+    //         Gizmos.color = gizmoColor;
             
-            Vector3 worldCenter = transform.TransformPoint(new Vector3(spawnArea.center.x, spawnArea.center.y));
-            Vector3 worldSize = new Vector3(spawnArea.width, spawnArea.height);
+    //         Vector3 worldCenter = transform.TransformPoint(new Vector3(spawnArea.center.x, spawnArea.center.y));
+    //         Vector3 worldSize = new Vector3(spawnArea.width, spawnArea.height);
             
-            Gizmos.DrawWireCube(worldCenter, worldSize);
+    //         Gizmos.DrawWireCube(worldCenter, worldSize);
             
-            gizmoColor.a = alpha * 0.2f;
-            Gizmos.color = gizmoColor;
-            Gizmos.DrawCube(worldCenter, worldSize);
+    //         gizmoColor.a = alpha * 0.2f;
+    //         Gizmos.color = gizmoColor;
+    //         Gizmos.DrawCube(worldCenter, worldSize);
             
-            UnityEditor.Handles.Label(worldCenter, $"Spawn Area {i}");
-        }
-    }
-
-    [ContextMenu("Test")]
-    public void Test()
-    {
-        SpawnEnemy();
-    }
+    //         UnityEditor.Handles.Label(worldCenter, $"Spawn Area {i}");
+    //     }
+    // }
 }

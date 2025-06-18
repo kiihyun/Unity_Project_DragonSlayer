@@ -92,10 +92,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cde0e0e6b1c0a4c49b3188bcf2fa2dd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  closedSprite: {fileID: 5814696670847991937}
-  openedSprite: {fileID: 4663342570268760709}
-  explosionPrefab: {fileID: 8215490306184667420, guid: bd1f33a5677686a49803c391a6e35404, type: 3}
-  damage: 10
+  InteractText: "E\uB97C \uB20C\uB7EC \uC0C1\uD638\uC791\uC6A9"
+  _closedSprite: {fileID: 5814696670847991937}
+  _openedSprite: {fileID: 4663342570268760709}
+  _explosionPrefab: {fileID: 8215490306184667420, guid: bd1f33a5677686a49803c391a6e35404, type: 3}
+  _damage: 10
 --- !u!1 &4663342570268760709
 GameObject:
   m_ObjectHideFlags: 0

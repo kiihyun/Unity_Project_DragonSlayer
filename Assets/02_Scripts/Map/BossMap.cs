@@ -15,7 +15,7 @@ public class BossMap : MonoBehaviour
     public void OnTriggerEnter2D(Collider2D other)
     {
         _isCollided = true;
-        if(other.CompareTag("Player"))
+        if(other.TryGetComponent<Player>(out Player _))
         {
             if(_boss != null)
             {
@@ -25,34 +25,23 @@ public class BossMap : MonoBehaviour
             StartCoroutine(ShakeCamera());
         }
     }
-
-    public IEnumerator ShakeCamera()
-    {
-        CameraTransitionManager.Instance.ShakeCamera(3);
-        yield return new WaitForSeconds(3f);
-        SpawnEnemy();
-        CameraTransitionManager.Instance.ChangeCameraTargetForDuration(_boss.transform, 2f);
-    }
-    
     public void OnTriggerExit2D(Collider2D other)
     {
         _isCollided = false;
-        if(other.CompareTag("Player"))
+        if(other.TryGetComponent<Player>(out Player _))
         {
             Invoke("DestroyEnemy", 2f);
         }
     }
 
-    private void OnDrawGizmos()
+    public IEnumerator ShakeCamera()
     {
-        UnityEditor.Handles.Label(gameObject.transform.position, gameObject.name);
-        DrawSpawnAreas(0.3f);
+        CameraManager.Instance.ShakeCamera(3);
+        yield return new WaitForSeconds(3f);
+        SpawnEnemy();
+        CameraManager.Instance.ChangeCameraTargetForDuration(_boss.transform, 2f);
     }
 
-    private void OnDrawGizmosSelected()
-    {
-        DrawSpawnAreas(0.8f);
-    }
 
     public void SpawnEnemy()
     {
@@ -85,38 +74,47 @@ public class BossMap : MonoBehaviour
         Destroy(_boss);
         _boss = null;
     }
-
-    private void DrawSpawnAreas(float alpha)
-    {
-        if (_mapData == null || _mapData.enemySpawnAreas == null)
-            return;
-
-        // 각 스폰 영역을 다른 색상으로 표시
-        
-        for (int i = 0; i < _mapData.enemySpawnAreas.Count; i++)
-        {
-            Rect spawnArea = _mapData.enemySpawnAreas[i].spawnArea;
-            
-            Color gizmoColor = Color.red;
-            gizmoColor.a = alpha;
-            Gizmos.color = gizmoColor;
-            
-            Vector3 worldCenter = transform.TransformPoint(new Vector3(spawnArea.center.x, spawnArea.center.y));
-            Vector3 worldSize = new Vector3(spawnArea.width, spawnArea.height);
-            
-            Gizmos.DrawWireCube(worldCenter, worldSize);
-            
-            gizmoColor.a = alpha * 0.2f;
-            Gizmos.color = gizmoColor;
-            Gizmos.DrawCube(worldCenter, worldSize);
-            
-            UnityEditor.Handles.Label(worldCenter, $"Spawn Area {i}");
-        }
-    }
-
     public void OnBossDie()
     {
         StageManager.Instance.SetMaxClearStage(_stage);
         _bossEnemy.OnBossDie -= OnBossDie;
     }
+    // private void OnDrawGizmos()
+    // {
+    //     UnityEditor.Handles.Label(gameObject.transform.position, gameObject.name);
+    //     DrawSpawnAreas(0.3f);
+    // }
+
+    // private void OnDrawGizmosSelected()
+    // {
+    //     DrawSpawnAreas(0.8f);
+    // }
+
+    // private void DrawSpawnAreas(float alpha)
+    // {
+    //     if (_mapData == null || _mapData.enemySpawnAreas == null)
+    //         return;
+
+    //     // 각 스폰 영역을 다른 색상으로 표시
+        
+    //     for (int i = 0; i < _mapData.enemySpawnAreas.Count; i++)
+    //     {
+    //         Rect spawnArea = _mapData.enemySpawnAreas[i].spawnArea;
+            
+    //         Color gizmoColor = Color.red;
+    //         gizmoColor.a = alpha;
+    //         Gizmos.color = gizmoColor;
+            
+    //         Vector3 worldCenter = transform.TransformPoint(new Vector3(spawnArea.center.x, spawnArea.center.y));
+    //         Vector3 worldSize = new Vector3(spawnArea.width, spawnArea.height);
+            
+    //         Gizmos.DrawWireCube(worldCenter, worldSize);
+            
+    //         gizmoColor.a = alpha * 0.2f;
+    //         Gizmos.color = gizmoColor;
+    //         Gizmos.DrawCube(worldCenter, worldSize);
+            
+    //         UnityEditor.Handles.Label(worldCenter, $"Spawn Area {i}");
+    //     }
+    // }
 }
