@@ -8,12 +8,10 @@ public class BossMap : MonoBehaviour
     [SerializeField] private MapDataSO _mapData;
 
     private GameObject _boss;
+    private BossEnemy _bossEnemy;
+    [SerializeField] private int _stage = 1;
+
     private bool _isCollided = false;
-
-    public void Awake()
-    {
-    }
-
     public void OnTriggerEnter2D(Collider2D other)
     {
         _isCollided = true;
@@ -70,6 +68,8 @@ public class BossMap : MonoBehaviour
                 GameObject enemy = Instantiate(spawnArea.enemies[i], spawnPosition, Quaternion.identity, transform);
 
                 _boss = enemy;
+                _bossEnemy = _boss.GetComponent<BossEnemy>();
+                _bossEnemy.OnBossDie += OnBossDie;
                 spawnPosition = new Vector3(spawnPosition.x + 2, spawnPosition.y);
             }
         }
@@ -112,5 +112,11 @@ public class BossMap : MonoBehaviour
             
             UnityEditor.Handles.Label(worldCenter, $"Spawn Area {i}");
         }
+    }
+
+    public void OnBossDie()
+    {
+        StageManager.Instance.SetMaxClearStage(_stage);
+        _bossEnemy.OnBossDie -= OnBossDie;
     }
 }

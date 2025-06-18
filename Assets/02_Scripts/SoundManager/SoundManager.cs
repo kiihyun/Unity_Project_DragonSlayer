@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -34,6 +34,7 @@ public class SoundManager : Singleton<SoundManager>
     void Start()
     {
         InitAudioDictionary();
+        PlayBGM("BGM", true);
     }
 
     private void InitAudioDictionary()
@@ -68,6 +69,7 @@ public class SoundManager : Singleton<SoundManager>
     }
     public void StopBGM()
     {
+        Debug.Log("stop");
         _musicAudioSource.Stop();
     }
     public void PlaySFX(string clipName)
@@ -79,7 +81,7 @@ public class SoundManager : Singleton<SoundManager>
         }
         else
         {
-            Debug.LogError("SoundManager: PlaySFX - Á¸ÀçÇÏÁö ¾Ê´Â ¿Àµğ¿À Å¬¸³ÀÔ´Ï´Ù.");
+            Debug.LogError("SoundManager: PlaySFX - ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ì˜¤ë””ì˜¤ í´ë¦½ì…ë‹ˆë‹¤.");
         }
     }
 

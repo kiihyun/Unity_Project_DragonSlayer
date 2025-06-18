@@ -1,7 +1,9 @@
 ﻿using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -25,11 +27,32 @@ public class SceneManager_Intro1 : MonoBehaviour
     {
         FadeIn();
         Invoke(nameof(ShakeOn),1.5f);
+        SoundManager.Instance.SetVolume(SoundType.BGM, 0.5f);
+        SoundManager.Instance.SetVolume(SoundType.SFX, 0.5f);
     }
+
+    void Update()
+    {
+        if(Input.GetMouseButtonDown(0))
+        {
+            SoundManager.Instance.StopBGM();
+            SceneManager.LoadScene("Intro2");
+        }
+
+
+        if (_fadeImage.color.a == 1)
+        {
+            SoundManager.Instance.StopBGM();
+            SceneManager.LoadScene("Intro2");
+        }
+    }
+
     public void ShakeOn()
     {
         _perlin.m_AmplitudeGain = shakeAmplitude;
         _perlin.m_FrequencyGain = shakeFrequency;
+        SoundManager.Instance.PlayBGM("GroundRumble" , false);
+        
     }
 
     public void ShakeOff()
@@ -40,14 +63,7 @@ public class SceneManager_Intro1 : MonoBehaviour
 
 
     // Update is called once per frame
-    void Update()
-    {
-        if (_fadeImage.color.a == 1)
-        {
-            Debug.Log("SceneChange");
-            SceneManager.LoadScene("Intro2");
-        }
-    }
+    
     public void FadeOut()
     {
         _fadeDuration *= 2f;

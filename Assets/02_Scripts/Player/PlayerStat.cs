@@ -31,15 +31,15 @@ public class PlayerStat : MonoBehaviour, IDamageble
     private float skillCooldown = 5f; // ��ų ��Ÿ�� (�� ����)
 
     public int _maxLevel = 10; // �ִ� ���� ���� (��: 10�������� ����)
-    
-    private int _level = 1;
-    public int MaxExp => _maxExp;
 
-    private int _maxExp = 10;
+    private int _level = 1;
+    public int MaxExp {get {return _maxExp;} }
+
+    private int _maxExp; 
 
     private int _currentexp;
-    
-    
+
+
 
     public float MaxHealth => _maxHealth;
 
@@ -79,10 +79,26 @@ public class PlayerStat : MonoBehaviour, IDamageble
 
     public float AttackPower { get { return _attackPower; } }
 
+    public PlayerStat(float maxHealth, float currentHealth, float moveSpeed,
+                      float dashPower, float jumpPower, int attackPower,
+                      int level, int exp)
+    {
+        _maxHealth = maxHealth;
+        _currentHealth = currentHealth;
+        _moveSpeed = moveSpeed;
+        _dashPower = dashPower;
+        _jumpPower = jumpPower;
+        _attackPower = attackPower;
+        _level = level;
+        _currentexp = exp;
+    }
+
     public void Init()
     {
         _currentHealth = _maxHealth;
         _currentexp = 0;
+        _level = 1;
+        _maxExp = 10;
     }
 
     public void TakeDamage(float damage)

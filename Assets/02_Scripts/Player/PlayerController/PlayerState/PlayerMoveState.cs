@@ -15,6 +15,8 @@ public class PlayerMoveState : PlayerStates
     {
         base.OnEnter();
         player.anim.CrossFade("Run", 0.1f);
+        SoundManager.Instance.PlaySFX("PlayerRun2");
+
     }
 
     public override void OnUpdate(float deltaTime)
@@ -25,6 +27,11 @@ public class PlayerMoveState : PlayerStates
         player.Controller.IsDash();
         player.Controller.IsAttack();
         player.Controller.IsSkill();
+        if (elapsedTime > 0.27f)
+        {
+            SoundManager.Instance.PlaySFX("PlayerRun2");
+            elapsedTime = 0f;
+        }
     }
 
     public override void OnFixedUpdate()

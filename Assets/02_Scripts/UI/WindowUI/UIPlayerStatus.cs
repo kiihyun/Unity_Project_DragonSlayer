@@ -21,14 +21,15 @@ public class UIPlayerStatus : BaseWindow
     
     private void Start()
     {
-        _playerStat = UIManager.instance.player.GetComponent<PlayerStat>();
-        _inventory = UIManager.instance.inventory;
         UpdateUI();
     }
 
 
     private void OnEnable()
     {
+        _playerStat = UIManager.instance.player.GetComponent<PlayerStat>();
+        _inventory = UIManager.instance.inventory;
+        
         if (_inventory != null)
         {
             _inventory.InventoryUpdate += UpdateUI;
@@ -56,7 +57,7 @@ public class UIPlayerStatus : BaseWindow
         
         float level = _playerStat.Level;
         float exp = _playerStat.CurrentEXP;
-        float health = _playerStat.CurrentHealth;
+        float health = _playerStat.MaxHealth;
         float attackPower = _playerStat.AttackPower;
         float speed = _playerStat.MoveSpeed;
 

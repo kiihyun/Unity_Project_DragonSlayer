@@ -36,10 +36,10 @@ public class PlayerDashState : PlayerStates
 
             if (player.Controller.IsGrounded() )
             {
+                player.rb.velocity = Vector3.zero;
                 player.collider.excludeLayers = LayerMask.GetMask("Nothing");
                 player.Controller.IsAttack();
 
-                player.rb.velocity = Vector3.zero;
                 if (player.Controller.GetInputDir().x != 0)
                 {
                     player.Controller.IsMove();
