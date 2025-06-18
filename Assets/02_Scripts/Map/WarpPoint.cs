@@ -6,6 +6,11 @@ using DG.Tweening;
 public class WarpPoint : MonoBehaviour, IInteract
 {
     [SerializeField] private Player _player;
+    public string InteractText { get; set; } = "Warp";
+    public string GetInteractText()
+    {
+        return InteractText;
+    }
     
     private bool _isInteractable = false;
     public bool IsInteractable { get => _isInteractable; set => _isInteractable = value; }
