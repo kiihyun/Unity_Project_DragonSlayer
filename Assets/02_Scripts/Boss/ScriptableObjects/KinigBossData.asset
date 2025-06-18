@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bossName: KnightKing
   bossNum: 2
-  maxHP: 100
+  maxHP: 500
   moveSpeed: 2
   bossPortrait: {fileID: 0}
   bossPrefab: {fileID: 0}

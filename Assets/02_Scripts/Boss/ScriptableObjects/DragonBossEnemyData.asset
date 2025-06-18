@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bossName: dragon
   bossNum: 0
-  maxHP: 100
+  maxHP: 500
   moveSpeed: 1
   bossPortrait: {fileID: 0}
   bossPrefab: {fileID: 0}
@@ -26,6 +26,7 @@ MonoBehaviour:
   ChaseRange: 20
   StopDistance: 10
   NormalAttackDamageDelay: 2
+  normalAttackCooldown: 4
   phase1Skills:
   - skillName: breath
     skillType: 3
@@ -42,6 +43,13 @@ MonoBehaviour:
     flameCount: 5
     flameInterval: 0.3
     flameSpacing: 2
+    LeapApexHeight: 4
+    LeapTime: 1
+    LandRadius: 2.5
+    LandDamage: 30
+    LandFXPrefab: {fileID: 0}
+    WindUpAnim: {fileID: 0}
+    LeapAnim: {fileID: 0}
   - skillName: FireRain
     skillType: 1
     damage: 10
@@ -57,6 +65,13 @@ MonoBehaviour:
     flameCount: 5
     flameInterval: 0.3
     flameSpacing: 2
+    LeapApexHeight: 4
+    LeapTime: 1
+    LandRadius: 2.5
+    LandDamage: 30
+    LandFXPrefab: {fileID: 0}
+    WindUpAnim: {fileID: 0}
+    LeapAnim: {fileID: 0}
   - skillName: FlameMarch
     skillType: 2
     damage: 10
@@ -72,6 +87,13 @@ MonoBehaviour:
     flameCount: 10
     flameInterval: 0.3
     flameSpacing: 1
+    LeapApexHeight: 4
+    LeapTime: 1
+    LandRadius: 2.5
+    LandDamage: 30
+    LandFXPrefab: {fileID: 0}
+    WindUpAnim: {fileID: 0}
+    LeapAnim: {fileID: 0}
   phase2Skills:
   - skillName: breath
     skillType: 0
@@ -88,6 +110,13 @@ MonoBehaviour:
     flameCount: 5
     flameInterval: 0.3
     flameSpacing: 2
+    LeapApexHeight: 4
+    LeapTime: 1
+    LandRadius: 2.5
+    LandDamage: 30
+    LandFXPrefab: {fileID: 0}
+    WindUpAnim: {fileID: 0}
+    LeapAnim: {fileID: 0}
   phase1Dialogues: []
   phase2Dialogues: []
   bossBGM: {fileID: 0}
