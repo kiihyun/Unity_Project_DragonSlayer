@@ -22,7 +22,7 @@ public class PlayerAttackState : PlayerStates
         base.OnUpdate(deltaTime);
         player.Controller.IsDash();
 
-        if(!player.Controller.IsGrounded())
+        if(player.Controller.IsGrounded())
             player.Controller.IsJump();
         
     }
