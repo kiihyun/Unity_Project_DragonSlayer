@@ -6197,6 +6197,13 @@ MonoBehaviour:
   - {fileID: 8300000, guid: bbdaa832269e21d4e98583b8a3c00a7b, type: 3}
   - {fileID: 8300000, guid: 699107e925657b74ab15df3d6abc0262, type: 3}
   - {fileID: 8300000, guid: 40c0d120265d0964bbd6e9bbaa959f9a, type: 3}
+  - {fileID: 8300000, guid: ab83f91d6c8e29640aef778dbae2d291, type: 3}
+  - {fileID: 8300000, guid: 7b87d2c1f0b8c3b4a8f7e21dad3cdcdf, type: 3}
+  - {fileID: 8300000, guid: d099d5ce4bfe4f64f9dd990b9904e0fa, type: 3}
+  - {fileID: 8300000, guid: f006fb63055b7a449b925db50a22bec2, type: 3}
+  - {fileID: 8300000, guid: 5531446a35e94c74bbf1a54acdbc9c65, type: 3}
+  - {fileID: 8300000, guid: d941c9ce3ce2d314ba8b690f53ddf040, type: 3}
+  - {fileID: 8300000, guid: d2a17dcb271ed65489acabca395561a0, type: 3}
   SoundSourcePrefab: {fileID: 5817424240676627468, guid: 4cb08530628110a4cb7a6a8b3b3e005c, type: 3}
 --- !u!4 &2052848760
 Transform:
