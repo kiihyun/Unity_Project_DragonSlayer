@@ -13,7 +13,7 @@ public class UIEquipItem : BaseWindow
     public TextMeshProUGUI itemDescription;
     
     [Header("Inventory")]
-    [SerializeField] private int minSlotCount = 8;
+    [SerializeField] private int minSlotCount = Constants.UI.UIEQUIPMENT_MAXSLOT;
     
     [SerializeField] private List<InventorySlot> _slots = new List<InventorySlot>();
     [SerializeField] private List<ItemData> _itemList = new List<ItemData>();

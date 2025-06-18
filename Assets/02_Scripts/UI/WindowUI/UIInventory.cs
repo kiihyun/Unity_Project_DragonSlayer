@@ -14,7 +14,7 @@ public class UIInventory : BaseWindow
     public TextMeshProUGUI itemDescription;
     
     [Header("Inventory")]
-    [SerializeField] private int minSlotCount = 16;
+    [SerializeField] private int minSlotCount = Constants.UI.UIINVENTORY_MINSLOT;
     
     [SerializeField] private List<InventorySlot> _slots = new List<InventorySlot>();
     [SerializeField] private List<ItemData> _itemList = new List<ItemData>();

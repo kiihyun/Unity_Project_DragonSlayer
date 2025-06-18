@@ -32,4 +32,10 @@ public static class Constants
         public const float LAVA_DAMAGE_INTERVAL = 0.1f;
         public const float LAVA_DAMAGE = 1f;
     }
+
+    public static class UI
+    {
+        public const int UIINVENTORY_MINSLOT = 16;
+        public const int UIEQUIPMENT_MAXSLOT = 8;
+    }
 }
