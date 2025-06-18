@@ -32,6 +32,9 @@ public class PlayerController : BaseController<Player>
         DashCoolTime();
         SkillCoolTime();
 
+        ItemUse();
+        ItemSwap();
+
         base.OnUpdate(deltaTime);
         
     }
@@ -112,17 +115,19 @@ public class PlayerController : BaseController<Player>
 
     public void ItemUse()
     {
-        if (Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKeyDown(KeyCode.F))
         {
-
+            Debug.Log("ItemUse");
+            player.inventory.UseConsumable();
         }
     }
 
+    // 아이템 위치 스왑
     public void ItemSwap()
     {
-        if(Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.V))
         {
-
+            player.inventory.swapQuickSlotItem();
         }
     }
 

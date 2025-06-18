@@ -54,11 +54,6 @@ public class UIInventory : BaseWindow
 
     private void OnDisable()
     {
-        if (inventory != null)
-        {
-            inventory.InventoryUpdate -= UpdateUI;
-        }
-
         // 기존 슬롯 모두 풀에 반환
         foreach (var slot in _slots)
         {
