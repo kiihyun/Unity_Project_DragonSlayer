@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class SceneManager_Town : MonoBehaviour
+public class SceneManager_Intro2 : MonoBehaviour
 {
     [SerializeField] private Transform _backGround;
     [SerializeField] private CinemachineVirtualCamera _vCamera;
@@ -14,7 +14,7 @@ public class SceneManager_Town : MonoBehaviour
     [SerializeField] private float _fadeDuration;
 
     private CinemachineBasicMultiChannelPerlin _perlin;
-    // Start is called before the first frame update
+
     private void Awake()
     {
         _perlin =  _vCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
@@ -30,11 +30,14 @@ public class SceneManager_Town : MonoBehaviour
         _backGround.transform.localPosition += Vector3.left * 0.0005f;
         if (_backGround.transform.localPosition.x <= -3.85f)
             _backGround.transform.localPosition = new Vector3(0,0,0);
-
+        if(Input.GetMouseButtonDown(0))
+        {
+            SoundManager.Instance.StopBGM();
+            SceneManager.LoadScene("StartScene");
+        }
 
         if(_image.color.a == 1)
         {
-            Debug.Log("SceneChange");
             SoundManager.Instance.StopBGM();
             SceneManager.LoadScene("StartScene");
         }
