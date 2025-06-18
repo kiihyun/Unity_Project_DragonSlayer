@@ -19,8 +19,8 @@ public class ItemGetUI : MonoBehaviour
 
     private IEnumerator HideAfterDelay()
     {
-        // 올라가면서 점점 투명해지게
-        transform.DOMoveY(transform.position.y + 10, displayDuration);
+        // 조금씩 올라가면서 
+        transform.DOLocalMoveY(transform.localPosition.y + 10, 1f);
 
         // 텍스트 투명해지게
         itemText.DOFade(0, displayDuration);
