@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: 5_Boots
   m_EditorClassIdentifier: 
   ItemID: 5
-  ItemName: Boots
-  ItemDescription: Boots
+  ItemName: "\uC2E0\uBC1C"
+  ItemDescription: "\uBAB8\uC774 \uAC00\uBCBC\uC6CC\uC9C0\uB294 \uB4EF\uD55C \uC2E0\uBC1C     
+    Speed +1"
   ItemIcon: {fileID: 21300000, guid: e420c5bc93cb2604695a893500c897e3, type: 3}
   ItemType: 1
   stats:
-  - type: 3
-    value: 5
+  - type: 4
+    value: 1

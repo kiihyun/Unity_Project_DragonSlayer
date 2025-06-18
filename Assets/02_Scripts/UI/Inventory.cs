@@ -22,6 +22,12 @@ public class Inventory : MonoBehaviour
     public IReadOnlyList<ItemData> EquipSlotItems => _equipSlotItems;
     public event Action InventoryUpdate;
     
+    private PlayerStat _playerStat;
+
+    private void Start()
+    {
+        _playerStat = GetComponent<PlayerStat>();
+    }
     
     // 인벤토리에 아이템 타입을 확인하고 추가
     public void AddItem(ItemData item)
@@ -136,6 +142,42 @@ public class Inventory : MonoBehaviour
         InventoryUpdate?.Invoke();
     }
     
+    // 아이템 사용 메서드
+    public void UseConsumable()
+    {
+        ItemData item = _quickSlotItems[0];
+        if (item == null || item.ItemType != ItemType.Consumable)
+        {
+            return;
+        }
+
+        foreach (StatEntry stat in item.stats)
+        {
+            switch (stat.type)
+            {
+                case StatType.Healing:
+                    _playerStat.Healing(stat.value);
+                    break;
+                case StatType.SpeedUp:
+                    _playerStat.AddStatBuff(stat.value, 5);
+                    break;
+            }
+        }
+        
+        _quickSlotItems[0] = null;
+        
+        InventoryUpdate?.Invoke();
+        
+        
+    }
     
+
+    public void AllClear()
+    {
+        _consumableItems.Clear();
+        _equipableItems.Clear();
+        _quickSlotItems = new ItemData[2];
+        _equipSlotItems = new ItemData[2];
+    }
     
 }

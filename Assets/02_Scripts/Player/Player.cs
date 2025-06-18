@@ -93,6 +93,7 @@ public class Player : MonoBehaviour
 
     public void OnAttackHit()
     {
+        SoundManager.Instance.PlaySFX("PlayerAttack");
 
         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 1f, LayerMask.GetMask("Enemy"));
 

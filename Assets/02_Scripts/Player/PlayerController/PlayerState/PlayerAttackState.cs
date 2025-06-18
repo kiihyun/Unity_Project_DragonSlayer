@@ -15,6 +15,11 @@ public class PlayerAttackState : PlayerStates
     {
         base.OnEnter();
         player.anim.CrossFade("Attack", 0.1f);
+        if (player.Controller.IsGrounded())
+        {
+            player.rb.velocity = Vector3.zero;
+            player.collider.excludeLayers = LayerMask.GetMask("Nothing");
+        }
     }
 
     public override void OnUpdate(float deltaTime)
@@ -22,7 +27,7 @@ public class PlayerAttackState : PlayerStates
         base.OnUpdate(deltaTime);
         player.Controller.IsDash();
 
-        if(!player.Controller.IsGrounded())
+        if(player.Controller.IsGrounded())
             player.Controller.IsJump();
         
     }

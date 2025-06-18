@@ -22,4 +22,4 @@ MonoBehaviour:
       width: 2.22
       height: 1
     enemies:
-    - {fileID: 1111966825071408624, guid: db12dfea569d8f3488f85e96f15ccdb8, type: 3}
+    - {fileID: 1655139006238922577, guid: 53bbdcebc8575a047911186fa5d3dee8, type: 3}

@@ -12,6 +12,7 @@ public enum StatType
 {
     // Consumable
     Healing,
+    SpeedUp,
     
     // Equipable
     Health,

@@ -14,23 +14,27 @@ public class BossDieState : IBossState
     {
         if (_hasDied) return;
 
-        Debug.Log($"º¸½º {_boss.BossData.bossName} »ç¸Á »óÅÂ ÁøÀÔ");
+        Debug.Log($"ë³´ìŠ¤ {_boss.BossData.bossName} ì‚¬ë§ ìƒíƒœ ì§„ì…");
 
-        // ¾Ö´Ï¸ŞÀÌ¼Ç Æ®¸®°Å
+        // ì• ë‹ˆë©”ì´ì…˜ íŠ¸ë¦¬ê±°
         Animator animator = _boss.GetComponent<Animator>();
         if (animator != null)
         {
+            if(_boss.BossData.bossNum == 0)
+            {
+                SoundManager.Instance.PlaySFX("DragonDeath");
+            }
             animator.SetTrigger("Die");
         }
 
-        // ÀÌÆåÆ® Ãâ·Â (¿¹: Æø¹ß)
+        // ì´í™íŠ¸ ì¶œë ¥ (ì˜ˆ: í­ë°œ)
         if (_boss.BossData.bossPrefab != null)
         {
-            // Á×À» ¶§ ¾µ ÀÌÆåÆ® ÇÁ¸®ÆÕ µû·Î ¸¸µé ¼öµµ ÀÖÀ½
-            Debug.Log("º¸½º »ç¸Á ÀÌÆåÆ® ¹ß»ı");
+            // ì£½ì„ ë•Œ ì“¸ ì´í™íŠ¸ í”„ë¦¬íŒ¹ ë”°ë¡œ ë§Œë“¤ ìˆ˜ë„ ìˆìŒ
+            Debug.Log("ë³´ìŠ¤ ì‚¬ë§ ì´í™íŠ¸ ë°œìƒ");
         }
 
-        // »ç¸Á ÈÄ ¿òÁ÷ÀÓ ¸ØÃã (ÇÊ¿ä ½Ã Rigidbody2D, NavMesh µî Ã³¸®)
+        // ì‚¬ë§ í›„ ì›€ì§ì„ ë©ˆì¶¤ (í•„ìš” ì‹œ Rigidbody2D, NavMesh ë“± ì²˜ë¦¬)
         Rigidbody2D rb = _boss.GetComponent<Rigidbody2D>();
         if (rb != null)
         {
@@ -38,30 +42,29 @@ public class BossDieState : IBossState
             rb.isKinematic = true;
         }
 
-        // º¸»ó Áö±Ş (¿¹: °æÇèÄ¡, ¾ÆÀÌÅÛ µî)
+        // ë³´ìƒ ì§€ê¸‰ (ì˜ˆ: ê²½í—˜ì¹˜, ì•„ì´í…œ ë“±)
         GiveRewards();
 
-        // Å¬¸®¾î Ã³¸® (UI È°¼ºÈ­ µî)
-        //StageClearUI.Instance.ShowClearPanel();
-
+        // í´ë¦¬ì–´ ì²˜ë¦¬ (UI í™œì„±í™” ë“±)
+        _boss.OnBossDie?.Invoke();
         _hasDied = true;
     }
 
     public void Execute()
     {
-        // ¾Æ¹« °Íµµ ÇÏÁö ¾ÊÀ½
+        // ì•„ë¬´ ê²ƒë„ í•˜ì§€ ì•ŠìŒ
     }
 
     public void Exit()
     {
-        // ÀÌ »óÅÂ¿¡¼± º¸Åë Exit ¾È ¾¸
+        // ì´ ìƒíƒœì—ì„  ë³´í†µ Exit ì•ˆ ì”€
     }
 
     private void GiveRewards()
     {
-        Debug.Log("º¸»ó Áö±Ş: °æÇèÄ¡ + ¾ÆÀÌÅÛ µå¶ø µî");
-
-        // ¿¹: GameManager.Instance.AddExp(300);
-        // ¿¹: Instantiate(dropItem, _boss.transform.position, Quaternion.identity);
+        Debug.Log("ë³´ìƒ ì§€ê¸‰: ê²½í—˜ì¹˜ + ì•„ì´í…œ ë“œë ë“±");
+        //_boss.PlayerTarget.
+        // ì˜ˆ: GameManager.Instance.AddExp(300);
+        // ì˜ˆ: Instantiate(dropItem, _boss.transform.position, Quaternion.identity);
     }
 }

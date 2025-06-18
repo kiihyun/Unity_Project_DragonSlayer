@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: 100_HPPotion
   m_EditorClassIdentifier: 
   ItemID: 100
-  ItemName: HPPotion
-  ItemDescription: HPpotion
+  ItemName: "\uCCB4\uB825 \uD3EC\uC158"
+  ItemDescription: "\uB9C8\uC2DC\uBA74 \uCCB4\uB825\uC774 \uD68C\uBCF5\uB418\uB294
+    \uD3EC\uC158                                 Health 20 \uD68C\uBCF5"
   ItemIcon: {fileID: 21300000, guid: e52ea25af699fd445b7046374f81a5b9, type: 3}
   ItemType: 0
   stats:
   - type: 0
-    value: 10
+    value: 20

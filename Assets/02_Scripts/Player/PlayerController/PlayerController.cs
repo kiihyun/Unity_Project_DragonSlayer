@@ -32,6 +32,9 @@ public class PlayerController : BaseController<Player>
         DashCoolTime();
         SkillCoolTime();
 
+        ItemUse();
+        ItemSwap();
+
         base.OnUpdate(deltaTime);
         
     }
@@ -110,6 +113,24 @@ public class PlayerController : BaseController<Player>
         }
     }
 
+    public void ItemUse()
+    {
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            Debug.Log("ItemUse");
+            player.inventory.UseConsumable();
+        }
+    }
+
+    // 아이템 위치 스왑
+    public void ItemSwap()
+    {
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            player.inventory.swapQuickSlotItem();
+        }
+    }
+
 
     public void IsInteract()
     {
@@ -150,12 +171,14 @@ public class PlayerController : BaseController<Player>
 
     public void Jumping()
     {
+        SoundManager.Instance.PlaySFX("PlayerJump");
         player.rb.velocity = Vector2.up * player.stat.JumpPower;
     }
 
 
     public void Dash()
     {
+        SoundManager.Instance.PlaySFX("PlayerDash");
         float dashDir = inputDir.normalized.x != 0 ? Mathf.Sign(inputDir.normalized.x) : player.CharacterImage.flipX ? -1f : 1f;
         player.rb.gravityScale = 0.1f; 
         player.collider.excludeLayers = LayerMask.GetMask("Enemy");

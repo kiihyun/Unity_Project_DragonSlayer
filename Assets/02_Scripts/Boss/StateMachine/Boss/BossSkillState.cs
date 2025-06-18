@@ -14,7 +14,6 @@ public class BossSkillState : IBossState
 
     public void Enter()
     {
-        Debug.Log("º¸½º: ½ºÅ³ »óÅÂ ÁøÀÔ");
         _elapsedTime = 0f;
         _isSkillCasting = false;
     }
@@ -25,7 +24,7 @@ public class BossSkillState : IBossState
 
         if (skills == null || skills.Count == 0)
         {
-            Debug.LogWarning("º¸½º ½ºÅ³ ¸ñ·ÏÀÌ ºñ¾î ÀÖ½À´Ï´Ù.");
+            Debug.LogWarning("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ö½ï¿½ï¿½Ï´ï¿½.");
             _boss.StateMachine.ChangeState(new BossIdleState(_boss));
             return;
         }
@@ -33,14 +32,12 @@ public class BossSkillState : IBossState
         _elapsedTime += Time.deltaTime;
         var skill = skills[_boss.SkillIndex];
 
-        //Áßº¹½ÃÀü ¹æÁö
         if (!_isSkillCasting && _elapsedTime >= skill.delayBeforeCast)
         {
             CastSkill(skill);
             _isSkillCasting = true;
         }
 
-        // ½ºÅ³ ½ÃÀü ÈÄ ´ÙÀ½ ½ºÅ³·Î ³Ñ¾î°¡±â
         // if (_isSkillCasting && _elapsedTime >= skill.delayBeforeCast + skill.cooldown)
         // {
         //     _elapsedTime = 0f;
@@ -55,50 +52,41 @@ public class BossSkillState : IBossState
     public void Exit()
     {
         _boss.CurrentSkillData = null;
-        Debug.Log("º¸½º: ½ºÅ³ »óÅÂ Á¾·á");
     }
 
     private void CastSkill(BossSkillData skill)
     {
         Debug.Log($"[CastSkill] index:{skill} " +
                   $"name:{skill.skillName} type:{skill.skillType}");
-        _boss.CurrentSkillData = skill;   // ÀÌÈÄ SpawnSkillEffect ¿¡¼­ ÂüÁ¶
-
+        _boss.CurrentSkillData = skill;   
         switch (skill.skillType)
         {
-            /* ¡ª¡ª¡ª µµ¾à(Leap Smash) ¡æ º°µµ State ¡ª¡ª¡ª */
-            case SkillType.LeapSmash:                              // ¡ç enum¿¡ Ãß°¡
+            case SkillType.LeapSmash:                              
                 _boss.StateMachine.ChangeState(
-                    new BossLeapState(_boss, skill));              // ¡Ú
-                return;                                            // ¿©±â¼­ ¹Ù·Î Á¾·á
+                    new BossLeapState(_boss, skill));              
+                return;                                            
 
-            /* ¡ª¡ª¡ª Breath ¡ª¡ª¡ª */
             case SkillType.Breath:
                 _boss.Animator.SetTrigger(skill.animationTriggerName);
                 break;
 
-            /* ¡ª¡ª¡ª Fire Rain ¡ª¡ª¡ª */
             case SkillType.FireRain:
                 _boss.Animator.SetTrigger(skill.animationTriggerName);
                 break;
 
-            /* ¡ª¡ª¡ª Flame March ¡ª¡ª¡ª */
             case SkillType.FlameMarch:
                 _boss.Animator.SetTrigger(skill.animationTriggerName);
                 break;
 
-            /* ¡ª¡ª¡ª Sword Wind ¡ª¡ª¡ª */
             case SkillType.SwordWind:
                 _boss.Animator.SetTrigger(skill.animationTriggerName);
                 break;
 
-            /* ¡ª¡ª¡ª ¿¹¿Ü Ã³¸® ¡ª¡ª¡ª */
             default:
-                Debug.LogWarning($"Á¤ÀÇµÇÁö ¾ÊÀº SkillType : {skill.skillType}");
+                Debug.LogWarning($"ï¿½ï¿½ï¿½Çµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ SkillType : {skill.skillType}");
                 break;
         }
 
-        Debug.Log($"º¸½º°¡ ½ºÅ³ [{skill.skillName}] ½ÃÀü! µ¥¹ÌÁö: {skill.damage}");
     }
 
     

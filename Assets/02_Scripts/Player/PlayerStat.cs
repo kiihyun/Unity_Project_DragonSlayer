@@ -31,15 +31,15 @@ public class PlayerStat : MonoBehaviour, IDamageble
     private float skillCooldown = 5f; // ��ų ��Ÿ�� (�� ����)
 
     public int _maxLevel = 10; // �ִ� ���� ���� (��: 10�������� ����)
-    
-    private int _level = 1;
-    public int MaxExp => _maxExp;
 
-    private int _maxExp = 10;
+    private int _level = 1;
+    public int MaxExp {get {return _maxExp;} }
+
+    private int _maxExp; 
 
     private int _currentexp;
-    
-    
+
+
 
     public float MaxHealth => _maxHealth;
 
@@ -79,10 +79,26 @@ public class PlayerStat : MonoBehaviour, IDamageble
 
     public float AttackPower { get { return _attackPower; } }
 
+    public void  SetPlayerStat(float maxHealth, float currentHealth, float moveSpeed,
+                      float dashPower, float jumpPower, int attackPower,
+                      int level, int exp)
+    {
+        _maxHealth = maxHealth;
+        _currentHealth = currentHealth;
+        _moveSpeed = moveSpeed;
+        _dashPower = dashPower;
+        _jumpPower = jumpPower;
+        _attackPower = attackPower;
+        _level = level;
+        _currentexp = exp;
+    }
+
     public void Init()
     {
         _currentHealth = _maxHealth;
         _currentexp = 0;
+        _level = 1;
+        _maxExp = 10;
     }
 
     public void TakeDamage(float damage)
@@ -102,7 +118,6 @@ public class PlayerStat : MonoBehaviour, IDamageble
     {
         if (_maxLevel <= _currentexp)
         {
-            Debug.Log($"������! ���� ���� : {_level}");
             _level++;
             _currentexp = 0;
             _attackPower += 2; // ������ �� ���ݷ� ����
@@ -115,7 +130,6 @@ public class PlayerStat : MonoBehaviour, IDamageble
     public void GainExp(int exp)
     {
         _currentexp += exp;
-        Debug.Log($"����ġ ȹ��! ���� ����ġ : {_currentexp}");
         LevelUP();
     }
 
@@ -134,9 +148,29 @@ public class PlayerStat : MonoBehaviour, IDamageble
                 _moveSpeed += value;
                 break;
             default:
-                Debug.LogError($"존재?��? ?�는 ?�?? {type}");
+                //Debug.LogError($"존재?��? ?�는 ?�?? {type}");
                 break;
         }
+    }
+
+    // 체력 회복
+    public void Healing(float amount)
+    {
+        _currentHealth += amount;
+        _currentHealth = Mathf.Min(_currentHealth, MaxHealth);
+    }
+    
+    // 일시적으로 이동 속도 스탯 버프
+    public void AddStatBuff(float amount, float duration)
+    {
+        StartCoroutine(SpeedBuffCoroutine(amount, duration));
+    }
+    
+    private IEnumerator SpeedBuffCoroutine(float amount, float duration)
+    {
+        _moveSpeed += amount;
+        yield return new WaitForSeconds(duration);
+        _moveSpeed -= amount;
     }
 
 

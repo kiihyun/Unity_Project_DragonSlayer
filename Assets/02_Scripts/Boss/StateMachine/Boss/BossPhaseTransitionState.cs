@@ -14,19 +14,18 @@ public class BossPhaseTransitionState : IBossState
 
     public void Enter()
     {
-        Debug.Log("º¸½º: ÆäÀÌÁî ÀüÈ¯ »óÅÂ ÁøÀÔ");
 
         // _boss.SetInvincible(true);
         _elapsedTime = 0f;
 
-        /*// ¿¬Ãâ ¿¹½Ã: ´ë»ç Ãâ·Â
+        /*// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½: ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
         if (_boss.BossData.phase2Dialogues != null && _boss.BossData.phase2Dialogues.Count > 0)
         {
-            string line = _boss.BossData.phase2Dialogues[0]; // ¶Ç´Â ·£´ý
-            Debug.Log($"º¸½º ´ë»ç: \"{line}\"");
+            string line = _boss.BossData.phase2Dialogues[0]; // ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½
+            Debug.Log($"ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½: \"{line}\"");
         }*/
 
-        // TODO: Ä«¸Þ¶ó ½¦ÀÌÅ©, ÀÌÆåÆ®, ¾Ö´Ï¸ÞÀÌ¼Ç µî Ãß°¡ °¡´É
+        // TODO: Ä«ï¿½Þ¶ï¿½ ï¿½ï¿½ï¿½ï¿½Å©, ï¿½ï¿½ï¿½ï¿½Æ®, ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½ï¿½ï¿½ï¿½
     }
 
     public void Execute()
@@ -44,6 +43,5 @@ public class BossPhaseTransitionState : IBossState
 
     public void Exit()
     {
-        Debug.Log("º¸½º: ÆäÀÌÁî2 ÀüÈ¯ ¿Ï·á");
     }
 }
