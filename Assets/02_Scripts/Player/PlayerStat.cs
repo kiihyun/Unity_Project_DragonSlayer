@@ -153,5 +153,25 @@ public class PlayerStat : MonoBehaviour, IDamageble
         }
     }
 
+    // 체력 회복
+    public void Healing(float amount)
+    {
+        _currentHealth += amount;
+        _currentHealth = Mathf.Min(_currentHealth, MaxHealth);
+    }
+    
+    // 일시적으로 이동 속도 스탯 버프
+    public void AddStatBuff(float amount, float duration)
+    {
+        StartCoroutine(SpeedBuffCoroutine(amount, duration));
+    }
+    
+    private IEnumerator SpeedBuffCoroutine(float amount, float duration)
+    {
+        _moveSpeed += amount;
+        yield return new WaitForSeconds(duration);
+        _moveSpeed -= amount;
+    }
+
 
 }

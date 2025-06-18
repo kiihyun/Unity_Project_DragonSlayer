@@ -12,7 +12,7 @@ public enum SlotType
     EquipSlot
 }
 
-public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
+public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler, IPointerEnterHandler, IPointerExitHandler
 
 {
     public SlotType slotType; // 노말슬롯은 오브젝트 풀링으로 자동으로 NormalSlot으로, 퀵슬롯은 수동으로 지정 
@@ -231,5 +231,40 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         Set(targetItem.data);
         targetItem.Set(currentItem);
     }
+
     
+    // 마우스를 올리면 툴팁이 나타나도록 설정
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (data == null)
+        {
+            return;
+        }
+
+        if (uiEquipItem == null)
+        {
+            uiInventory.itemName.text = data.ItemName;
+            uiInventory.itemDescription.text = data.ItemDescription;
+        }
+        else
+        {
+            uiEquipItem.itemName.text = data.ItemName;
+            uiEquipItem.itemDescription.text = data.ItemDescription;
+        }
+    }
+
+    // 마우스를 떼면 툴팁이 사라지도록 설정
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (uiEquipItem == null)
+        {
+            uiInventory.itemName.text = "";
+            uiInventory.itemDescription.text = "";
+        }
+        else
+        {
+            uiEquipItem.itemName.text = "";
+            uiEquipItem.itemDescription.text = "";
+        }
+    }
 }

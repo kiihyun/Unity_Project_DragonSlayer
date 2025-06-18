@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 
 public class UIEquipItem : BaseWindow
@@ -8,6 +9,8 @@ public class UIEquipItem : BaseWindow
     // [SerializeField] private GameObject _tooltipUI;
     [SerializeField] private GameObject _slotPrefab;
     [SerializeField] private Transform _slotsParent;
+    public TextMeshProUGUI itemName;
+    public TextMeshProUGUI itemDescription;
     
     [Header("Inventory")]
     [SerializeField] private int minSlotCount = 8;
@@ -21,11 +24,6 @@ public class UIEquipItem : BaseWindow
     public Inventory inventory { get; private set; }
     
     public override UIType UIType => UIType.UIEquipItem;
-    
-    private void Start()
-    {
-        UpdateUI();
-    }
     
     // 인벤토리 UI가 열릴 때 UI 갱신
     public override void OnOpen(OpenParam param)
@@ -50,7 +48,6 @@ public class UIEquipItem : BaseWindow
         {
             inventory.InventoryUpdate += UpdateUI;
         }
-
         UpdateUI();
     }
 
