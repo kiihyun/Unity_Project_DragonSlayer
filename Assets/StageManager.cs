@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StageManager : Singleton<StageManager>
 {
-    int maxClearStage = 0;
+    int maxClearStage = 1;
 
     public void SetMaxClearStage(int stage)
     {

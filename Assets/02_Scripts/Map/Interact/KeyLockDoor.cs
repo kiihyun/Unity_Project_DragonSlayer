@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
 
-public class LockDoor : Door
+public class KeyLockDoor : Door
 {
     [SerializeField] private GameObject _lockSprite;
     [SerializeField] private GameObject _unlockSprite;
@@ -17,8 +17,14 @@ public class LockDoor : Door
             if(_player.GetComponent<Player>().inventory.HasItem(_keyItem.ItemID))
             {
                 _isLock = false;
-                _lockSprite.SetActive(false);
-                _unlockSprite.SetActive(true);
+                if(_lockSprite != null)
+                {
+                    _lockSprite.SetActive(false);
+                }
+                if(_unlockSprite != null)
+                {
+                    _unlockSprite.SetActive(true);
+                }
             }
 
             return;
