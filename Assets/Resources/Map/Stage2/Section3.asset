@@ -17,50 +17,94 @@ MonoBehaviour:
   enemySpawnAreas:
   - spawnArea:
       serializedVersion: 2
-      x: 28.2
-      y: -12
-      width: 3.39
+      x: 28.3
+      y: -11
+      width: 3.43
       height: 1
-    enemies: []
+    enemies:
+    - {fileID: 7706071927891701304, guid: 59ee1a44c4b20504abba338d9ca4ed1c, type: 3}
   - spawnArea:
       serializedVersion: 2
       x: 40.4
-      y: -12
+      y: -11
       width: 3.39
       height: 1
-    enemies: []
+    enemies:
+    - {fileID: 1377454143021202580, guid: 8d157d1491ee7ec48a4455aac25b0f07, type: 3}
   - spawnArea:
       serializedVersion: 2
       x: 49.9
       y: -6
       width: 7.62
       height: 1
-    enemies: []
+    enemies:
+    - {fileID: 1377454143021202580, guid: 8d157d1491ee7ec48a4455aac25b0f07, type: 3}
+    - {fileID: 7706071927891701304, guid: 59ee1a44c4b20504abba338d9ca4ed1c, type: 3}
+    - {fileID: 1377454143021202580, guid: 8d157d1491ee7ec48a4455aac25b0f07, type: 3}
   - spawnArea:
       serializedVersion: 2
       x: 49.9
       y: 8.01
       width: 7.62
       height: 1
-    enemies: []
+    enemies:
+    - {fileID: 7706071927891701304, guid: 59ee1a44c4b20504abba338d9ca4ed1c, type: 3}
+    - {fileID: 1377454143021202580, guid: 8d157d1491ee7ec48a4455aac25b0f07, type: 3}
+    - {fileID: 7706071927891701304, guid: 59ee1a44c4b20504abba338d9ca4ed1c, type: 3}
   - spawnArea:
       serializedVersion: 2
       x: 67.9
-      y: -14.96
+      y: -15
       width: 7.62
       height: 1
-    enemies: []
+    enemies:
+    - {fileID: 1015383051441452200, guid: 5e0f719da3b30d8418c8f3b5b8f4bd02, type: 3}
+    - {fileID: 1377454143021202580, guid: 8d157d1491ee7ec48a4455aac25b0f07, type: 3}
   - spawnArea:
       serializedVersion: 2
       x: 69.9
-      y: -8.97
+      y: -9
       width: 3.97
       height: 1
-    enemies: []
+    enemies:
+    - {fileID: 7706071927891701304, guid: 59ee1a44c4b20504abba338d9ca4ed1c, type: 3}
   - spawnArea:
       serializedVersion: 2
       x: 76
-      y: -5.93
+      y: -7
       width: 3.97
       height: 1
-    enemies: []
+    enemies:
+    - {fileID: 7706071927891701304, guid: 59ee1a44c4b20504abba338d9ca4ed1c, type: 3}
+  - spawnArea:
+      serializedVersion: 2
+      x: 64
+      y: 1
+      width: 2.06
+      height: 1
+    enemies:
+    - {fileID: 7706071927891701304, guid: 59ee1a44c4b20504abba338d9ca4ed1c, type: 3}
+  - spawnArea:
+      serializedVersion: 2
+      x: 77.2
+      y: 1
+      width: 2.06
+      height: 1
+    enemies:
+    - {fileID: 1377454143021202580, guid: 8d157d1491ee7ec48a4455aac25b0f07, type: 3}
+  - spawnArea:
+      serializedVersion: 2
+      x: 28.6
+      y: 1
+      width: 2.06
+      height: 1
+    enemies:
+    - {fileID: 7706071927891701304, guid: 59ee1a44c4b20504abba338d9ca4ed1c, type: 3}
+  - spawnArea:
+      serializedVersion: 2
+      x: 28.6
+      y: 8
+      width: 2.06
+      height: 1
+    enemies:
+    - {fileID: 7706071927891701304, guid: 59ee1a44c4b20504abba338d9ca4ed1c, type: 3}

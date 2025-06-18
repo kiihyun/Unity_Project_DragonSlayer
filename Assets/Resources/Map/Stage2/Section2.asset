@@ -21,11 +21,15 @@ MonoBehaviour:
       y: -3
       width: 4.76
       height: 1
-    enemies: []
+    enemies:
+    - {fileID: 1377454143021202580, guid: 8d157d1491ee7ec48a4455aac25b0f07, type: 3}
+    - {fileID: 1377454143021202580, guid: 8d157d1491ee7ec48a4455aac25b0f07, type: 3}
   - spawnArea:
       serializedVersion: 2
       x: 15.87
       y: -3
       width: 4.9
       height: 1
-    enemies: []
+    enemies:
+    - {fileID: 1377454143021202580, guid: 8d157d1491ee7ec48a4455aac25b0f07, type: 3}
+    - {fileID: 1377454143021202580, guid: 8d157d1491ee7ec48a4455aac25b0f07, type: 3}

@@ -6,6 +6,11 @@ public class NPC : MonoBehaviour, IInteract
 {
     protected GameObject _player;
     public bool IsInteractable { get; set; } = true;
+    public string InteractText { get; set; } = "Talk";
+    public string GetInteractText()
+    {
+        return InteractText;
+    }
     
     private void Awake()
     {
