@@ -11,7 +11,7 @@ public class UIOption : BaseWindow
 
     public void OnMainMenuButton()
     {
-        SceneManager.LoadScene("StartScene");
+        SceneManager.LoadScene(Constants.Scene.START_SCENE);
     }
 
     

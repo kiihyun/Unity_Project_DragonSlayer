@@ -2,8 +2,17 @@ using UnityEngine;
 
 public static class Constants
 {
+    public static class Scene
+    {
+        public const string INTRO_1_SCENE = "01_Intro1";
+        public const string INTRO_2_SCENE = "02_Intro2";
+        public const string START_SCENE = "03_StartScene";
+        public const string GAME_SCENE = "04_GameScene";
+    }
+    
     public static class Interaction
     {
+        
         public const string DEFAULT_INTERACT_TEXT = "E를 눌러 상호작용";
         public const string SAVE_POINT_INTERACT_TEXT = "저장하기";
         public const string KEY_LOCK_DOOR_INTERACT_TEXT = "열쇠가 필요해";

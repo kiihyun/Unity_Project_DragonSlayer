@@ -31,7 +31,7 @@ public class SceneManager_StartScene : MonoBehaviour
 
         if(_fadeImage.color.a == 1)
         {
-            SceneManager.LoadScene("01_GameScene");
+            SceneManager.LoadScene(Constants.Scene.GAME_SCENE);
         }
     }
 

@@ -33,13 +33,13 @@ public class SceneManager_Intro2 : MonoBehaviour
         if(Input.GetMouseButtonDown(0))
         {
             SoundManager.Instance.StopBGM();
-            SceneManager.LoadScene("StartScene");
+            SceneManager.LoadScene(Constants.Scene.START_SCENE);
         }
 
         if(_image.color.a == 1)
         {
             SoundManager.Instance.StopBGM();
-            SceneManager.LoadScene("StartScene");
+            SceneManager.LoadScene(Constants.Scene.START_SCENE);
         }
     }
 

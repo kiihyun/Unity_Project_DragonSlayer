@@ -36,14 +36,14 @@ public class SceneManager_Intro1 : MonoBehaviour
         if(Input.GetMouseButtonDown(0))
         {
             SoundManager.Instance.StopBGM();
-            SceneManager.LoadScene("Intro2");
+            SceneManager.LoadScene(Constants.Scene.INTRO_2_SCENE);
         }
 
 
         if (_fadeImage.color.a == 1)
         {
             SoundManager.Instance.StopBGM();
-            SceneManager.LoadScene("Intro2");
+            SceneManager.LoadScene(Constants.Scene.INTRO_2_SCENE);
         }
     }
 
