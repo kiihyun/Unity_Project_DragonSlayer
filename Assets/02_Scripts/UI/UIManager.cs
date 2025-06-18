@@ -207,7 +207,6 @@ public class UIManager : MonoBehaviour
     }
     
     // 게임 시작 시 UI 세팅
-    [ContextMenu("게임 시작 UI 세팅")]
     public void StartGameUISetting()
     {
         // canvas_Fixed
