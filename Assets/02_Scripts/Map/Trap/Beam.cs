@@ -6,28 +6,22 @@ using UnityEngine;
 
 public class Beam : MonoBehaviour
 {
-    float Damage = 1f;
-    float DamageInterval = 0.1f;
-    float DamageLastTime = 0f;
+    private float _damage = 1f;
+    private float _damageInterval = 0.1f;
+    private float _damageLastTime = 0f;
 
-    Player _player;
-
-    private void Init(float damage, float damageInterval)
-    {
-        Damage = damage;
-        DamageInterval = damageInterval;
-    }
+    private Player _player;
 
     private void Update()
     {
         if (_player != null)
         {
-            DamageLastTime += Time.deltaTime;
-            if(DamageLastTime >= DamageInterval)
+            _damageLastTime += Time.deltaTime;
+            if(_damageLastTime >= _damageInterval)
             {
-                DamageLastTime = 0f;
-                print("Beam Damage" + Damage);
-                _player.stat.TakeDamage(Damage);
+                _damageLastTime = 0f;
+                print("Beam Damage" + _damage);
+                _player.stat.TakeDamage(_damage);
             }
         }
     }

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class GearTrap : MonoBehaviour
 {
-    private float Damage = 5f;
+    private float _damage = 5f;
 
     private float _damageInterval = 0.5f;
     private float _damageLastTime = 0f;
@@ -20,11 +20,10 @@ public class GearTrap : MonoBehaviour
             if(_damageLastTime >= _damageInterval)
             {
                 _damageLastTime = 0f;
-                _player.stat.TakeDamage(Damage);
+                _player.stat.TakeDamage(_damage);
             }
         }
     }
-
 
     public void OnTriggerEnter2D(Collider2D collision)
     {

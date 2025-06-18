@@ -7,18 +7,18 @@ public class KeyLockDoor : Door
 {
     [SerializeField] private GameObject _lockSprite;
     [SerializeField] private GameObject _unlockSprite;
-    private bool _isLock = true;
     [SerializeField] private ItemData _keyItem;
+    private bool _isLock = true;
 
     public override string GetInteractText()
     {
         if(_isLock)
         {
-            return "열쇠가 필요해";
+            return Constants.Interaction.KEY_LOCK_DOOR_INTERACT_TEXT;
         }
         else
         {
-            return "E를 눌러 상호작용";
+            return Constants.Interaction.DEFAULT_INTERACT_TEXT;
         }
     }
 

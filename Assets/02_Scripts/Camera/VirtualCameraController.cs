@@ -5,7 +5,7 @@ using UnityEngine;
 public class VirtualCameraController : MonoBehaviour
 {
 
-    CameraTransitionManager _cameraTransitionManager;
+    CameraManager _cameraTransitionManager;
     private Collider2D _collider;
 
     private void Awake()
@@ -15,17 +15,17 @@ public class VirtualCameraController : MonoBehaviour
 
     private void Start()
     {
-        _cameraTransitionManager = CameraTransitionManager.Instance;
+        _cameraTransitionManager = CameraManager.Instance;
     }
 
     public void OnTriggerEnter2D(Collider2D other)
     {
         if(_cameraTransitionManager == null)
         {
-            _cameraTransitionManager = CameraTransitionManager.Instance;
+            _cameraTransitionManager = CameraManager.Instance;
         }
 
-        if(other.CompareTag("Player"))
+        if(other.TryGetComponent<Player>(out Player player))
         {
             _cameraTransitionManager.ChangeBoundingShape(_collider);
         }
@@ -35,10 +35,10 @@ public class VirtualCameraController : MonoBehaviour
     {
         if(_cameraTransitionManager == null)
         {
-            _cameraTransitionManager = CameraTransitionManager.Instance;
+            _cameraTransitionManager = CameraManager.Instance;
         }
 
-        if(other.CompareTag("Player"))
+        if(other.TryGetComponent<Player>(out Player player))
         {
             if(_cameraTransitionManager.GetCurrentBoundingShape() == _collider)
             {

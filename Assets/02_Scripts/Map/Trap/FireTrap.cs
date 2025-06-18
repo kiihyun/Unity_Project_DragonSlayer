@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class FireTrap : MonoBehaviour
 {
-    private float Damage = 10f;
+    private float _damage = 10f;
 
     private float _damageInterval = 2f;
     private float _damageLastTime = 0f;
@@ -18,7 +18,7 @@ public class FireTrap : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
     }
-
+    
     public void Update()
     {
         _damageLastTime += Time.deltaTime;
@@ -26,15 +26,6 @@ public class FireTrap : MonoBehaviour
         {
             _animator.SetTrigger("IsFire");
             _damageLastTime = 0f;
-        }
-    }
-
-
-    public void OnFire()
-    {
-        if(_player != null)
-        {
-            _player.stat.TakeDamage(Damage);
         }
     }
 
@@ -51,6 +42,14 @@ public class FireTrap : MonoBehaviour
         if(collision.gameObject.CompareTag("Player"))
         {
             _player = null;
+        }
+    }
+
+    public void OnFire()
+    {
+        if(_player != null)
+        {
+            _player.stat.TakeDamage(_damage);
         }
     }
 }

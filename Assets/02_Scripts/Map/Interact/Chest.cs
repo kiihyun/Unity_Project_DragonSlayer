@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Chest : Interaction
 {
-    [SerializeField] private GameObject closedSprite;
-    [SerializeField] private GameObject openedSprite;
+    [SerializeField] private GameObject _closedSprite;
+    [SerializeField] private GameObject _openedSprite;
     private bool isOpen = false;
     
     private void Awake()
@@ -29,7 +29,7 @@ public class Chest : Interaction
 
     private void SetSpriteState(bool open)
     {
-        closedSprite.SetActive(!open);
-        openedSprite.SetActive(open);
+        _closedSprite.SetActive(!open);
+        _openedSprite.SetActive(open);
     }
 }

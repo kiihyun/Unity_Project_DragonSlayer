@@ -34,7 +34,7 @@ public class TreasureChest : Chest
         foreach(var item in _itemPrefabs)
         {
             interactionUI.ShowItemGetUI(item);
-            yield return new WaitForSeconds(0.7f);
+            yield return new WaitForSeconds(Constants.Interaction.ITEM_GET_UI_INTERVAL);
         }
     }
 }

@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class LavaTrap : MonoBehaviour
 {
-    private float Damage = 1f;
-    private float DamageInterval = 0.1f;
-    private float DamageLastTime = 0f;
+    private float _damage = 1f;
+    private float _damageInterval = 0.1f;
+    private float _damageLastTime = 0f;
 
     private Player _player;
 
@@ -15,11 +15,11 @@ public class LavaTrap : MonoBehaviour
     {
         if(_player != null)
         {
-            DamageLastTime += Time.deltaTime;
-            if(DamageLastTime >= DamageInterval)
+            _damageLastTime += Time.deltaTime;
+            if(_damageLastTime >= _damageInterval)
             {
-                DamageLastTime = 0f;
-                _player.stat.TakeDamage(Damage);
+                _damageLastTime = 0f;
+                _player.stat.TakeDamage(_damage);
             }
         }
     }

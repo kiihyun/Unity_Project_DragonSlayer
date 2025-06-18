@@ -5,9 +5,9 @@ using Cinemachine;
 using System;
 using DG.Tweening;
 
-public class CameraTransitionManager : MonoBehaviour
+public class CameraManager : MonoBehaviour
 {
-    public static CameraTransitionManager Instance;
+    public static CameraManager Instance;
 
     private void Awake()
     {
@@ -130,18 +130,5 @@ public class CameraTransitionManager : MonoBehaviour
         {
             currentActiveCamera.Follow = _player;
         });
-    }
-
-    [ContextMenu("CameraTransitionTest")]
-    public void CameraTransitionTest()
-    {
-        if(GetActiveCameraIndex() == 0)
-        {
-            SwitchToCamera(1);
-        }
-        else
-        {
-            SwitchToCamera(0);
-        }
     }
 } 

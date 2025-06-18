@@ -176,8 +176,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9394d5fe559419f47918681fd779569c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  closedSprite: {fileID: 179378004149693292}
-  openedSprite: {fileID: 6699603955786365293}
+  InteractText: "E\uB97C \uB20C\uB7EC \uC0C1\uD638\uC791\uC6A9"
+  _closedSprite: {fileID: 179378004149693292}
+  _openedSprite: {fileID: 6699603955786365293}
   _itemPrefabs:
   - {fileID: 11400000, guid: 6c57b480e25b64e448f69fbbdce4b0d1, type: 2}
   - {fileID: 11400000, guid: 6c57b480e25b64e448f69fbbdce4b0d1, type: 2}

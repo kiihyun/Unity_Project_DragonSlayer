@@ -28,10 +28,10 @@ public class BossMap : MonoBehaviour
 
     public IEnumerator ShakeCamera()
     {
-        CameraTransitionManager.Instance.ShakeCamera(3);
+        CameraManager.Instance.ShakeCamera(3);
         yield return new WaitForSeconds(3f);
         SpawnEnemy();
-        CameraTransitionManager.Instance.ChangeCameraTargetForDuration(_boss.transform, 2f);
+        CameraManager.Instance.ChangeCameraTargetForDuration(_boss.transform, 2f);
     }
     
     public void OnTriggerExit2D(Collider2D other)
@@ -56,7 +56,7 @@ public class BossMap : MonoBehaviour
 
     public void SpawnEnemy()
     {
-        foreach (var spawnArea in _mapData.enemySpawnAreas)
+        foreach (var spawnArea in _mapData.EnemySpawnAreas)
         {
             Vector3 spawnPosition = new Vector3(spawnArea.spawnArea.center.x, spawnArea.spawnArea.center.y); 
             spawnPosition = new Vector3(spawnPosition.x - spawnArea.spawnArea.width / 2, spawnPosition.y - spawnArea.spawnArea.height / 2 + 2);
@@ -88,14 +88,14 @@ public class BossMap : MonoBehaviour
 
     private void DrawSpawnAreas(float alpha)
     {
-        if (_mapData == null || _mapData.enemySpawnAreas == null)
+        if (_mapData == null || _mapData.EnemySpawnAreas == null)
             return;
 
         // 각 스폰 영역을 다른 색상으로 표시
         
-        for (int i = 0; i < _mapData.enemySpawnAreas.Count; i++)
+        for (int i = 0; i < _mapData.EnemySpawnAreas.Count; i++)
         {
-            Rect spawnArea = _mapData.enemySpawnAreas[i].spawnArea;
+            Rect spawnArea = _mapData.EnemySpawnAreas[i].spawnArea;
             
             Color gizmoColor = Color.red;
             gizmoColor.a = alpha;
