@@ -79,7 +79,7 @@ public class PlayerStat : MonoBehaviour, IDamageble
 
     public float AttackPower { get { return _attackPower; } }
 
-    public PlayerStat(float maxHealth, float currentHealth, float moveSpeed,
+    public void  SetPlayerStat(float maxHealth, float currentHealth, float moveSpeed,
                       float dashPower, float jumpPower, int attackPower,
                       int level, int exp)
     {
