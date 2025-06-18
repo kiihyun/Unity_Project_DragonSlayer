@@ -205,10 +205,20 @@ public class UIManager : MonoBehaviour
     {
         CloseWindowUI(UIType.MainWindow);
     }
+
+    public void OffAllCanvus()
+    {
+        canvas_Fixed.gameObject.SetActive(false);
+        canvas_Window.gameObject.SetActive(false);
+        canvas_Popup.gameObject.SetActive(false);
+    }
     
     // 게임 시작 시 UI 세팅
     public void StartGameUISetting()
     {
+        canvas_Window.gameObject.SetActive(true);
+        canvas_Popup.gameObject.SetActive(true);
+        canvas_Fixed.gameObject.SetActive(true);
         // canvas_Fixed
         OpenFixedUI(UIType.UIInGame);
         CloseFixedUI(UIType.UIMainMenu);
