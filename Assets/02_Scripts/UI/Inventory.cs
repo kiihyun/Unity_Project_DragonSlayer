@@ -140,8 +140,14 @@ public class Inventory : MonoBehaviour
     public void UseConsumable()
     {
         ItemData item = _quickSlotItems[0];
-        
-        
+    }
+
+    public void AllClear()
+    {
+        _consumableItems.Clear();
+        _equipableItems.Clear();
+        _quickSlotItems = new ItemData[2];
+        _equipSlotItems = new ItemData[2];
     }
     
 }

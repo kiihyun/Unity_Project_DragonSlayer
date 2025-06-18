@@ -79,7 +79,7 @@ public class PlayerStat : MonoBehaviour, IDamageble
 
     public float AttackPower { get { return _attackPower; } }
 
-    public PlayerStat(float maxHealth, float currentHealth, float moveSpeed,
+    public void  SetPlayerStat(float maxHealth, float currentHealth, float moveSpeed,
                       float dashPower, float jumpPower, int attackPower,
                       int level, int exp)
     {
@@ -118,7 +118,6 @@ public class PlayerStat : MonoBehaviour, IDamageble
     {
         if (_maxLevel <= _currentexp)
         {
-            Debug.Log($"������! ���� ���� : {_level}");
             _level++;
             _currentexp = 0;
             _attackPower += 2; // ������ �� ���ݷ� ����
@@ -131,7 +130,6 @@ public class PlayerStat : MonoBehaviour, IDamageble
     public void GainExp(int exp)
     {
         _currentexp += exp;
-        Debug.Log($"����ġ ȹ��! ���� ����ġ : {_currentexp}");
         LevelUP();
     }
 
@@ -150,7 +148,7 @@ public class PlayerStat : MonoBehaviour, IDamageble
                 _moveSpeed += value;
                 break;
             default:
-                Debug.LogError($"존재?��? ?�는 ?�?? {type}");
+                //Debug.LogError($"존재?��? ?�는 ?�?? {type}");
                 break;
         }
     }
