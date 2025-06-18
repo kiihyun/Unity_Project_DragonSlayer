@@ -1439,10 +1439,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b2a3712ab9aaa244a28c14a85fe7121, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerStatusTabButton: {fileID: 6235077967963072519}
-  equipItemTabButton: {fileID: 1611109207481563154}
-  inventoryTabButton: {fileID: 8809895493243807788}
-  optionTabButton: {fileID: 1034357744818695823}
+  _playerStatusTabButton: {fileID: 6235077967963072519}
+  _equipItemTabButton: {fileID: 1611109207481563154}
+  _inventoryTabButton: {fileID: 8809895493243807788}
+  _optionTabButton: {fileID: 1034357744818695823}
 --- !u!1 &3702913158027117879
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 public class MainWindow : BaseWindow
 {
-    [SerializeField] private Button playerStatusTabButton;
-    [SerializeField] private Button equipItemTabButton;
-    [SerializeField] private Button inventoryTabButton;
-    [SerializeField] private Button optionTabButton;
+    [SerializeField] private Button _playerStatusTabButton;
+    [SerializeField] private Button _equipItemTabButton;
+    [SerializeField] private Button _inventoryTabButton;
+    [SerializeField] private Button _optionTabButton;
 
     public override UIType UIType => UIType.MainWindow;
 
