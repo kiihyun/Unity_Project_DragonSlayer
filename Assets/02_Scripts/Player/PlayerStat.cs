@@ -1,7 +1,8 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerStat : MonoBehaviour, IDamageble
 {
@@ -110,10 +111,14 @@ public class PlayerStat : MonoBehaviour, IDamageble
 
         if (_currentHealth <= 0)
         {
+            Invoke(nameof(Die),2f);
             player.Controller.IsDead();
         }
     }
-
+    public void Die()
+    {
+        SceneManager.LoadScene("03_StartScene");
+    }
     public void LevelUP()
     {
         if (_maxLevel <= _currentexp)

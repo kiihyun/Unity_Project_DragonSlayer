@@ -13544,8 +13544,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InteractText: "E\uB97C \uB20C\uB7EC \uC0C1\uD638\uC791\uC6A9"
-  offSprite: {fileID: 39072220}
-  onSprite: {fileID: 1356635755}
+  _offSprite: {fileID: 39072220}
+  _onSprite: {fileID: 1356635755}
   _interactObjects:
   - {fileID: 1047301923}
   - {fileID: 1614217402}
@@ -72048,8 +72048,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InteractText: "E\uB97C \uB20C\uB7EC \uC0C1\uD638\uC791\uC6A9"
   OppositeDoor: {fileID: 1307254553}
-  _lockSprite: {fileID: 0}
-  _unlockSprite: {fileID: 0}
   _clearMaxStage: 1
 --- !u!61 &1400815187
 BoxCollider2D:
