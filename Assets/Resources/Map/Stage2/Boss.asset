@@ -18,7 +18,7 @@ MonoBehaviour:
   - spawnArea:
       serializedVersion: 2
       x: 8
-      y: -3
+      y: -4
       width: 1
       height: 1
     enemies:
