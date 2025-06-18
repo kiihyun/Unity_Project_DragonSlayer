@@ -11,6 +11,7 @@ public class Onclick_Intro : MonoBehaviour
     }
     public void OnClicked()
     {
+        SoundManager.Instance.PlaySFX("GameStart");
         _animator.SetTrigger("Click");
     }
 }
