@@ -20,6 +20,7 @@ public class Energipa : MonoBehaviour
 
     public void UseSkill()
     {
+        SoundManager.Instance.PlaySFX("PlayerSkill");
         float direction = player.CharacterImage.flipX ? 1f : -1f;
         
         skillPivot.localPosition = new Vector3(originPivot.x * direction, originPivot.y, originPivot.z );
