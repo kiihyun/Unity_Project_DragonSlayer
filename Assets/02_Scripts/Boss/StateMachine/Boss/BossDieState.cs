@@ -14,7 +14,6 @@ public class BossDieState : IBossState
     {
         if (_hasDied) return;
 
-        Debug.Log($"���� {_boss.BossData.bossName} ��� ���� ����");
 
         // �ִϸ��̼� Ʈ����
         Animator animator = _boss.GetComponent<Animator>();
@@ -27,7 +26,6 @@ public class BossDieState : IBossState
         if (_boss.BossData.bossPrefab != null)
         {
             // ���� �� �� ����Ʈ ������ ���� ���� ���� ����
-            Debug.Log("���� ��� ����Ʈ �߻�");
         }
 
         // ��� �� ������ ���� (�ʿ� �� Rigidbody2D, NavMesh �� ó��)
@@ -61,7 +59,6 @@ public class BossDieState : IBossState
 
     private void GiveRewards()
     {
-        Debug.Log("���� ����: ����ġ + ������ ��� ��");
 
         // ��: GameManager.Instance.AddExp(300);
         // ��: Instantiate(dropItem, _boss.transform.position, Quaternion.identity);
