@@ -51,6 +51,7 @@ public class MovingPlatfrom : MonoBehaviour, IInteractableTarget
             _player = null;
         }
     }
+    
 
     public void MoveToTarget()
     {

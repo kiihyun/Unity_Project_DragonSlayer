@@ -10,11 +10,35 @@ public class Map : MonoBehaviour
     private List<GameObject> _enemies = new List<GameObject>();
     private bool _isCollided = false;
 
+    
+    public void OnTriggerEnter2D(Collider2D other)
+    {
+        _isCollided = true;
+        if(other.TryGetComponent<Player>(out Player _))
+        {
+            if(_enemies.Count > 0)
+            {
+                return;
+            }
+
+            SpawnEnemy();
+        }
+    }
+    
+    public void OnTriggerExit2D(Collider2D other)
+    {
+        _isCollided = false;
+        if(other.TryGetComponent<Player>(out Player _))
+        {
+            Invoke("DestroyEnemy", 2f);
+        }
+    }
+
     public void SpawnEnemy()
     {
-        if(_mapData == null || _mapData.EnemySpawnAreas == null)
+        if(_mapData == null || _mapData.enemySpawnAreas == null)
         { return; }
-        foreach (var spawnArea in _mapData.EnemySpawnAreas)
+        foreach (var spawnArea in _mapData.enemySpawnAreas)
         {
             Vector3 spawnPosition = new Vector3(spawnArea.spawnArea.center.x, spawnArea.spawnArea.center.y); 
             spawnPosition = new Vector3(spawnPosition.x - spawnArea.spawnArea.width / 2, spawnPosition.y - spawnArea.spawnArea.height / 2 + 2);
@@ -43,29 +67,6 @@ public class Map : MonoBehaviour
             Destroy(enemy);
         }
         _enemies.Clear();
-    }
-
-    public void OnTriggerEnter2D(Collider2D other)
-    {
-        _isCollided = true;
-        if(other.TryGetComponent<Player>(out Player _))
-        {
-            if(_enemies.Count > 0)
-            {
-                return;
-            }
-
-            SpawnEnemy();
-        }
-    }
-    
-    public void OnTriggerExit2D(Collider2D other)
-    {
-        _isCollided = false;
-        if(other.TryGetComponent<Player>(out Player _))
-        {
-            Invoke("DestroyEnemy", 2f);
-        }
     }
 
     // private void OnDrawGizmosSelected()

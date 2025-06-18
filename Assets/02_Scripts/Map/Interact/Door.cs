@@ -17,12 +17,12 @@ public class Door : Interaction
     public virtual IEnumerator MoveToOppositeDoor()
     {
         IsInteractable = false;
-        FadeManager.Instance.FadeOut(0.5f);
-        yield return new WaitForSeconds(0.5f);
+        FadeManager.Instance.FadeOut(Constants.Interaction.DOOR_FADEOUT_DURATION);
+        yield return new WaitForSeconds(Constants.Interaction.DOOR_FADEOUT_DURATION);
         _player.transform.position = new Vector3(OppositeDoor.transform.position.x, OppositeDoor.transform.position.y + 1, _player.transform.position.z);
-        yield return new WaitForSeconds(0.5f);
-        FadeManager.Instance.FadeIn(1f);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(Constants.Interaction.DOOR_MOVE_DURATION);
+        FadeManager.Instance.FadeIn(Constants.Interaction.DOOR_FADEIN_DURATION);
+        yield return new WaitForSeconds(Constants.Interaction.DOOR_FADEIN_DURATION);
         IsInteractable = true;
     }
 }

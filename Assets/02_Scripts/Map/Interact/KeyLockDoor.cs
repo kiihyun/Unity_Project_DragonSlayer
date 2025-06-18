@@ -24,6 +24,8 @@ public class KeyLockDoor : Door
 
     public override void Interact()
     {
+        if(_player == null) return;
+
         if(_isLock)
         {
             if(_player.GetComponent<Player>().inventory.HasItem(_keyItem.ItemID))

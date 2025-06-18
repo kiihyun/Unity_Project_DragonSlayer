@@ -6,24 +6,24 @@ public class Chest : Interaction
 {
     [SerializeField] private GameObject _closedSprite;
     [SerializeField] private GameObject _openedSprite;
-    private bool isOpen = false;
+    private bool _isOpen = false;
     
     private void Awake()
     {
         // 시작 시 닫힌 상태로 초기화
-        SetSpriteState(isOpen);
+        SetSpriteState(_isOpen);
     }
 
     public override void Interact()
     {
-        if (!isOpen)
+        if (!_isOpen)
             Open();
     }
 
     public virtual void Open()
     {
-        isOpen = true;
-        SetSpriteState(isOpen);
+        _isOpen = true;
+        SetSpriteState(_isOpen);
         IsInteractable = false;
     }
 

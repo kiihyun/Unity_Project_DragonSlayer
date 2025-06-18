@@ -3,13 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LavaTrap : MonoBehaviour
+public class LavaTrap : Trap
 {
-    private float _damage = 1f;
-    private float _damageInterval = 0.1f;
+    private float _damage = Constants.Trap.LAVA_DAMAGE;
+    private float _damageInterval = Constants.Trap.LAVA_DAMAGE_INTERVAL;
     private float _damageLastTime = 0f;
-
-    private Player _player;
 
     public void Update()
     {
@@ -21,22 +19,6 @@ public class LavaTrap : MonoBehaviour
                 _damageLastTime = 0f;
                 _player.stat.TakeDamage(_damage);
             }
-        }
-    }
-
-    public void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(collision.gameObject.CompareTag("Player"))
-        {
-            _player = collision.gameObject.GetComponent<Player>();
-        }
-    }
-
-    public void OnCollisionExit2D(Collision2D collision)
-    {
-        if(collision.gameObject.CompareTag("Player"))
-        {
-            _player = null;
         }
     }
 }

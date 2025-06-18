@@ -3,14 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FireTrap : MonoBehaviour
+public class FireTrap : Trap
 {
-    private float _damage = 10f;
-
-    private float _damageInterval = 2f;
+    private float _damage = Constants.Trap.FIRE_DAMAGE;
+    private float _damageInterval = Constants.Trap.FIRE_DAMAGE_INTERVAL;
     private float _damageLastTime = 0f;
-
-    private Player _player;
 
     private Animator _animator;
 
@@ -26,22 +23,6 @@ public class FireTrap : MonoBehaviour
         {
             _animator.SetTrigger("IsFire");
             _damageLastTime = 0f;
-        }
-    }
-
-    public void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.gameObject.CompareTag("Player"))
-        {
-            _player = collision.gameObject.GetComponent<Player>();
-        }
-    }
-
-    public void OnTriggerExit2D(Collider2D collision)
-    {
-        if(collision.gameObject.CompareTag("Player"))
-        {
-            _player = null;
         }
     }
 

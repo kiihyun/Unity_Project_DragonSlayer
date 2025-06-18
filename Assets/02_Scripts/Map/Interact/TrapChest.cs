@@ -22,7 +22,7 @@ public class TrapChest : Chest
         if(!isInteracted)
         {
             GameObject explosion = Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
-            Destroy(explosion, 0.8f);
+            Destroy(explosion, Constants.Trap.TRAP_CHEST_EXPLODE_DESTROY_DURATION);
 
             if (_player != null)
             {
