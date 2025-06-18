@@ -3,15 +3,10 @@ using UnityEngine;
 public class PlayerLoadExample : MonoBehaviour
 {
     [SerializeField] private Player _player;
-    private PlayerStat _playerStat;
-    private Inventory _inventory;
-    private PlayerData _data;
     private StageManager _stageManager;
 
     private void Awake()
     {
-        _playerStat = _player.GetComponent<PlayerStat>();
-        _inventory = _player.GetComponent<Inventory>();
         _stageManager = StageManager.Instance;
     }
 
@@ -25,6 +20,23 @@ public class PlayerLoadExample : MonoBehaviour
             return;
         }
         
+        PlayerStat playerStat = new PlayerStat(
+            data.maxHealth,
+            data.currentHealth, 
+            data.moveSpeed, 
+            data.dashPower, 
+            data.jumpPower, 
+            data.attackPower, 
+            data.level, 
+            data.currentExp);
+        _player.stat = playerStat;
+
+        Inventory inventory = new Inventory();
+        foreach (int itemID in data.consumableItemIDs)
+        {
+            inventory.AddItem(ItemDatabase.Instance.CreateItemByID(itemID));
+        }
+        _player.inventory = inventory;
 
         Debug.Log($"[PlayerLoadExample] PlayerData 불러오기 완료\n" +
             $"레벨: {data.level}\n" +

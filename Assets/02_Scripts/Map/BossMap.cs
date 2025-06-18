@@ -118,6 +118,5 @@ public class BossMap : MonoBehaviour
     {
         StageManager.Instance.SetMaxClearStage(_stage);
         _bossEnemy.OnBossDie -= OnBossDie;
-        _
     }
 }
