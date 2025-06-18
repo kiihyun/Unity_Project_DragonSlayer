@@ -20,7 +20,10 @@ public class BossDieState : IBossState
         Animator animator = _boss.GetComponent<Animator>();
         if (animator != null)
         {
-            SoundManager.Instance.PlaySFX("DragonDeath");
+            if(_boss.BossData.bossNum == 0)
+            {
+                SoundManager.Instance.PlaySFX("DragonDeath");
+            }
             animator.SetTrigger("Die");
         }
 
