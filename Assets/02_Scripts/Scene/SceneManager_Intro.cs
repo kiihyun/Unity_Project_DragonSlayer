@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class UIManager_Intro : MonoBehaviour
+public class SceneManager_Intro : MonoBehaviour
 {
     [SerializeField] private GameObject _textObj;
     [SerializeField] private GameObject _buttonObj;
@@ -15,7 +15,7 @@ public class UIManager_Intro : MonoBehaviour
        // Start is called before the first frame update
     void Start()
     {
-        
+        SoundManager.Instance.PlayBGM("Rain", true);
     }
 
     // Update is called once per frame
@@ -23,6 +23,7 @@ public class UIManager_Intro : MonoBehaviour
     {
         if ((Input.anyKeyDown || Input.GetMouseButton(0))&& _pressAnyButton == false)
         {
+            SoundManager.Instance.PlaySFX("PressAnyButton");
             _textObj.SetActive(false);
             _buttonObj.SetActive(true);
             _pressAnyButton = true;
