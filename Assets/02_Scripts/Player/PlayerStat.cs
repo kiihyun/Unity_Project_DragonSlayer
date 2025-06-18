@@ -33,9 +33,9 @@ public class PlayerStat : MonoBehaviour, IDamageble
     public int _maxLevel = 10; // �ִ� ���� ���� (��: 10�������� ����)
 
     private int _level = 1;
-    public int MaxExp => _maxExp;
+    public int MaxExp {get {return _maxExp;} }
 
-    private int _maxExp = 10;
+    private int _maxExp; 
 
     private int _currentexp;
 
@@ -97,6 +97,8 @@ public class PlayerStat : MonoBehaviour, IDamageble
     {
         _currentHealth = _maxHealth;
         _currentexp = 0;
+        _level = 1;
+        _maxExp = 10;
     }
 
     public void TakeDamage(float damage)

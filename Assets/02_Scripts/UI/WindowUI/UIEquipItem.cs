@@ -24,7 +24,6 @@ public class UIEquipItem : BaseWindow
     
     private void Start()
     {
-        inventory = UIManager.instance.inventory;
         UpdateUI();
     }
     
@@ -46,10 +45,13 @@ public class UIEquipItem : BaseWindow
     
     private void OnEnable()
     {
+        inventory = UIManager.instance.inventory;
         if (inventory != null)
         {
             inventory.InventoryUpdate += UpdateUI;
         }
+
+        UpdateUI();
     }
 
     private void OnDisable()
