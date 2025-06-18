@@ -11152,6 +11152,26 @@ PrefabInstance:
       propertyPath: _attackPower
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 7056716491293033037, guid: 82d6899fe39b5ed43b25b63b0909b14a, type: 3}
+      propertyPath: _equipableItems.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056716491293033037, guid: 82d6899fe39b5ed43b25b63b0909b14a, type: 3}
+      propertyPath: _equipableItems.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 2a26ddc77d61eb446b6b8fe528c2c0f7, type: 2}
+    - target: {fileID: 7056716491293033037, guid: 82d6899fe39b5ed43b25b63b0909b14a, type: 3}
+      propertyPath: _equipableItems.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: ae96af6319ccbb54288fe70bd48c43ec, type: 2}
+    - target: {fileID: 7056716491293033037, guid: 82d6899fe39b5ed43b25b63b0909b14a, type: 3}
+      propertyPath: _equipableItems.Array.data[4]
+      value: 
+      objectReference: {fileID: 11400000, guid: 7b7041177c334e4428f420f674203a27, type: 2}
+    - target: {fileID: 7056716491293033037, guid: 82d6899fe39b5ed43b25b63b0909b14a, type: 3}
+      propertyPath: _equipableItems.Array.data[5]
+      value: 
+      objectReference: {fileID: 11400000, guid: aa2a5b728c2209342a2a93d51af3416a, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
