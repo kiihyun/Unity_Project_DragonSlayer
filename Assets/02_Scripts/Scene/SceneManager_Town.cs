@@ -31,9 +31,11 @@ public class SceneManager_Town : MonoBehaviour
         if (_backGround.transform.localPosition.x <= -3.85f)
             _backGround.transform.localPosition = new Vector3(0,0,0);
 
+
         if(_image.color.a == 1)
         {
             Debug.Log("SceneChange");
+            SoundManager.Instance.StopBGM();
             SceneManager.LoadScene("StartScene");
         }
     }
@@ -42,9 +44,10 @@ public class SceneManager_Town : MonoBehaviour
 
     public void ShakeOn()
     {
+        SoundManager.Instance.PlayBGM("NewExplode", false);
         _perlin.m_AmplitudeGain = shakeAmplitude;
         _perlin.m_FrequencyGain = shakeFrequency;
-        Invoke(nameof(FadeOut), 1.5f);
+        Invoke(nameof(FadeOut), 2f);
     }
 
 
@@ -57,7 +60,7 @@ public class SceneManager_Town : MonoBehaviour
 
     public void FadeOut()
     {
-        _fadeDuration *= 2f;
+        _fadeDuration *= 3f;
         _image.color = Color.white;
         StartCoroutine(Fade(0f, 1f));
     }

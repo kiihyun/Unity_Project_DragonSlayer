@@ -39,4 +39,8 @@ public class SceneMonster_Move : MonoBehaviour
     {
         _faded.FadeOut();
     }
+    public void Roar()
+    {
+        SoundManager.Instance.PlaySFX("Roar");
+    }
 }

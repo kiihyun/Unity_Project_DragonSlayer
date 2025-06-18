@@ -49,7 +49,7 @@ public class EnemyAnimationEvent : MonoBehaviour
         _projectile.transform.localPosition = new Vector2(0, -0.3f);
         _enemyProjectile.CurTime = 0f;
         _projectile.SetActive(true);
-        
+
         if (Mathf.Approximately(this.transform.localRotation.y, 0f))
         {
             Debug.Log("Leftshoot");
@@ -60,5 +60,23 @@ public class EnemyAnimationEvent : MonoBehaviour
             Debug.Log("Rightshoot");
             _enemyProjectile.IsLeft = false;
         }
+    }
+    public void AttackSFX()
+    {
+        SoundManager.Instance.PlaySFX("Enemy_AttackSound");
+    }
+
+    public void BlockSFX()
+    {
+        SoundManager.Instance.PlaySFX("Enemy_BlockSound");
+    }
+
+    public void HitSFX()
+    {
+        SoundManager.Instance.PlaySFX("Enemy_Damaged");
+    }
+    public void SlimeAttackSFX()
+    {
+        SoundManager.Instance.PlaySFX("SlimeAttack");
     }
 }

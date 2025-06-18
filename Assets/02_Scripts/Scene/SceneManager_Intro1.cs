@@ -30,6 +30,9 @@ public class SceneManager_Intro1 : MonoBehaviour
     {
         _perlin.m_AmplitudeGain = shakeAmplitude;
         _perlin.m_FrequencyGain = shakeFrequency;
+        SoundManager.Instance.PlayBGM("GroundRumble" , false);
+        SoundManager.Instance.SetVolume(SoundType.BGM, 0.5f);
+        SoundManager.Instance.SetVolume(SoundType.SFX, 0.5f);
     }
 
     public void ShakeOff()
@@ -45,6 +48,7 @@ public class SceneManager_Intro1 : MonoBehaviour
         if (_fadeImage.color.a == 1)
         {
             Debug.Log("SceneChange");
+            SoundManager.Instance.StopBGM();
             SceneManager.LoadScene("Intro2");
         }
     }
