@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class SceneManager_Intro : MonoBehaviour
+public class SceneManager_StartScene : MonoBehaviour
 {
     [SerializeField] private GameObject _textObj;
     [SerializeField] private GameObject _buttonObj;
@@ -37,6 +37,7 @@ public class SceneManager_Intro : MonoBehaviour
 
     public void FadeOut()
     {
+        SoundManager.Instance.PlaySFX("GameStart");
         _fadeDuration *= 2f;
         StartCoroutine(Fade(0f, 1f));
     }

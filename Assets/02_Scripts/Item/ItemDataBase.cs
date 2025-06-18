@@ -38,6 +38,11 @@ public class ItemDatabase : Singleton<ItemDatabase>
 
     public ItemData CreateItemByID(int itemID)
     {
+        if(itemID == -1)
+        {
+            return null;
+        }
+        
         return ScriptableObject.Instantiate(GetItemByID(itemID));
     }
 
