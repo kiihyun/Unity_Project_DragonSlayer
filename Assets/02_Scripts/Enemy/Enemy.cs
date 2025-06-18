@@ -28,6 +28,7 @@ public class Enemy : MonoBehaviour, IDamageble
     public Collider2D RightDetect;
     public Collider2D RangedAttackSensor;
     public Collider2D MainCollider;
+    private CapsuleCollider2D _capsuleCollider;
 
     public bool RangedAttacked = false;
     public bool IsDead;
@@ -47,9 +48,11 @@ public class Enemy : MonoBehaviour, IDamageble
         Animator = GetComponentInChildren<Animator>();
         Rigidbody = GetComponent<Rigidbody2D>();
         MainCollider = GetComponent<Collider2D>();
+        _capsuleCollider = GetComponent<CapsuleCollider2D>();
         AnimatorController.Initialize(); // 애니메이션 컨트롤러 초기화
 
-        _stateMachine.ChangeState(_stateMachine.IdleState); // 초기 상태 설정
+        _stateMachine.ChangeState(_stateMachine.IdleState); // 초기 상태 설정\
+        
     }
     private void Start()
     {
@@ -132,6 +135,8 @@ public class Enemy : MonoBehaviour, IDamageble
     {
         Debug.Log("Enemy died");
         UIManager.instance.player.stat.GainExp(Data.experience);
+        int playerLayerMask = 1 << LayerMask.NameToLayer("Player");
+        _capsuleCollider.excludeLayers |= playerLayerMask;
         _stateMachine.ChangeState(_stateMachine.DeathState);
 
     }
