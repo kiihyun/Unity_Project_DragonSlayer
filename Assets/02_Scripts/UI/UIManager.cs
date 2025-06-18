@@ -50,7 +50,6 @@ public class UIManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        DontDestroyOnLoad(gameObject);
     }
 
     private void Start()
