@@ -34,7 +34,6 @@ public class SoundManager : Singleton<SoundManager>
     void Start()
     {
         InitAudioDictionary();
-        PlayBGM("BGM", true);
     }
 
     private void InitAudioDictionary()

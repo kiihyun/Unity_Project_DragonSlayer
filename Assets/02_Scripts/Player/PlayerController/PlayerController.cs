@@ -110,6 +110,22 @@ public class PlayerController : BaseController<Player>
         }
     }
 
+    public void ItemUse()
+    {
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+
+        }
+    }
+
+    public void ItemSwap()
+    {
+        if(Input.GetKeyDown(KeyCode.F))
+        {
+
+        }
+    }
+
 
     public void IsInteract()
     {

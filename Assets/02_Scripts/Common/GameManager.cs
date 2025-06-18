@@ -5,6 +5,12 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     private LoadManger _loadManger;
+
+    private void Awake()
+    {
+        SoundManager.Instance.StopBGM();
+        SoundManager.Instance.PlayBGM("BGM", true);
+    }
     private void Start()
     {
         _loadManger = LoadManger.Instance;
