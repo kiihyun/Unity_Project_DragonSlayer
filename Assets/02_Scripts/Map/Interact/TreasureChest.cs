@@ -21,8 +21,20 @@ public class TreasureChest : Chest
         {
             Inventory inventory = _player.GetComponent<Inventory>();
             inventory.AddItem(item);
+        }
 
-            
+        StartCoroutine(ShowItemGetUI());
+
+        InteractText = "";
+    }
+
+    public IEnumerator ShowItemGetUI()
+    {
+        var interactionUI = _player.GetComponentInChildren<PlayerInteractionUI>();
+        foreach(var item in _itemPrefabs)
+        {
+            interactionUI.ShowItemGetUI(item);
+            yield return new WaitForSeconds(0.7f);
         }
     }
 }
