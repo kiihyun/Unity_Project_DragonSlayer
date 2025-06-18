@@ -22,6 +22,7 @@ public static class UIPath
         // Canvus_Popup
         {UIType.UITooltip, "UI/UITooltip"},
         {UIType.UIInteraction, "UI/UIInteraction"},
+        {UIType.UIDeathPopup, "UI/UIDeathPopup"}
     };
     
     // 해당 타입에 따른 경로 반환
