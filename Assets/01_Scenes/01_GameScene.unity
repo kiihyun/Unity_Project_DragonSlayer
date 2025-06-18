@@ -11236,11 +11236,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 56110630056667339, guid: 82d6899fe39b5ed43b25b63b0909b14a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 145.31
       objectReference: {fileID: 0}
     - target: {fileID: 56110630056667339, guid: 82d6899fe39b5ed43b25b63b0909b14a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.703
+      value: 4.32
       objectReference: {fileID: 0}
     - target: {fileID: 56110630056667339, guid: 82d6899fe39b5ed43b25b63b0909b14a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -11310,7 +11310,8 @@ PrefabInstance:
       propertyPath: interactionText
       value: 
       objectReference: {fileID: 83408278}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 9212285953998145802, guid: 82d6899fe39b5ed43b25b63b0909b14a, type: 3}
     m_RemovedGameObjects:
     - {fileID: 6909921048820892538, guid: 82d6899fe39b5ed43b25b63b0909b14a, type: 3}
     m_AddedGameObjects:
@@ -30261,7 +30262,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.010917678, y: -0.032269955, z: -10}
+  m_LocalPosition: {x: 118.48394, y: 1.3138099, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -53557,6 +53558,7 @@ GameObject:
   - component: {fileID: 682288521}
   - component: {fileID: 682288520}
   - component: {fileID: 682288519}
+  - component: {fileID: 682288522}
   m_Layer: 6
   m_Name: Canvas
   m_TagString: Untagged
@@ -53647,6 +53649,20 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &682288522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 682288517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1021c9b2c00c76241a46288e1238c2d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactionText: {fileID: 83408278}
+  itemGetUIPrefab: {fileID: 482640944482502072, guid: a52c4851262a32749a90e810ca374120, type: 3}
 --- !u!1 &692899362
 GameObject:
   m_ObjectHideFlags: 0
@@ -72474,7 +72490,7 @@ Transform:
   m_GameObject: {fileID: 1402381401}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.703, z: -10}
+  m_LocalPosition: {x: 145.31, y: 4.32, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -78160,7 +78176,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InteractText: 
-  OppositeDoor: {fileID: 0}
+  OppositeDoor: {fileID: 240268915}
 --- !u!4 &1527469485
 Transform:
   m_ObjectHideFlags: 0
