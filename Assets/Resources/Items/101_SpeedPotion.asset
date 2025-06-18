@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: 101_SpeedPotion
   m_EditorClassIdentifier: 
   ItemID: 101
-  ItemName: SpeedPotion
-  ItemDescription: SpeedPotion
+  ItemName: "\uC2A4\uD53C\uB4DC \uD3EC\uC158"
+  ItemDescription: "\uB9C8\uC2DC\uBA74 \uC7A0\uC2DC \uBE68\uB77C\uC9C0\uB294 \uD3EC\uC158     
+    5\uCD08\uAC04 Speed +3"
   ItemIcon: {fileID: 21300000, guid: 6592b916f86b19e428db6f6847c7b6dd, type: 3}
   ItemType: 0
   stats:

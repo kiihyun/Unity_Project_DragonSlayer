@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: 2_Shield
   m_EditorClassIdentifier: 
   ItemID: 2
-  ItemName: Shield
-  ItemDescription: Shield
+  ItemName: "\uBC29\uD328"
+  ItemDescription: "\uC801\uC758 \uACF5\uACA9\uC744 \uC77C\uBD80 \uB9C9\uC544\uC8FC\uB294
+    \uBC29\uD328                           Health + 10"
   ItemIcon: {fileID: 21300000, guid: b97c91e8b348f3f4ebdc11f5c82182cd, type: 3}
   ItemType: 1
   stats:

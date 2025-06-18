@@ -20,6 +20,10 @@ public class BossDieState : IBossState
         Animator animator = _boss.GetComponent<Animator>();
         if (animator != null)
         {
+            if(_boss.BossData.bossNum == 0)
+            {
+                SoundManager.Instance.PlaySFX("DragonDeath");
+            }
             animator.SetTrigger("Die");
         }
 
@@ -59,7 +63,7 @@ public class BossDieState : IBossState
     private void GiveRewards()
     {
         Debug.Log("보상 지급: 경험치 + 아이템 드랍 등");
-        
+        //_boss.PlayerTarget.
         // 예: GameManager.Instance.AddExp(300);
         // 예: Instantiate(dropItem, _boss.transform.position, Quaternion.identity);
     }
