@@ -1,0 +1,28 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using UnityEngine;
+
+public class TreasureChest : Chest
+{
+    [SerializeField] private List<ItemData> _itemPrefabs;
+    
+    public override void Interact()
+    {
+        base.Interact();
+    }   
+
+    public override void Open()
+    {
+        base.Open();
+
+        // 아이템 생성
+        foreach(var item in _itemPrefabs)
+        {
+            Inventory inventory = _player.GetComponent<Inventory>();
+            inventory.AddItem(item);
+
+            
+        }
+    }
+}
