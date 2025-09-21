@@ -9,8 +9,7 @@
 - 2025.6.12 ~ 2025.06.18
 
 ### 팀 구성 및 역할 분담
-- 팀장 : 박정현(Item, Inventory, UI)
-- 팀원 : 박도현(Map, Camera, Save), 김기현(Boss), 김성주(Enemy, Intro), 진주호(Player)
+- 김기현(Boss, battle), 박정현(Item, Inventory, UI), 박도현(Map, Camera, Save), 김성주(Enemy, Intro), 진주호(Player)
 
 ### 주요 특징
 - **전투:** 상태머신 기반으로 플레이어, 적, 보스가 동작
